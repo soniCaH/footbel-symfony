@@ -25,24 +25,36 @@ class Resource
     /**
      * @ORM\ManyToOne(targetEntity="ResourceType", inversedBy="resources")
      * @ORM\JoinColumn(name="type", referencedColumnName="id")
+     *
+     * @Assert\Type(type="KevinVR\FootbelBackendBundle\Entity\ResourceType")
+     * @Assert\Valid()
      */
     private $type;
 
     /**
      * @ORM\ManyToOne(targetEntity="Season", inversedBy="resources")
      * @ORM\JoinColumn(name="season", referencedColumnName="id")
+     *
+     * @Assert\Type(type="KevinVR\FootbelBackendBundle\Entity\Season")
+     * @Assert\Valid()
      */
     private $season;
 
     /**
      * @ORM\ManyToOne(targetEntity="Level", inversedBy="resources")
      * @ORM\JoinColumn(name="level", referencedColumnName="id")
+     *
+     * @Assert\Type(type="KevinVR\FootbelBackendBundle\Entity\Level")
+     * @Assert\Valid()
      */
     private $level;
 
     /**
      * @ORM\ManyToOne(targetEntity="Province", inversedBy="resources")
      * @ORM\JoinColumn(name="province", referencedColumnName="id")
+     *
+     * @Assert\Type(type="KevinVR\FootbelBackendBundle\Entity\Province")
+     * @Assert\Valid()
      */
     private $province;
 
@@ -93,11 +105,11 @@ class Resource
      * @param string $url
      */
     public function __construct(
-      ResourceType $type,
-      Season $season,
-      Level $level,
-      Province $province,
-      $url
+      ResourceType $type = null,
+      Season $season = null,
+      Level $level = null,
+      Province $province = null,
+      $url = null
     ) {
         // Defaults.
         $this->setChecked(null);

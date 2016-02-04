@@ -69,7 +69,7 @@ class Season
      * @param \DateTime $start
      * @param \DateTime $end
      */
-    public function __construct($shorthand, $label, \DateTime $start, \DateTime $end)
+    public function __construct($shorthand = null, $label = null, \DateTime $start = null, \DateTime $end = null)
     {
         $this->setShorthand($shorthand);
         $this->setLabel($label);

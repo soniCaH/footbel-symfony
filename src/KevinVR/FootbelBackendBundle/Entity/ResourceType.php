@@ -47,7 +47,7 @@ class ResourceType
      * @param string $shorthand
      * @param string $label
      */
-    public function __construct($shorthand, $label)
+    public function __construct($shorthand = null, $label = null)
     {
         $this->setShorthand($shorthand);
         $this->setLabel($label);

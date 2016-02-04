@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SeasonType extends AbstractType
+class ResourceTypeForm extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -20,9 +20,7 @@ class SeasonType extends AbstractType
         $builder
           ->add('shorthand')
           ->add('label')
-          ->add('start', DateType::class)
-          ->add('end', DateType::class)
-          ->add('save', SubmitType::class, array('label' => 'Create Season'));
+          ->add('save', SubmitType::class, array('label' => 'Create ResourceType'));
     }
 
     /**
@@ -32,9 +30,9 @@ class SeasonType extends AbstractType
     {
         $resolver->setDefaults(
           array(
-            'data_class' => 'KevinVR\FootbelBackendBundle\Entity\Season',
+            'data_class' => 'KevinVR\FootbelBackendBundle\Entity\ResourceType',
           )
         );
     }
-    
+
 }
