@@ -3,6 +3,7 @@
 namespace KevinVR\FootbelBackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Resource entity.
@@ -49,6 +50,9 @@ class Resource
      * @var string
      *
      * @ORM\Column(name="url", type="string", length=255)
+     * @Assert\Url(
+     *    message = "The url '{{ value }}' is not a valid url",
+     * )
      */
     private $url;
 

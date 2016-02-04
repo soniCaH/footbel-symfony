@@ -4,6 +4,7 @@ namespace KevinVR\FootbelBackendBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Season
@@ -25,6 +26,7 @@ class Season
     /**
      * @var string
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="shorthand", type="string", length=4, unique=true)
      */
     private $shorthand;
@@ -32,6 +34,7 @@ class Season
     /**
      * @var string
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="label", type="string", length=255)
      */
     private $label;
@@ -39,6 +42,8 @@ class Season
     /**
      * @var \DateTime
      *
+     * @Assert\NotBlank()
+     * @Assert\Type("\DateTime")
      * @ORM\Column(name="start", type="datetime")
      */
     private $start;
@@ -46,6 +51,8 @@ class Season
     /**
      * @var \DateTime
      *
+     * @Assert\NotBlank()
+     * @Assert\Type("\DateTime")
      * @ORM\Column(name="end", type="datetime")
      */
     private $end;
