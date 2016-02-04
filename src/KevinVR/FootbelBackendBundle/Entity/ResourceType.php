@@ -2,6 +2,7 @@
 
 namespace KevinVR\FootbelBackendBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,9 +25,16 @@ class ResourceType
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(name="shorthand", type="string", length=10, unique=true)
      */
-    private $name;
+    private $shorthand;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="label", type="string", length=255)
+     */
+    private $label;
 
     /**
      * @ORM\OneToMany(targetEntity="Resource", mappedBy="level")
@@ -35,11 +43,13 @@ class ResourceType
 
     /**
      * ResourceType constructor.
-     * @param string $name
+     * @param string $shorthand
+     * @param string $label
      */
-    public function __construct($name)
+    public function __construct($shorthand, $label)
     {
-        $this->setName($name);
+        $this->setShorthand($shorthand);
+        $this->setLabel($label);
         $this->resources = new ArrayCollection();
     }
 
@@ -59,21 +69,21 @@ class ResourceType
      *
      * @return string
      */
-    public function getName()
+    public function getShorthand()
     {
-        return $this->name;
+        return $this->shorthand;
     }
 
     /**
      * Set name
      *
-     * @param string $name
+     * @param string $shorthand
      *
      * @return ResourceType
      */
-    public function setName($name)
+    public function setShorthand($shorthand)
     {
-        $this->name = $name;
+        $this->shorthand = $shorthand;
 
         return $this;
     }
@@ -110,5 +120,29 @@ class ResourceType
     public function getResources()
     {
         return $this->resources;
+    }
+
+    /**
+     * Set label
+     *
+     * @param string $label
+     *
+     * @return ResourceType
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+
+        return $this;
+    }
+
+    /**
+     * Get label
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
     }
 }

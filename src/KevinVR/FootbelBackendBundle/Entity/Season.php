@@ -2,6 +2,7 @@
 
 namespace KevinVR\FootbelBackendBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -55,10 +56,18 @@ class Season
     protected $resources;
 
     /**
-     * Level constructor.
+     * Season constructor.
+     * @param string    $shorthand
+     * @param string    $label
+     * @param \DateTime $start
+     * @param \DateTime $end
      */
-    public function __construct()
+    public function __construct($shorthand, $label, \DateTime $start, \DateTime $end)
     {
+        $this->setShorthand($shorthand);
+        $this->setLabel($label);
+        $this->setStart($start);
+        $this->setEnd($end);
         $this->resources = new ArrayCollection();
     }
 
