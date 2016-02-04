@@ -5,7 +5,7 @@ namespace KevinVR\FootbelBackendBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Resource
+ * Resource entity.
  *
  * @ORM\Table(name="resource")
  * @ORM\Entity(repositoryClass="KevinVR\FootbelBackendBundle\Repository\ResourceRepository")
@@ -20,6 +20,13 @@ class Resource
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=255)
+     */
+    private $type;
 
     /**
      * @var string
@@ -45,13 +52,6 @@ class Resource
     /**
      * @var string
      *
-     * @ORM\Column(name="type", type="string", length=255)
-     */
-    private $type;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="url", type="string", length=255)
      */
     private $url;
@@ -59,14 +59,14 @@ class Resource
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="checked", type="datetime")
+     * @ORM\Column(name="checked", type="datetime", nullable=true)
      */
     private $checked;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="queued", type="datetime")
+     * @ORM\Column(name="queued", type="datetime", nullable=true)
      */
     private $queued;
 
@@ -84,6 +84,29 @@ class Resource
      */
     private $hash;
 
+    /**
+     * AbstractResource constructor.
+     * @param string $type
+     * @param string $season
+     * @param string $level
+     * @param string $province
+     * @param string $url
+     */
+    public function __construct($type, $season, $level, $province, $url)
+    {
+        // Defaults.
+        $this->setChecked(null);
+        $this->setModified(true);
+        $this->setQueued(null);
+        $this->setHash(null);
+
+        // Parameters.
+        $this->setType($type);
+        $this->setSeason($season);
+        $this->setLevel($level);
+        $this->setProvince($province);
+        $this->setUrl($url);
+    }
 
     /**
      * Get id
@@ -93,6 +116,16 @@ class Resource
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get season
+     *
+     * @return string
+     */
+    public function getSeason()
+    {
+        return $this->season;
     }
 
     /**
@@ -110,13 +143,13 @@ class Resource
     }
 
     /**
-     * Get season
+     * Get level
      *
      * @return string
      */
-    public function getSeason()
+    public function getLevel()
     {
-        return $this->season;
+        return $this->level;
     }
 
     /**
@@ -134,13 +167,13 @@ class Resource
     }
 
     /**
-     * Get level
+     * Get province
      *
      * @return string
      */
-    public function getLevel()
+    public function getProvince()
     {
-        return $this->level;
+        return $this->province;
     }
 
     /**
@@ -158,13 +191,13 @@ class Resource
     }
 
     /**
-     * Get province
+     * Get type
      *
      * @return string
      */
-    public function getProvince()
+    public function getType()
     {
-        return $this->province;
+        return $this->type;
     }
 
     /**
@@ -182,13 +215,13 @@ class Resource
     }
 
     /**
-     * Get type
+     * Get url
      *
      * @return string
      */
-    public function getType()
+    public function getUrl()
     {
-        return $this->type;
+        return $this->url;
     }
 
     /**
@@ -206,13 +239,13 @@ class Resource
     }
 
     /**
-     * Get url
+     * Get checked
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getUrl()
+    public function getChecked()
     {
-        return $this->url;
+        return $this->checked;
     }
 
     /**
@@ -230,13 +263,13 @@ class Resource
     }
 
     /**
-     * Get checked
+     * Get queued
      *
      * @return \DateTime
      */
-    public function getChecked()
+    public function getQueued()
     {
-        return $this->checked;
+        return $this->queued;
     }
 
     /**
@@ -254,13 +287,13 @@ class Resource
     }
 
     /**
-     * Get queued
+     * Get modified
      *
-     * @return \DateTime
+     * @return bool
      */
-    public function getQueued()
+    public function getModified()
     {
-        return $this->queued;
+        return $this->modified;
     }
 
     /**
@@ -278,13 +311,13 @@ class Resource
     }
 
     /**
-     * Get modified
+     * Get hash
      *
-     * @return bool
+     * @return string
      */
-    public function getModified()
+    public function getHash()
     {
-        return $this->modified;
+        return $this->hash;
     }
 
     /**
@@ -299,15 +332,5 @@ class Resource
         $this->hash = $hash;
 
         return $this;
-    }
-
-    /**
-     * Get hash
-     *
-     * @return string
-     */
-    public function getHash()
-    {
-        return $this->hash;
     }
 }
