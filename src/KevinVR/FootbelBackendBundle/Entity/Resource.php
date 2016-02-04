@@ -22,30 +22,26 @@ class Resource
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="ResourceType", inversedBy="resources")
+     * @ORM\JoinColumn(name="type", referencedColumnName="id")
      */
     private $type;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="season", type="string", length=10)
+     * @ORM\ManyToOne(targetEntity="Season", inversedBy="resources")
+     * @ORM\JoinColumn(name="season", referencedColumnName="id")
      */
     private $season;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="level", type="string", length=4)
+     * @ORM\ManyToOne(targetEntity="Level", inversedBy="resources")
+     * @ORM\JoinColumn(name="level", referencedColumnName="id")
      */
     private $level;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="province", type="string", length=3, nullable=true)
+     * @ORM\ManyToOne(targetEntity="Province", inversedBy="resources")
+     * @ORM\JoinColumn(name="province", referencedColumnName="id")
      */
     private $province;
 
@@ -116,102 +112,6 @@ class Resource
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Get season
-     *
-     * @return string
-     */
-    public function getSeason()
-    {
-        return $this->season;
-    }
-
-    /**
-     * Set season
-     *
-     * @param string $season
-     *
-     * @return Resource
-     */
-    public function setSeason($season)
-    {
-        $this->season = $season;
-
-        return $this;
-    }
-
-    /**
-     * Get level
-     *
-     * @return string
-     */
-    public function getLevel()
-    {
-        return $this->level;
-    }
-
-    /**
-     * Set level
-     *
-     * @param string $level
-     *
-     * @return Resource
-     */
-    public function setLevel($level)
-    {
-        $this->level = $level;
-
-        return $this;
-    }
-
-    /**
-     * Get province
-     *
-     * @return string
-     */
-    public function getProvince()
-    {
-        return $this->province;
-    }
-
-    /**
-     * Set province
-     *
-     * @param string $province
-     *
-     * @return Resource
-     */
-    public function setProvince($province)
-    {
-        $this->province = $province;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Set type
-     *
-     * @param string $type
-     *
-     * @return Resource
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
     }
 
     /**
@@ -289,7 +189,7 @@ class Resource
     /**
      * Get modified
      *
-     * @return bool
+     * @return boolean
      */
     public function getModified()
     {
@@ -330,6 +230,102 @@ class Resource
     public function setHash($hash)
     {
         $this->hash = $hash;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return \KevinVR\FootbelBackendBundle\Entity\ResourceType
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set type
+     *
+     * @param \KevinVR\FootbelBackendBundle\Entity\ResourceType $type
+     *
+     * @return Resource
+     */
+    public function setType(\KevinVR\FootbelBackendBundle\Entity\ResourceType $type = null)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get season
+     *
+     * @return \KevinVR\FootbelBackendBundle\Entity\Season
+     */
+    public function getSeason()
+    {
+        return $this->season;
+    }
+
+    /**
+     * Set season
+     *
+     * @param \KevinVR\FootbelBackendBundle\Entity\Season $season
+     *
+     * @return Resource
+     */
+    public function setSeason(\KevinVR\FootbelBackendBundle\Entity\Season $season = null)
+    {
+        $this->season = $season;
+
+        return $this;
+    }
+
+    /**
+     * Get level
+     *
+     * @return \KevinVR\FootbelBackendBundle\Entity\Level
+     */
+    public function getLevel()
+    {
+        return $this->level;
+    }
+
+    /**
+     * Set level
+     *
+     * @param \KevinVR\FootbelBackendBundle\Entity\Level $level
+     *
+     * @return Resource
+     */
+    public function setLevel(\KevinVR\FootbelBackendBundle\Entity\Level $level = null)
+    {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    /**
+     * Get province
+     *
+     * @return \KevinVR\FootbelBackendBundle\Entity\Province
+     */
+    public function getProvince()
+    {
+        return $this->province;
+    }
+
+    /**
+     * Set province
+     *
+     * @param \KevinVR\FootbelBackendBundle\Entity\Province $province
+     *
+     * @return Resource
+     */
+    public function setProvince(\KevinVR\FootbelBackendBundle\Entity\Province $province = null)
+    {
+        $this->province = $province;
 
         return $this;
     }
