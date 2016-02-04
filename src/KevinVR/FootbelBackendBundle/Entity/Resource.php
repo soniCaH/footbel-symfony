@@ -28,6 +28,8 @@ class Resource
      *
      * @Assert\Type(type="KevinVR\FootbelBackendBundle\Entity\ResourceType")
      * @Assert\Valid()
+     * @Assert\NotBlank()
+     * @Assert\NotNull()
      */
     private $type;
 
@@ -37,6 +39,8 @@ class Resource
      *
      * @Assert\Type(type="KevinVR\FootbelBackendBundle\Entity\Season")
      * @Assert\Valid()
+     * @Assert\NotBlank()
+     * @Assert\NotNull()
      */
     private $season;
 
@@ -46,9 +50,10 @@ class Resource
      *
      * @Assert\Type(type="KevinVR\FootbelBackendBundle\Entity\Level")
      * @Assert\Valid()
+     * @Assert\NotBlank()
+     * @Assert\NotNull()
      */
     private $level;
-
     /**
      * @ORM\ManyToOne(targetEntity="Province", inversedBy="resources")
      * @ORM\JoinColumn(name="province", referencedColumnName="id")
@@ -65,6 +70,8 @@ class Resource
      * @Assert\Url(
      *    message = "The url '{{ value }}' is not a valid url",
      * )
+     * @Assert\NotBlank()
+     * @Assert\NotNull()
      */
     private $url;
 
