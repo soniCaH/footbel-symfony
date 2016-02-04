@@ -43,9 +43,13 @@ class Level
 
     /**
      * Level constructor.
+     * @param string $shorthand
+     * @param string $label
      */
-    public function __construct()
+    public function __construct($shorthand, $label)
     {
+        $this->setShorthand($shorthand);
+        $this->setLabel($label);
         $this->resources = new ArrayCollection();
     }
 

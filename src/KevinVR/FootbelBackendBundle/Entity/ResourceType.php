@@ -34,10 +34,12 @@ class ResourceType
     protected $resources;
 
     /**
-     * Level constructor.
+     * ResourceType constructor.
+     * @param string $name
      */
-    public function __construct()
+    public function __construct($name)
     {
+        $this->setName($name);
         $this->resources = new ArrayCollection();
     }
 

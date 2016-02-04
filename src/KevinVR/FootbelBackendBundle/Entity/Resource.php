@@ -81,15 +81,20 @@ class Resource
     private $hash;
 
     /**
-     * AbstractResource constructor.
-     * @param string $type
-     * @param string $season
-     * @param string $level
-     * @param string $province
+     * Resource constructor.
+     * @param \KevinVR\FootbelBackendBundle\Entity\ResourceType $type
+     * @param \KevinVR\FootbelBackendBundle\Entity\Season $season
+     * @param \KevinVR\FootbelBackendBundle\Entity\Level $level
+     * @param \KevinVR\FootbelBackendBundle\Entity\Province $province
      * @param string $url
      */
-    public function __construct($type, $season, $level, $province, $url)
-    {
+    public function __construct(
+      ResourceType $type,
+      Season $season,
+      Level $level,
+      Province $province,
+      $url
+    ) {
         // Defaults.
         $this->setChecked(null);
         $this->setModified(true);
@@ -251,8 +256,9 @@ class Resource
      *
      * @return Resource
      */
-    public function setType(\KevinVR\FootbelBackendBundle\Entity\ResourceType $type = null)
-    {
+    public function setType(
+      \KevinVR\FootbelBackendBundle\Entity\ResourceType $type = null
+    ) {
         $this->type = $type;
 
         return $this;
@@ -275,8 +281,9 @@ class Resource
      *
      * @return Resource
      */
-    public function setSeason(\KevinVR\FootbelBackendBundle\Entity\Season $season = null)
-    {
+    public function setSeason(
+      \KevinVR\FootbelBackendBundle\Entity\Season $season = null
+    ) {
         $this->season = $season;
 
         return $this;
@@ -299,8 +306,9 @@ class Resource
      *
      * @return Resource
      */
-    public function setLevel(\KevinVR\FootbelBackendBundle\Entity\Level $level = null)
-    {
+    public function setLevel(
+      \KevinVR\FootbelBackendBundle\Entity\Level $level = null
+    ) {
         $this->level = $level;
 
         return $this;
@@ -323,8 +331,9 @@ class Resource
      *
      * @return Resource
      */
-    public function setProvince(\KevinVR\FootbelBackendBundle\Entity\Province $province = null)
-    {
+    public function setProvince(
+      \KevinVR\FootbelBackendBundle\Entity\Province $province = null
+    ) {
         $this->province = $province;
 
         return $this;
