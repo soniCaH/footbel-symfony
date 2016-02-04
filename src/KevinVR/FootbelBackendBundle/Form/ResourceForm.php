@@ -23,18 +23,22 @@ class ResourceForm extends AbstractType
           ->add('type', EntityType::class, array(
             'class' => 'FootbelBackendBundle:ResourceType',
             'choice_label' => 'label',
+            'placeholder' => 'Choose an option',
           ))
           ->add('season', EntityType::class, array(
             'class' => 'FootbelBackendBundle:Season',
             'choice_label' => 'label',
+            'placeholder' => 'Choose an option',
           ))
           ->add('level', EntityType::class, array(
             'class' => 'FootbelBackendBundle:Level',
             'choice_label' => 'label',
+            'placeholder' => 'Choose an option',
           ))
           ->add('province', EntityType::class, array(
             'class' => 'FootbelBackendBundle:Province',
             'choice_label' => 'label',
+            'placeholder' => 'Choose an option',
           ))
           ->add('url', UrlType::class)
 
