@@ -7,6 +7,7 @@ use KevinVR\FootbelBackendBundle\Entity\Province;
 use KevinVR\FootbelBackendBundle\Entity\Resource;
 use KevinVR\FootbelBackendBundle\Entity\ResourceType;
 use KevinVR\FootbelBackendBundle\Entity\Season;
+use KevinVR\FootbelBackendBundle\Form\LevelForm;
 use KevinVR\FootbelBackendBundle\Form\ResourceTypeForm;
 use KevinVR\FootbelBackendBundle\Form\SeasonForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -21,8 +22,19 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $overviews = array(
+            'resource_type_list' => 'Resource Type',
+            'season_list' => 'Seasons',
+            'level_list' => 'Levels',
+            'province_list' => 'Provinces',
+            'resource_list' => 'Resources',
+        );
+
+        $build['overviews'] = $overviews;
+
         return $this->render(
-          'FootbelBackendBundle:Default:index.html.twig'
+          'FootbelBackendBundle:Default:index.html.twig',
+          $build
         );
     }
 
@@ -42,6 +54,102 @@ class DefaultController extends Controller
         $build['add_path'] = 'season_new';
         $build['edit_path'] = 'season_edit';
         $build['delete_path'] = 'season_delete';
+
+
+        return $this->render(
+          'FootbelBackendBundle:Default:list.html.twig',
+          $build
+        );
+    }
+
+    /**
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route(
+     *     "/resource_type",
+     *     name="resource_type_list"
+     * )
+     */
+    public function listResourceTypeAction(Request $request)
+    {
+        $seasons = $this->getDoctrine()
+          ->getRepository('FootbelBackendBundle:ResourceType')
+          ->findAll();
+
+        $build['items'] = $seasons;
+        $build['add_path'] = 'resource_type_new';
+        $build['edit_path'] = 'resource_type_edit';
+        $build['delete_path'] = 'resource_type_delete';
+
+
+        return $this->render(
+          'FootbelBackendBundle:Default:list.html.twig',
+          $build
+        );
+    }
+
+    /**
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route(
+     *     "/level",
+     *     name="level_list"
+     * )
+     */
+    public function listLevelAction(Request $request)
+    {
+        $seasons = $this->getDoctrine()
+          ->getRepository('FootbelBackendBundle:Level')
+          ->findAll();
+
+        $build['items'] = $seasons;
+        $build['add_path'] = 'level_new';
+        $build['edit_path'] = 'level_edit';
+        $build['delete_path'] = 'level_delete';
+
+
+        return $this->render(
+          'FootbelBackendBundle:Default:list.html.twig',
+          $build
+        );
+    }
+
+    /**
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route(
+     *     "/province",
+     *     name="province_list"
+     * )
+     */
+    public function listProvinceAction(Request $request)
+    {
+        $seasons = $this->getDoctrine()
+          ->getRepository('FootbelBackendBundle:Province')
+          ->findAll();
+
+        $build['items'] = $seasons;
+        $build['add_path'] = 'province_new';
+        $build['edit_path'] = 'province_edit';
+        $build['delete_path'] = 'province_delete';
+
+
+        return $this->render(
+          'FootbelBackendBundle:Default:list.html.twig',
+          $build
+        );
+    }
+
+    /**
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route(
+     *     "/resource",
+     *     name="resource_list"
+     * )
+     */
+    public function listResourceAction(Request $request)
+    {
+        $seasons = $this->getDoctrine()
+          ->getRepository('FootbelBackendBundle:Resource')
+          ->findAll();
+
+        $build['items'] = $seasons;
+        $build['add_path'] = 'resource_new';
+        $build['edit_path'] = 'resource_edit';
+        $build['delete_path'] = 'resource_delete';
 
 
         return $this->render(
@@ -216,7 +324,7 @@ class DefaultController extends Controller
     public function newLevelAction(Request $request)
     {
         $level = new Level();
-        $form = $this->createForm(ProvinceForm::class, $level);
+        $form = $this->createForm(LevelForm::class, $level);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

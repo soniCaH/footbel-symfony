@@ -1,1 +1,9 @@
-Hello World!
+<h1>Overviews</h1>
+
+{% if (overviews is not empty) %}
+    {% for overview, label in overviews %}
+        <a href="{{ path(overview) }}">{{ label }}</a>
+    {% endfor %}
+{% else %}
+    <p>No overviews available.</p>
+{% endif %}
