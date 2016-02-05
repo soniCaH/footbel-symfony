@@ -8,6 +8,7 @@ use KevinVR\FootbelBackendBundle\Entity\Resource;
 use KevinVR\FootbelBackendBundle\Entity\ResourceType;
 use KevinVR\FootbelBackendBundle\Entity\Season;
 use KevinVR\FootbelBackendBundle\Form\ResourceTypeForm;
+use KevinVR\FootbelBackendBundle\Form\SeasonForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use KevinVR\FootbelBackendBundle\Form\ProvinceForm;
@@ -26,13 +27,40 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("/season/new", name="season_new")
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route(
+     *     "/season",
+     *     name="season_list"
+     * )
+     */
+    public function listSeasonAction(Request $request)
+    {
+        $seasons = $this->getDoctrine()
+          ->getRepository('FootbelBackendBundle:Season')
+          ->findAll();
+
+        $build['items'] = $seasons;
+        $build['add_path'] = 'season_new';
+        $build['edit_path'] = 'season_edit';
+        $build['delete_path'] = 'season_delete';
+
+
+        return $this->render(
+          'FootbelBackendBundle:Default:list.html.twig',
+          $build
+        );
+    }
+
+    /**
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route(
+     *     "/season/new",
+     *     name="season_new"
+     * )
      */
     public function newSeasonAction(Request $request)
     {
         $season = new Season();
 
-        $form = $this->createForm(ProvinceForm::class, $season);
+        $form = $this->createForm(SeasonForm::class, $season);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -40,7 +68,7 @@ class DefaultController extends Controller
             $em->persist($season);
             $em->flush();
 
-            return $this->redirectToRoute('season_new');
+            return $this->redirectToRoute('season_list');
         }
 
         return $this->render(
@@ -52,7 +80,81 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("/resource/new", name="resource_new")
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route(
+     *     "/season/{id}/edit",
+     *     name="season_edit",
+     *     requirements={
+     *         "id": "\d+"
+     *     }
+     * )
+     */
+    public function editSeasonAction($id, Request $request)
+    {
+        $season = $this->getDoctrine()
+          ->getRepository('FootbelBackendBundle:Season')
+          ->find($id);
+
+        if (!$season) {
+            throw $this->createNotFoundException(
+              'No season found for id '.$id
+            );
+        }
+
+        $form = $this->createForm(SeasonForm::class, $season);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($season);
+            $em->flush();
+
+            return $this->redirectToRoute('season_list');
+        }
+
+        return $this->render(
+          'FootbelBackendBundle:Default:new.html.twig',
+          array(
+            'form' => $form->createView(),
+          )
+        );
+    }
+
+    /**
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route(
+     *     "/season/{id}/delete",
+     *     name="season_delete",
+     *     requirements={
+     *         "id": "\d+"
+     *     }
+     * )
+     */
+    public function deleteSeasonAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $season = $em->getRepository('FootbelBackendBundle:Season')
+          ->find($id);
+
+        if (!$season) {
+            throw $this->createNotFoundException(
+              'No season found for id '.$id
+            );
+        }
+
+        $em->remove($season);
+        $em->flush();
+
+        $this->addFlash('notice', 'Season deleted');
+
+        return $this->redirectToRoute('season_list');
+
+    }
+
+    /**
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route(
+     *     "/resource/new",
+     *     name="resource_new"
+     * )
      */
     public function newResourceAction(Request $request)
     {
@@ -77,7 +179,10 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("/resource_type/new", name="resource_type_new")
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route(
+     *     "/resource_type/new",
+     *     name="resource_type_new"
+     * )
      */
     public function newResourceTypeAction(Request $request)
     {
@@ -103,7 +208,10 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("/level/new", name="level_new")
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route(
+     *     "/level/new",
+     *     name="level_new"
+     * )
      */
     public function newLevelAction(Request $request)
     {
@@ -129,7 +237,10 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("/province/new", name="province_new")
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route(
+     *     "/province/new",
+     *     name="province_new"
+     * )
      */
     public function newProvinceAction(Request $request)
     {

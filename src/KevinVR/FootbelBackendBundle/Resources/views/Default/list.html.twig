@@ -1,0 +1,33 @@
+{% for flash_message in app.session.flashbag.get('notice') %}
+    <div class="flash-notice">
+        {{ flash_message }}
+    </div>
+{% endfor %}
+
+{% if (items is not empty) %}
+    <table>
+        <thead>
+            <tr>
+                <th>Shorthand</th>
+                <th>Label</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for item in items %}
+            <tr>
+                <td>{{ item.shorthand }}</td>
+                <td>{{ item.label }}</td>
+                <td>
+                    {% if (edit_path is defined) %} <a href="{{ path(edit_path, {'id': item.id}) }}">Edit</a> {% endif %}
+                    {% if (delete_path is defined) %} <a href="{{ path(delete_path, {'id': item.id}) }}">Delete</a> {% endif %}
+                </td>
+            </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+{%  else %}
+    <p>Nothing added yet</p>
+{% endif %}
+
+<p><a href="{{ path(add_path) }}">Add new</a></p>
