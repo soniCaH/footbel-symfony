@@ -229,6 +229,166 @@ class DefaultController extends Controller
 
     /**
      * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route(
+     *     "/resource_type/{id}/edit",
+     *     name="resource_type_edit",
+     *     requirements={
+     *         "id": "\d+"
+     *     }
+     * )
+     */
+    public function editResourceTypeAction($id, Request $request)
+    {
+        $resourceType = $this->getDoctrine()
+          ->getRepository('FootbelBackendBundle:ResourceType')
+          ->find($id);
+
+        if (!$resourceType) {
+            throw $this->createNotFoundException(
+              'No resource type found for id '.$id
+            );
+        }
+
+        $form = $this->createForm(ResourceTypeForm::class, $resourceType);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($resourceType);
+            $em->flush();
+
+            return $this->redirectToRoute('resource_type_list');
+        }
+
+        return $this->render(
+          'FootbelBackendBundle:Default:new.html.twig',
+          array(
+            'form' => $form->createView(),
+          )
+        );
+    }
+
+    /**
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route(
+     *     "/level/{id}/edit",
+     *     name="level_edit",
+     *     requirements={
+     *         "id": "\d+"
+     *     }
+     * )
+     */
+    public function editLevelAction($id, Request $request)
+    {
+        $level = $this->getDoctrine()
+          ->getRepository('FootbelBackendBundle:Level')
+          ->find($id);
+
+        if (!$level) {
+            throw $this->createNotFoundException(
+              'No level found for id '.$id
+            );
+        }
+
+        $form = $this->createForm(LevelForm::class, $level);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($level);
+            $em->flush();
+
+            return $this->redirectToRoute('level_list');
+        }
+
+        return $this->render(
+          'FootbelBackendBundle:Default:new.html.twig',
+          array(
+            'form' => $form->createView(),
+          )
+        );
+    }
+
+    /**
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route(
+     *     "/province/{id}/edit",
+     *     name="province_edit",
+     *     requirements={
+     *         "id": "\d+"
+     *     }
+     * )
+     */
+    public function editProvinceAction($id, Request $request)
+    {
+        $province = $this->getDoctrine()
+          ->getRepository('FootbelBackendBundle:Province')
+          ->find($id);
+
+        if (!$province) {
+            throw $this->createNotFoundException(
+              'No province found for id '.$id
+            );
+        }
+
+        $form = $this->createForm(ProvinceForm::class, $province);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($province);
+            $em->flush();
+
+            return $this->redirectToRoute('province_list');
+        }
+
+        return $this->render(
+          'FootbelBackendBundle:Default:new.html.twig',
+          array(
+            'form' => $form->createView(),
+          )
+        );
+    }
+
+    /**
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route(
+     *     "/resource/{id}/edit",
+     *     name="resource_edit",
+     *     requirements={
+     *         "id": "\d+"
+     *     }
+     * )
+     */
+    public function editResourceAction($id, Request $request)
+    {
+        $season = $this->getDoctrine()
+          ->getRepository('FootbelBackendBundle:Resource')
+          ->find($id);
+
+        if (!$season) {
+            throw $this->createNotFoundException(
+              'No resource found for id '.$id
+            );
+        }
+
+        $form = $this->createForm(ResourceForm::class, $season);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($season);
+            $em->flush();
+
+            return $this->redirectToRoute('resource_list');
+        }
+
+        return $this->render(
+          'FootbelBackendBundle:Default:new.html.twig',
+          array(
+            'form' => $form->createView(),
+          )
+        );
+    }
+
+    /**
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route(
      *     "/season/{id}/delete",
      *     name="season_delete",
      *     requirements={
@@ -260,6 +420,130 @@ class DefaultController extends Controller
 
     /**
      * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route(
+     *     "/resource_type/{id}/delete",
+     *     name="resource_type_delete",
+     *     requirements={
+     *         "id": "\d+"
+     *     }
+     * )
+     */
+    public function deleteResourceTypeAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $resourceType = $em->getRepository('FootbelBackendBundle:ResourceType')
+          ->find($id);
+
+        if (!$resourceType) {
+            throw $this->createNotFoundException(
+              'No resource type found for id '.$id
+            );
+        }
+
+        $em->remove($resourceType);
+        $em->flush();
+
+        $this->addFlash('notice', 'Resource Type deleted');
+
+        return $this->redirectToRoute('resource_type_list');
+
+    }
+
+    /**
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route(
+     *     "/level/{id}/delete",
+     *     name="level_delete",
+     *     requirements={
+     *         "id": "\d+"
+     *     }
+     * )
+     */
+    public function deleteLevelAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $level = $em->getRepository('FootbelBackendBundle:Level')
+          ->find($id);
+
+        if (!$level) {
+            throw $this->createNotFoundException(
+              'No level found for id '.$id
+            );
+        }
+
+        $em->remove($level);
+        $em->flush();
+
+        $this->addFlash('notice', 'Level deleted');
+
+        return $this->redirectToRoute('level_list');
+
+    }
+
+    /**
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route(
+     *     "/province/{id}/delete",
+     *     name="province_delete",
+     *     requirements={
+     *         "id": "\d+"
+     *     }
+     * )
+     */
+    public function deleteProvinceAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $province = $em->getRepository('FootbelBackendBundle:Province')
+          ->find($id);
+
+        if (!$province) {
+            throw $this->createNotFoundException(
+              'No province found for id '.$id
+            );
+        }
+
+        $em->remove($province);
+        $em->flush();
+
+        $this->addFlash('notice', 'Province deleted');
+
+        return $this->redirectToRoute('province_list');
+
+    }
+
+    /**
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route(
+     *     "/resource/{id}/delete",
+     *     name="resource_delete",
+     *     requirements={
+     *         "id": "\d+"
+     *     }
+     * )
+     */
+    public function deleteResourceAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $resource = $em->getRepository('FootbelBackendBundle:Resource')
+          ->find($id);
+
+        if (!$resource) {
+            throw $this->createNotFoundException(
+              'No resource found for id '.$id
+            );
+        }
+
+        $em->remove($resource);
+        $em->flush();
+
+        $this->addFlash('notice', 'Resource deleted');
+
+        return $this->redirectToRoute('resource_list');
+
+    }
+
+    /**
+     * @Sensio\Bundle\FrameworkExtraBundle\Configuration\Route(
      *     "/resource/new",
      *     name="resource_new"
      * )
@@ -275,7 +559,7 @@ class DefaultController extends Controller
             $em->persist($resource);
             $em->flush();
 
-            return $this->redirectToRoute('resource_new');
+            return $this->redirectToRoute('resource_list');
         }
 
         return $this->render(
@@ -304,7 +588,7 @@ class DefaultController extends Controller
             $em->persist($resourceType);
             $em->flush();
 
-            return $this->redirectToRoute('resource_type_new');
+            return $this->redirectToRoute('resource_type_list');
         }
 
         return $this->render(
@@ -333,7 +617,7 @@ class DefaultController extends Controller
             $em->persist($level);
             $em->flush();
 
-            return $this->redirectToRoute('level_new');
+            return $this->redirectToRoute('level_list');
         }
 
         return $this->render(
@@ -362,7 +646,7 @@ class DefaultController extends Controller
             $em->persist($province);
             $em->flush();
 
-            return $this->redirectToRoute('province_new');
+            return $this->redirectToRoute('province_list');
         }
 
         return $this->render(
