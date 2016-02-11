@@ -20,6 +20,12 @@
             '@FootbelBackendBundle/Resources/public/materialize-src/js/*'
             %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
+
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $('select').material_select();
+                });
+            </script>
             {% endjavascripts %}
         {% endblock %}
     </body>

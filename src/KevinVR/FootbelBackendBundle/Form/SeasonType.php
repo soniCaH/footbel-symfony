@@ -3,13 +3,11 @@
 namespace KevinVR\FootbelBackendBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SeasonForm extends AbstractType
+class SeasonType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -21,8 +19,7 @@ class SeasonForm extends AbstractType
           ->add('shorthand')
           ->add('label')
           ->add('start', DateType::class)
-          ->add('end', DateType::class)
-          ->add('save', SubmitType::class, array('label' => 'Create Season'));
+          ->add('end', DateType::class);
     }
 
     /**
@@ -36,5 +33,4 @@ class SeasonForm extends AbstractType
           )
         );
     }
-
 }
