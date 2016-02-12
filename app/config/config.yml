@@ -169,11 +169,11 @@ old_sound_rabbit_mq:
         process_resource:
             auto_setup_fabric: false
             connection:       default
-            exchange_options: {name: 'process-resource', type: topic}
+            exchange_options: {name: 'process-resource', type: direct}
     consumers:
         process_resource:
             auto_setup_fabric: false
             connection:       default
-            exchange_options: {name: 'process-resource', type: topic}
+            exchange_options: {name: 'process-resource', type: direct}
             queue_options:    {name: 'process-resource'}
             callback:         process_resource_service

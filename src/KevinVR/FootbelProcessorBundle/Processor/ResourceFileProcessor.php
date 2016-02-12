@@ -51,27 +51,35 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
      */
     public function process()
     {
-//        if (!$this->isMD5HashSame()) {
-        $csvFile = $this->extract();
+        if (!$this->isMD5HashSame()) {
+            $csvFile = $this->extract();
 
-        $this->resource->setCsvPath($csvFile);
+            $this->resource->setCsvPath($csvFile);
+            $this->resource->setModified(1);
 
-        $this->save();
+            $this->save();
 
-        $this->queueworker->queue(
-          $this->resource->getCsvPath(),
-          $this->resource->getType()->getHandler()
-        );
+            $this->queueworker->queue(
+              $this->resource->getCsvPath(),
+              $this->resource->getType()->getHandler()
+            );
 
-        $this->resource->setQueued(new \DateTime());
-        $this->save();
-//        }
+            $this->resource->setQueued(new \DateTime());
+            $this->save();
+        } else {
+            $this->resource->setModified(0);
+            $this->resource->setChecked(new \DateTime());
+            $this->resource->setQueued(null);
+            $this->save();
+        }
+
     }
 
     /**
      * {@inheritDoc}
      */
-    public function isMD5HashSame()
+    public
+    function isMD5HashSame()
     {
         $md5 = $this->resource->getHash();
 
@@ -92,7 +100,8 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
      * @return string
      *   Path of the extracted CSV file.
      */
-    private function extract()
+    private
+    function extract()
     {
         if ($this->download()) {
             // Use the ZipArchive library (based on zlib).
@@ -122,7 +131,8 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
      *
      * @return bool
      */
-    private function download()
+    private
+    function download()
     {
         $url = $this->resource->getUrl();
         $filename = basename($url);
@@ -154,7 +164,8 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
         return false;
     }
 
-    protected function save()
+    protected
+    function save()
     {
         $this->em->persist($this->resource);
         $this->em->flush();

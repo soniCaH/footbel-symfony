@@ -2,6 +2,7 @@
 
 namespace KevinVR\FootbelProcessorBundle\Processor;
 
+use Doctrine\ORM\EntityManager;
 use OldSound\RabbitMqBundle\RabbitMq\ConsumerInterface;
 use PhpAmqpLib\Message\AMQPMessage;
 
@@ -17,9 +18,14 @@ class ResourceProcessorConsumer implements ConsumerInterface
     private $limit;
 
     private $queueworker;
+    private $entityManager;
 
-    public function __construct($rabbitWorker) {
+    public function __construct(
+      ResourceQueueWorkerInterface $rabbitWorker,
+      EntityManager $entityManager
+    ) {
         $this->queueworker = $rabbitWorker;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -69,11 +75,21 @@ class ResourceProcessorConsumer implements ConsumerInterface
               $this->handler,
               $parser->lastLinePos()
             );
-        }
-        else {
+        } else {
             // Is finished.
             // set queue = 0.
+            $resource = $this->entityManager->getRepository(
+              'FootbelBackendBundle:Resource'
+            )->findOneBy(array('csv_path' => $this->file));
 
+            $resource->setModified(0);
+            $resource->setQueued(null);
+            $resource->setChecked(new \DateTime());
+
+            $this->entityManager->persist($resource);
+            $this->entityManager->flush();
+
+            var_dump($resource);
         }
     }
 }

@@ -8,6 +8,7 @@ services:
         class: KevinVR\FootbelProcessorBundle\Processor\ResourceProcessorConsumer
         arguments:
             rabbitWorker: "@rabbit_worker"
+            entityManager: "@doctrine.orm.entity_manager"
 
     rabbit_worker:
         class: KevinVR\FootbelProcessorBundle\Processor\ResourceQueueWorkerRabbitMQ
