@@ -36,8 +36,11 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
      * @param \KevinVR\FootbelBackendBundle\Entity\ResourceInterface $resource
      * @param \KevinVR\FootbelProcessorBundle\Processor\ResourceQueueWorkerInterface $queueworker
      */
-    public function __construct(ResourceInterface $resource, ResourceQueueWorkerInterface $queueworker, EntityManager $em)
-    {
+    public function __construct(
+      ResourceInterface $resource,
+      ResourceQueueWorkerInterface $queueworker,
+      EntityManager $em
+    ) {
         $this->resource = $resource;
         $this->queueworker = $queueworker;
         $this->em = $em;
@@ -49,13 +52,19 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
     public function process()
     {
 //        if (!$this->isMD5HashSame()) {
-            $csvFile = $this->extract();
+        $csvFile = $this->extract();
 
-            $this->resource->setCsvPath($csvFile);
+        $this->resource->setCsvPath($csvFile);
 
-            $this->save();
+        $this->save();
 
-            $this->queueworker->queue($this->resource);
+        $this->queueworker->queue(
+          $this->resource->getCsvPath(),
+          $this->resource->getType()->getHandler()
+        );
+
+        $this->resource->setQueued(new \DateTime());
+        $this->save();
 //        }
     }
 

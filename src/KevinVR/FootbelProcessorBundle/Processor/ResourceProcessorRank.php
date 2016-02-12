@@ -2,7 +2,7 @@
 
 namespace KevinVR\FootbelProcessorBundle\Processor;
 
-class ResourceProcessorMatch extends ResourceProcessorMatch
+class ResourceProcessorRank extends ResourceProcessorMatch
 {
 
 }

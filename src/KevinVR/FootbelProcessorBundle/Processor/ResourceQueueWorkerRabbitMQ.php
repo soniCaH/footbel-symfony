@@ -2,29 +2,34 @@
 
 namespace KevinVR\FootbelProcessorBundle\Processor;
 
+use Doctrine\ORM\EntityManager;
 use KevinVR\FootbelBackendBundle\Entity\ResourceInterface;
 
 class ResourceQueueWorkerRabbitMQ implements ResourceQueueWorkerInterface
 {
     private $rabbitService;
 
-    public function __construct($service)
+    public function __construct($rabbitProducer)
     {
-        $this->rabbitService = $service;
+        $this->rabbitService = $rabbitProducer;
     }
 
     /**
-     * @param \KevinVR\FootbelBackendBundle\Entity\ResourceInterface $resource
+     * @param string $filepath
+     * @param string $handler
      * @param int $start
      * @param int $limit
      * @return mixed
      */
-    public function queue(ResourceInterface $resource, $start = 0, $limit = 50)
+    public function queue($filepath, $handler, $start = 0, $limit = 50)
     {
-        $msg = array('resource' => $resource, 'start' => $start, 'limit' => $limit);
-        var_dump($msg);
+        $msg = array(
+          'file' => $filepath,
+          'handler' => $handler,
+          'start' => $start,
+          'limit' => $limit,
+        );
         $this->rabbitService->publish(serialize($msg));
     }
-
 
 }

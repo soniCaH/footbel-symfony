@@ -37,7 +37,8 @@
                                     href="{{ path('resource_edit', { 'id': resource.id }) }}">edit</a>
                         </li>
                         <li>
-                            <i class="mdi-av-play-arrow"></i> Process
+                            <i class="mdi-av-play-arrow"></i> <a
+                                    href="{{ path('process_go', { 'id': resource.id }) }}">process</a>
                         </li>
                     </ul>
                 </td>

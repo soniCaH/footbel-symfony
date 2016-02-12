@@ -4,8 +4,15 @@ parameters:
 #    parameter_name: value
 
 services:
-    process_match_service:
-        class: KevinVR\FootbelProcessorBundle\Processor\ResourceProcessorMatch
+    process_resource_service:
+        class: KevinVR\FootbelProcessorBundle\Processor\ResourceProcessorConsumer
+        arguments:
+            rabbitWorker: "@rabbit_worker"
+
+    rabbit_worker:
+        class: KevinVR\FootbelProcessorBundle\Processor\ResourceQueueWorkerRabbitMQ
+        arguments:
+            rabbitProducer: "@old_sound_rabbit_mq.process_resource_producer"
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]

@@ -166,12 +166,14 @@ old_sound_rabbit_mq:
             # requires php-amqplib v2.4.1+
             heartbeat: 0
     producers:
-        process_match:
+        process_resource:
+            auto_setup_fabric: false
             connection:       default
-            exchange_options: {name: 'process-match', type: direct}
+            exchange_options: {name: 'process-resource', type: topic}
     consumers:
-        process_match:
+        process_resource:
+            auto_setup_fabric: false
             connection:       default
-            exchange_options: {name: 'process-match', type: direct}
-            queue_options:    {name: 'process-match'}
-            callback:         process_match_service
+            exchange_options: {name: 'process-resource', type: topic}
+            queue_options:    {name: 'process-resource'}
+            callback:         process_resource_service

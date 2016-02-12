@@ -17,6 +17,12 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+//        $rep = $this->getDoctrine()->getRepository('FootbelBackendBundle:Resource');
+//
+//        $resource = $rep->find(1);
+//
+//        var_dump($resource->getType()->getHandler());
+
         return $this->render('FootbelProcessorBundle:Default:index.html.twig');
     }
 
@@ -27,7 +33,7 @@ class DefaultController extends Controller
      */
     public function processAction(Resource $resource)
     {
-        $queueworker = new ResourceQueueWorkerRabbitMQ($this->get('old_sound_rabbit_mq.process_match_producer'));
+        $queueworker = $this->get('rabbit_worker');
 
         $em = $this->getDoctrine()->getManager();
 
