@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="resource")
  * @ORM\Entity(repositoryClass="KevinVR\FootbelBackendBundle\Repository\ResourceRepository")
  */
-class Resource
+class Resource implements ResourceInterface
 {
     /**
      * @var int
@@ -104,6 +104,13 @@ class Resource
     private $hash;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="csv_path", type="string", length=255, nullable=true)
+     */
+    private $csv_path;
+
+    /**
      * Resource constructor.
      * @param \KevinVR\FootbelBackendBundle\Entity\ResourceType $type
      * @param \KevinVR\FootbelBackendBundle\Entity\Season $season
@@ -123,6 +130,7 @@ class Resource
         $this->setModified(true);
         $this->setQueued(null);
         $this->setHash(null);
+        $this->setCsvPath(null);
 
         // Parameters.
         $this->setType($type);
@@ -361,4 +369,40 @@ class Resource
 
         return $this;
     }
+
+
+    /**
+     * Get (last known) CSV path of the resource.
+     *
+     * @return string
+     */
+    public function getCsvPath()
+    {
+        return $this->csv_path;
+    }
+
+    /**
+     * Set filepath of the csv file.
+     *
+     * @param string $csv_path
+     *
+     * @return Resource
+     */
+    public function setCsvPath($csv_path)
+    {
+        $this->csv_path = $csv_path;
+
+        return $this;
+    }
+
+    public function save()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $em->persist($product);
+        $em->flush();
+
+    }
+
+
 }

@@ -1,3 +1,8 @@
+footbel_processor:
+    resource: "@FootbelProcessorBundle/Controller/"
+    type:     annotation
+    prefix:   /process
+
 footbel_backend:
     resource: "@FootbelBackendBundle/Controller/"
     type:     annotation
