@@ -17,6 +17,7 @@ class ResourceTypeType extends AbstractType
         $builder
             ->add('shorthand')
             ->add('label')
+            ->add('handler')
         ;
     }
     

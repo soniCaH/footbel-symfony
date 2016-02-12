@@ -17,11 +17,4 @@ interface ResourceFileProcessorInterface
      * @return bool
      */
     public function process();
-
-    /**
-     * Return the class that will process this resource type.
-     *
-     * @return string
-     */
-    public function getResourceProcessorClass();
 }

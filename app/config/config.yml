@@ -147,3 +147,31 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: KevinVR\FootbelBackendBundle\Entity\User
+
+old_sound_rabbit_mq:
+    connections:
+        default:
+            host:     'localhost'
+            port:     5672
+            user:     'kevin'
+            password: 'kevin'
+            vhost:    '/'
+            lazy:     false
+            connection_timeout: 3
+            read_write_timeout: 3
+
+            # requires php-amqplib v2.4.1+ and PHP5.4+
+            keepalive: false
+
+            # requires php-amqplib v2.4.1+
+            heartbeat: 0
+    producers:
+        process_match:
+            connection:       default
+            exchange_options: {name: 'process-match', type: direct}
+    consumers:
+        process_match:
+            connection:       default
+            exchange_options: {name: 'process-match', type: direct}
+            queue_options:    {name: 'process-match'}
+            callback:         process_match_service

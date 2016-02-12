@@ -19,7 +19,8 @@ class AppKernel extends Kernel
           new AppBundle\AppBundle(),
           new KevinVR\FootbelBackendBundle\FootbelBackendBundle(),
           new FOS\UserBundle\FOSUserBundle(),
-            new KevinVR\FootbelProcessorBundle\FootbelProcessorBundle(),
+          new KevinVR\FootbelProcessorBundle\FootbelProcessorBundle(),
+          new OldSound\RabbitMqBundle\OldSoundRabbitMqBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

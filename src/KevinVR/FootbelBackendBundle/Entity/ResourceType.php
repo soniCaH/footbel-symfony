@@ -38,6 +38,13 @@ class ResourceType
     private $label;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="handler", type="string", length=255)
+     */
+    private $handler;
+
+    /**
      * @ORM\OneToMany(targetEntity="Resource", mappedBy="level")
      */
     protected $resources;
@@ -47,10 +54,14 @@ class ResourceType
      * @param string $shorthand
      * @param string $label
      */
-    public function __construct($shorthand = null, $label = null)
-    {
+    public function __construct(
+      $shorthand = null,
+      $label = null,
+      $handler = null
+    ) {
         $this->setShorthand($shorthand);
         $this->setLabel($label);
+        $this->setHandler($handler);
         $this->resources = new ArrayCollection();
     }
 
@@ -96,8 +107,9 @@ class ResourceType
      *
      * @return ResourceType
      */
-    public function addResource(\KevinVR\FootbelBackendBundle\Entity\Resource $resource)
-    {
+    public function addResource(
+      \KevinVR\FootbelBackendBundle\Entity\Resource $resource
+    ) {
         $this->resources[] = $resource;
 
         return $this;
@@ -108,8 +120,9 @@ class ResourceType
      *
      * @param \KevinVR\FootbelBackendBundle\Entity\Resource $resource
      */
-    public function removeResource(\KevinVR\FootbelBackendBundle\Entity\Resource $resource)
-    {
+    public function removeResource(
+      \KevinVR\FootbelBackendBundle\Entity\Resource $resource
+    ) {
         $this->resources->removeElement($resource);
     }
 
@@ -145,5 +158,30 @@ class ResourceType
     public function getLabel()
     {
         return $this->label;
+    }
+
+
+    /**
+     * Retrieve handler class name.
+     *
+     * @return string
+     */
+    public function getHandler()
+    {
+        return $this->handler;
+    }
+
+    /**
+     * Set handler class name.
+     *
+     * @param string $handler
+     *
+     * @return ResourceType
+     */
+    public function setHandler($handler)
+    {
+        $this->handler = $handler;
+
+        return $this;
     }
 }

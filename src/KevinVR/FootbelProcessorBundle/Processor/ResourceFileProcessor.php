@@ -2,6 +2,7 @@
 
 namespace KevinVR\FootbelProcessorBundle\Processor;
 
+use Doctrine\ORM\EntityManager;
 use KevinVR\FootbelBackendBundle\Entity\ResourceInterface;
 
 /**
@@ -14,23 +15,32 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
      * @var \KevinVR\FootbelBackendBundle\Entity\ResourceInterface
      */
     private $resource;
+
+    /**
+     * @var \KevinVR\FootbelProcessorBundle\Processor\ResourceQueueWorkerInterface
+     */
+    private $queueworker;
+
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $em;
+
+    /**
+     * @var string
+     */
     private $archivePath;
 
     /**
      * ResourceFileProcessor constructor.
      * @param \KevinVR\FootbelBackendBundle\Entity\ResourceInterface $resource
+     * @param \KevinVR\FootbelProcessorBundle\Processor\ResourceQueueWorkerInterface $queueworker
      */
-    public function __construct(ResourceInterface $resource)
+    public function __construct(ResourceInterface $resource, ResourceQueueWorkerInterface $queueworker, EntityManager $em)
     {
         $this->resource = $resource;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getResourceProcessorClass()
-    {
-        // TODO: Implement getResourceProcessorClass() method.
+        $this->queueworker = $queueworker;
+        $this->em = $em;
     }
 
     /**
@@ -38,10 +48,15 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
      */
     public function process()
     {
-        if (!$this->isMD5HashSame()) {
+//        if (!$this->isMD5HashSame()) {
             $csvFile = $this->extract();
+
             $this->resource->setCsvPath($csvFile);
-        }
+
+            $this->save();
+
+            $this->queueworker->queue($this->resource);
+//        }
     }
 
     /**
@@ -128,6 +143,12 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
         }
 
         return false;
+    }
+
+    protected function save()
+    {
+        $this->em->persist($this->resource);
+        $this->em->flush();
     }
 
 }
