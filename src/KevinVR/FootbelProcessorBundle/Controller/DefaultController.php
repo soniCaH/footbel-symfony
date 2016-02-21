@@ -10,36 +10,32 @@ use KevinVR\FootbelProcessorBundle\Processor\ResourceQueueWorkerRabbitMQ;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-class DefaultController extends Controller
-{
-    /**
-     * @Route("/")
-     */
-    public function indexAction()
-    {
-//        $rep = $this->getDoctrine()->getRepository('FootbelBackendBundle:Resource');
-//
-//        $resource = $rep->find(1);
-//
-//        var_dump($resource->getType()->getHandler());
+class DefaultController extends Controller {
+  /**
+   * Finds and processes a Resource entity.
+   *
+   * @Route("/{id}", name="process_go")
+   */
+  public function processAction(Resource $resource) {
+    $queueworker = $this->get('rabbit_worker');
 
-        return $this->render('FootbelProcessorBundle:Default:index.html.twig');
-    }
+    $em = $this->getDoctrine()->getManager();
 
-    /**
-     * Finds and processes a Resource entity.
-     *
-     * @Route("/{id}", name="process_go")
-     */
-    public function processAction(Resource $resource)
-    {
-        $queueworker = $this->get('rabbit_worker');
+    $resourceFileProcessor = new ResourceFileProcessor(
+      $resource,
+      $queueworker,
+      $em
+    );
+    $resourceFileProcessor->process();
 
-        $em = $this->getDoctrine()->getManager();
+    $this->addFlash(
+      'notice',
+      'Resource queued for processing!'
+    );
 
-        $resourceFileProcessor = new ResourceFileProcessor($resource, $queueworker, $em);
-        $resourceFileProcessor->process();
+    // $this->addFlash is equivalent to $this->get('session')->getFlashBag()->add
 
-        return $this->render('FootbelProcessorBundle:Default:index.html.twig');
-    }
+    return $this->redirectToRoute('resource_index');
+
+  }
 }

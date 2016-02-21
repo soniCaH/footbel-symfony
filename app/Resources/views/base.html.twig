@@ -6,14 +6,29 @@
 
         {% block stylesheets %}
             {% stylesheets filter="sass"
-            '@FootbelBackendBundle/Resources/public/materialize-src/sass/materialize.scss' %}
+            '@FootbelBackendBundle/Resources/public/materialize-src/sass/materialize.scss'
+            '@FootbelBackendBundle/Resources/public/sass/footbel.scss'
+            %}
             <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
+
+        <div class="container">
+            <div class="row">
+                {% for flash_message in app.session.flashbag.get('notice') %}
+                    <div class="flash-notice card-panel teal lighten-2 white-text">
+                        {{ flash_message }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="row">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
         {% block javascripts %}
             {% javascripts
             '@FootbelBackendBundle/Resources/public/jquery-2.2.0.min.js'
