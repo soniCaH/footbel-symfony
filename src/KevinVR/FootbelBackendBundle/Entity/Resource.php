@@ -54,6 +54,7 @@ class Resource implements ResourceInterface
      * @Assert\NotNull()
      */
     private $level;
+
     /**
      * @ORM\ManyToOne(targetEntity="Province", inversedBy="resources")
      * @ORM\JoinColumn(name="province", referencedColumnName="id")

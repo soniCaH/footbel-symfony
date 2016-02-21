@@ -58,7 +58,7 @@ class Season
     private $end;
 
     /**
-     * @ORM\OneToMany(targetEntity="Resource", mappedBy="level")
+     * @ORM\OneToMany(targetEntity="Resource", mappedBy="season")
      */
     protected $resources;
 

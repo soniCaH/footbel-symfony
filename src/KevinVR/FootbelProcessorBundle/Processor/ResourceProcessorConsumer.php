@@ -66,9 +66,8 @@ class ResourceProcessorConsumer implements ConsumerInterface
 
             $result[] = $item;
 
-            $res = call_user_func(array($this->handler, 'process'), $item);
-
-//            $this->process($item); // Process with match handler or rank handler.
+            $handler = new $this->handler($this->entityManager);
+            $handler->process($item);
         }
 
         if ($parser->lastLinePos() < $total) {

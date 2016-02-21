@@ -2,9 +2,20 @@
 
 namespace KevinVR\FootbelProcessorBundle\Processor;
 
-class ResourceProcessorRank implements ResourceProcessorInterface
+/**
+ * Class ResourceProcessorRank
+ * @package KevinVR\FootbelProcessorBundle\Processor
+ */
+class ResourceProcessorRank extends ResourceProcessor
 {
+    /**
+     * Process one data row.
+     *
+     * @param array $row
+     *   Row with data.
+     */
+    public static function process($row)
+    {
 
-  public static function process($row) {
-  }
+    }
 }

@@ -1,7 +1,17 @@
 <?php
+/**
+ * @file
+ * Contains KevinVR\FootbelProcessorBundle\Processor\ResourceProcessorInterface.
+ */
 
 namespace KevinVR\FootbelProcessorBundle\Processor;
 
+/**
+ * Process a single row entry from a resource.
+ *
+ * Interface ResourceProcessorInterface
+ * @package KevinVR\FootbelProcessorBundle\Processor
+ */
 interface ResourceProcessorInterface
 {
     /**
@@ -10,5 +20,5 @@ interface ResourceProcessorInterface
      * @param array $row
      *   Row with data.
      */
-    public static function process($row);
+    public function process($row);
 }

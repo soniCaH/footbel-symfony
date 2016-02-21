@@ -2,12 +2,19 @@
 
 namespace KevinVR\FootbelProcessorBundle\Processor;
 
-abstract class ResourceProcessorMatch implements ResourceProcessorInterface
+use Doctrine\ORM\EntityManager;
+
+/**
+ * Class ResourceProcessor
+ * @package KevinVR\FootbelProcessorBundle\Processor
+ */
+abstract class ResourceProcessor implements ResourceProcessorInterface
 {
-    private $parser;
+    protected $entityManager;
 
-    public function __construct($file)
+    public function __construct(EntityManager $entityManager)
     {
-
+        $this->entityManager = $entityManager;
     }
+
 }
