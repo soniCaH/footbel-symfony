@@ -1,3 +1,21 @@
+<<<<<<< HEAD
+/app/config/parameters.yml
+/build/
+/phpunit.xml
+/var/*
+!/var/cache
+/var/cache/*
+!var/cache/.gitkeep
+!/var/logs
+/var/logs/*
+!var/logs/.gitkeep
+!/var/sessions
+/var/sessions/*
+!var/sessions/.gitkeep
+!var/SymfonyRequirements.php
+/vendor/
+/web/bundles/
+=======
 # Cache and logs (Symfony2)
 /app/cache/*
 /app/logs/*
@@ -38,3 +56,4 @@
 
 # Composer PHAR
 /composer.phar
+>>>>>>> 93a6464123de5f913b58dba981fde75778aa36b7
