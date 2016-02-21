@@ -2,13 +2,21 @@
 
 namespace KevinVR\FootbelProcessorBundle\Processor;
 
-use Doctrine\ORM\EntityManager;
-use KevinVR\FootbelBackendBundle\Entity\ResourceInterface;
-
+/**
+ * Class ResourceQueueWorkerRabbitMQ
+ * @package KevinVR\FootbelProcessorBundle\Processor
+ */
 class ResourceQueueWorkerRabbitMQ implements ResourceQueueWorkerInterface
 {
+    /**
+     * @var \OldSound\RabbitMqBundle\RabbitMq\Producer
+     */
     private $rabbitService;
 
+    /**
+     * ResourceQueueWorkerRabbitMQ constructor.
+     * @param \OldSound\RabbitMqBundle\RabbitMq\Producer $rabbitProducer
+     */
     public function __construct($rabbitProducer)
     {
         $this->rabbitService = $rabbitProducer;
@@ -17,8 +25,9 @@ class ResourceQueueWorkerRabbitMQ implements ResourceQueueWorkerInterface
     /**
      * @param string $filepath
      * @param string $handler
-     * @param int $start
-     * @param int $limit
+     * @param int    $start
+     * @param int    $limit
+     *
      * @return mixed
      */
     public function queue($filepath, $handler, $start = 0, $limit = 50)
