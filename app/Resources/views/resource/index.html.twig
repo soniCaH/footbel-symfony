@@ -5,7 +5,7 @@
 
     <a href="{{ path('admin_homepage') }}">Back to overview</a>
 
-    <table>
+    <table class="striped responsive-table">
         <thead>
         <tr>
             <th>Id</th>
@@ -28,15 +28,15 @@
                 <td class="break">{{ resource.hash }}</td>
                 <td>
                     <ul>
-                        <li>
+                        <li class="nobreak">
                             <i class="mdi-action-info-outline"></i> <a
                                     href="{{ path('resource_show', { 'id': resource.id }) }}">show</a>
                         </li>
-                        <li>
+                        <li class="nobreak">
                             <i class="mdi-editor-mode-edit"></i> <a
                                     href="{{ path('resource_edit', { 'id': resource.id }) }}">edit</a>
                         </li>
-                        <li>
+                        <li class="nobreak">
                             <i class="mdi-av-play-arrow"></i> <a
                                     href="{{ path('process_go', { 'id': resource.id }) }}">process</a>
                         </li>
