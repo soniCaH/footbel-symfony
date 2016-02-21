@@ -51,7 +51,7 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
      */
     public function process()
     {
-        if (!$this->isMD5HashSame()) {
+//        if (!$this->isMD5HashSame()) {
             $csvFile = $this->extract();
 
             $this->resource->setCsvPath($csvFile);
@@ -66,12 +66,12 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
 
             $this->resource->setQueued(new \DateTime());
             $this->save();
-        } else {
+//        } else {
             $this->resource->setModified(0);
             $this->resource->setChecked(new \DateTime());
             $this->resource->setQueued(null);
             $this->save();
-        }
+//        }
 
     }
 

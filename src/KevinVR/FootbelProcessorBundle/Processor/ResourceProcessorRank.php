@@ -11,11 +11,26 @@ class ResourceProcessorRank extends ResourceProcessor
     /**
      * Process one data row.
      *
+     * Headers are:
+     * - DIV
+     * - POS
+     * - TEAM
+     * - M
+     * - W
+     * - L
+     * - D
+     * - G+
+     * - G-
+     * - PTS
+     * - PER
+     *
      * @param array $row
      *   Row with data.
      */
-    public static function process($row)
+    public function process($row)
     {
+
+        var_dump($row);
 
     }
 }
