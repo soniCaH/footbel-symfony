@@ -4,5 +4,11 @@ namespace KevinVR\FootbelProcessorBundle\Processor;
 
 interface ResourceProcessorInterface
 {
-    public function process($start, $limit);
+    /**
+     * Process one data row.
+     *
+     * @param array $row
+     *   Row with data.
+     */
+    public static function process($row);
 }

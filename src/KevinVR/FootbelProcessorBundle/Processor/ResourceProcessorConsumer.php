@@ -66,6 +66,8 @@ class ResourceProcessorConsumer implements ConsumerInterface
 
             $result[] = $item;
 
+            $res = call_user_func(array($this->handler, 'process'), $item);
+
 //            $this->process($item); // Process with match handler or rank handler.
         }
 
@@ -77,7 +79,7 @@ class ResourceProcessorConsumer implements ConsumerInterface
             );
         } else {
             // Is finished.
-            // set queue = 0.
+            // Set queued = 0, modified to FALSE.
             $resource = $this->entityManager->getRepository(
               'FootbelBackendBundle:Resource'
             )->findOneBy(array('csv_path' => $this->file));
@@ -88,8 +90,6 @@ class ResourceProcessorConsumer implements ConsumerInterface
 
             $this->entityManager->persist($resource);
             $this->entityManager->flush();
-
-            var_dump($resource);
         }
     }
 }

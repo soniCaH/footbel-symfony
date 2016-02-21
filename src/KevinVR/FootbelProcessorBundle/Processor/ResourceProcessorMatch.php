@@ -2,7 +2,8 @@
 
 namespace KevinVR\FootbelProcessorBundle\Processor;
 
-class ResourceProcessorMatch extends ResourceProcessorMatch
+class ResourceProcessorMatch implements ResourceProcessorInterface
 {
-
+  public static function process($row) {
+  }
 }
