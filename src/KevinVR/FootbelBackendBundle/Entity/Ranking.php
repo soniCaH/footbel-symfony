@@ -388,7 +388,7 @@ class Ranking
      */
     public function getGoalsPro()
     {
-        return $this->goalsPro;
+        return (int) $this->goalsPro;
     }
 
     /**
@@ -412,7 +412,7 @@ class Ranking
      */
     public function getGoalsAgainst()
     {
-        return $this->goalsAgainst;
+        return (int) $this->goalsAgainst;
     }
 
     /**
@@ -427,6 +427,16 @@ class Ranking
         $this->goalsAgainst = $goalsAgainst;
 
         return $this;
+    }
+
+    /**
+     * Get goalsDifference
+     *
+     * @return int
+     */
+    public function getGoalsDifference()
+    {
+        return (int) $this->getGoalsPro() - $this->getGoalsAgainst();
     }
 
     /**

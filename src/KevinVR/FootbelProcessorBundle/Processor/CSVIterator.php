@@ -83,7 +83,7 @@ class CSVIterator implements \Iterator
     {
         if (!file_exists($filepath) || !is_readable($filepath)) {
             throw new \InvalidArgumentException(
-              'Filepath must exist and be readable.'
+                'Filepath must exist and be readable.'
             );
         }
 
@@ -278,10 +278,10 @@ class CSVIterator implements \Iterator
      *   The list of cells in the CSV row.
      */
     protected function parseLine(
-      $line,
-      $in_quotes = false,
-      $field = '',
-      $fields = []
+        $line,
+        $in_quotes = false,
+        $field = '',
+        $fields = []
     ) {
         $line_length = strlen($line);
 
@@ -309,9 +309,9 @@ class CSVIterator implements \Iterator
                 if ($byte === "\n") {
 // Check for windows line ending.
                     $field = substr($field, -1) === "\r" ? substr(
-                      $field,
-                      0,
-                      -1
+                        $field,
+                        0,
+                        -1
                     ) : $field;
                 } elseif ($byte === "\r") {
 // Mac line endings.

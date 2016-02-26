@@ -60,8 +60,8 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
             $this->save();
 
             $this->queueworker->queue(
-              $this->resource->getCsvPath(),
-              $this->resource->getType()->getHandler()
+                $this->resource->getCsvPath(),
+                $this->resource->getType()->getHandler()
             );
 
             $this->resource->setQueued(new \DateTime());
@@ -89,8 +89,6 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
             return true;
         }
 
-        $this->resource->setHash($md5New);
-
         return false;
     }
 
@@ -100,8 +98,7 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
      * @return string
      *   Path of the extracted CSV file.
      */
-    private
-    function extract()
+    private function extract()
     {
         if ($this->download()) {
             // Use the ZipArchive library (based on zlib).
@@ -131,8 +128,7 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
      *
      * @return bool
      */
-    private
-    function download()
+    private function download()
     {
         $url = $this->resource->getUrl();
         $filename = basename($url);
@@ -164,8 +160,7 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
         return false;
     }
 
-    protected
-    function save()
+    protected function save()
     {
         $this->em->persist($this->resource);
         $this->em->flush();

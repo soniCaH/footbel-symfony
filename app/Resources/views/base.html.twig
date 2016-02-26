@@ -23,6 +23,11 @@
                         {{ flash_message }}
                     </div>
                 {% endfor %}
+                {% for flash_message in app.session.flashbag.get('error') %}
+                    <div class="flash-error card-panel red lighten-2 white-text">
+                        {{ flash_message }}
+                    </div>
+                {% endfor %}
             </div>
 
             <div class="row">

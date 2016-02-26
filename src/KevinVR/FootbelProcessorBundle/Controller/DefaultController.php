@@ -17,7 +17,17 @@ class DefaultController extends Controller {
    * @Route("/{id}", name="process_go")
    */
   public function processAction(Resource $resource) {
-    $queueworker = $this->get('rabbit_worker');
+    try {
+      $queueworker = $this->get('rabbit_worker');
+    }
+    catch (\Exception $e) {
+      $this->addFlash(
+          'error',
+          'Unable to connect to message queue.'
+      );
+
+      return $this->redirectToRoute('resource_index');
+    }
 
     $em = $this->getDoctrine()->getManager();
 

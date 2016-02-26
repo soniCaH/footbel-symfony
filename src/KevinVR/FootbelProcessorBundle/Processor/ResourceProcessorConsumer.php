@@ -87,6 +87,8 @@ class ResourceProcessorConsumer implements ConsumerInterface
             $resource->setQueued(null);
             $resource->setChecked(new \DateTime());
 
+            $this->resource->setHash($md5New);
+
             $this->entityManager->persist($resource);
             $this->entityManager->flush();
         }
