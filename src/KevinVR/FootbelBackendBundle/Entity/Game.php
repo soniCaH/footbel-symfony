@@ -91,9 +91,9 @@ class Game
     /**
      * @var string
      *
-     * @ORM\Column(name="way_name", type="string", length=255)
+     * @ORM\Column(name="away_name", type="string", length=255)
      */
-    private $wayName;
+    private $awayName;
 
     /**
      * @var string
@@ -119,16 +119,55 @@ class Game
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=10)
+     * @ORM\Column(name="status", type="string", length=10, nullable=true)
      */
     private $status;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="matchtype", type="string", length=255)
+     * Game constructor.
+     * @param $season
+     * @param $level
+     * @param $province
+     * @param $division
+     * @param $matchday
+     * @param $datetime
+     * @param $homename
+     * @param $awayname
+     * @param $homeregnr
+     * @param $awayregnr
+     * @param $homescore
+     * @param $awayscore
+     * @param $status
      */
-    private $matchtype;
+    public function __construct(
+        $season,
+        $level,
+        $province,
+        $division,
+        $matchday,
+        $datetime,
+        $homename,
+        $awayname,
+        $homeregnr,
+        $awayregnr,
+        $homescore,
+        $awayscore,
+        $status
+    ) {
+        $this->setSeason($season);
+        $this->setLevel($level);
+        $this->setProvince($province);
+        $this->setDivision($division);
+        $this->setMatchday($matchday);
+        $this->setDatetime($datetime);
+        $this->setHomeName($homename);
+        $this->setAwayName($awayname);
+        $this->setHomeRegnr($homeregnr);
+        $this->setAwayRegnr($awayregnr);
+        $this->setScoreHome($homescore);
+        $this->setScoreAway($awayscore);
+        $this->setStatus($status);
+    }
 
 
     /**
@@ -334,15 +373,15 @@ class Game
     }
 
     /**
-     * Set wayName
+     * Set awayName
      *
-     * @param string $wayName
+     * @param string $awayName
      *
      * @return Game
      */
-    public function setWayName($wayName)
+    public function setAwayName($awayName)
     {
-        $this->wayName = $wayName;
+        $this->awayName = $awayName;
 
         return $this;
     }
@@ -352,9 +391,9 @@ class Game
      *
      * @return string
      */
-    public function getWayName()
+    public function getAwayName()
     {
-        return $this->wayName;
+        return $this->awayName;
     }
 
     /**
@@ -390,7 +429,7 @@ class Game
      */
     public function setScoreHome($scoreHome)
     {
-        $this->scoreHome = $scoreHome;
+        $this->scoreHome = is_int($scoreHome) ? $scoreHome : null;
 
         return $this;
     }
@@ -414,7 +453,7 @@ class Game
      */
     public function setScoreAway($scoreAway)
     {
-        $this->scoreAway = $scoreAway;
+        $this->scoreAway = is_int($scoreAway) ? $scoreAway : null;
 
         return $this;
     }
@@ -453,28 +492,5 @@ class Game
         return $this->status;
     }
 
-    /**
-     * Set matchtype
-     *
-     * @param string $matchtype
-     *
-     * @return Game
-     */
-    public function setMatchtype($matchtype)
-    {
-        $this->matchtype = $matchtype;
-
-        return $this;
-    }
-
-    /**
-     * Get matchtype
-     *
-     * @return string
-     */
-    public function getMatchtype()
-    {
-        return $this->matchtype;
-    }
 }
 
