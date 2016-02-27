@@ -12,6 +12,9 @@ use PhpAmqpLib\Message\AMQPMessage;
  */
 class ResourceProcessorConsumer implements ConsumerInterface
 {
+    private $season;
+    private $level;
+    private $province;
     private $file;
     private $handler;
     private $start;
@@ -21,8 +24,8 @@ class ResourceProcessorConsumer implements ConsumerInterface
     private $entityManager;
 
     public function __construct(
-      ResourceQueueWorkerInterface $rabbitWorker,
-      EntityManager $entityManager
+        ResourceQueueWorkerInterface $rabbitWorker,
+        EntityManager $entityManager
     ) {
         $this->queueworker = $rabbitWorker;
         $this->entityManager = $entityManager;
@@ -36,6 +39,9 @@ class ResourceProcessorConsumer implements ConsumerInterface
     {
         $params = unserialize($msg->body);
 
+        $this->season = $params['season'];
+        $this->level = $params['level'];
+        $this->province = $params['province'];
         $this->file = $params['file'];
         $this->handler = $params['handler'];
         $this->start = $params['start'];
@@ -47,9 +53,10 @@ class ResourceProcessorConsumer implements ConsumerInterface
     private function process()
     {
         $parser = CSVIterator::createFromFilePath($this->file)
-          ->setDelimiter(';')
-          ->setHasHeader(true)
-          ->setStartByte((int)$this->start);
+            ->setDelimiter(';')
+            ->setHasHeader(true)
+            ->setStartByte((int)$this->start);
+
 
         $parser = new \LimitIterator($parser, 0, $this->limit);
 
@@ -67,27 +74,32 @@ class ResourceProcessorConsumer implements ConsumerInterface
             $result[] = $item;
 
             $handler = new $this->handler($this->entityManager);
-            $handler->process($item);
+            $handler->process($this->season, $this->level, $this->province, $item);
         }
 
         if ($parser->lastLinePos() < $total) {
             $this->queueworker->queue(
-              $this->file,
-              $this->handler,
-              $parser->lastLinePos()
+                $this->season,
+                $this->level,
+                $this->province,
+                $this->file,
+                $this->handler,
+                $parser->lastLinePos()
             );
         } else {
             // Is finished.
             // Set queued = 0, modified to FALSE.
             $resource = $this->entityManager->getRepository(
-              'FootbelBackendBundle:Resource'
+                'FootbelBackendBundle:Resource'
             )->findOneBy(array('csv_path' => $this->file));
 
             $resource->setModified(0);
             $resource->setQueued(null);
             $resource->setChecked(new \DateTime());
 
-            $this->resource->setHash($md5New);
+            $md5New = md5_file($resource->getUrl());
+
+            $resource->setHash($md5New);
 
             $this->entityManager->persist($resource);
             $this->entityManager->flush();

@@ -23,20 +23,24 @@ class ResourceQueueWorkerRabbitMQ implements ResourceQueueWorkerInterface
     }
 
     /**
+     * @param int $season
+     * @param int $level
+     * @param int $province
      * @param string $filepath
      * @param string $handler
      * @param int    $start
      * @param int    $limit
-     *
-     * @return mixed
      */
-    public function queue($filepath, $handler, $start = 0, $limit = 50)
+    public function queue($season, $level, $province, $filepath, $handler, $start = 0, $limit = 50)
     {
         $msg = array(
-          'file' => $filepath,
-          'handler' => $handler,
-          'start' => $start,
-          'limit' => $limit,
+            'season' => $season,
+            'level' => $level,
+            'province' => $province,
+            'file' => $filepath,
+            'handler' => $handler,
+            'start' => $start,
+            'limit' => $limit,
         );
         $this->rabbitService->publish(serialize($msg));
     }

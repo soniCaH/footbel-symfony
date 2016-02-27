@@ -17,8 +17,11 @@ interface ResourceProcessorInterface
     /**
      * Process one data row.
      *
+     * @param int $seasonId
+     * @param int $levelId
+     * @param int $provindeId
      * @param array $row
      *   Row with data.
      */
-    public function process($row);
+    public function process($seasonId, $levelId, $provindeId, $row);
 }
