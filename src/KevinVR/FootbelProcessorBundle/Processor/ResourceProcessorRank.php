@@ -2,6 +2,8 @@
 
 namespace KevinVR\FootbelProcessorBundle\Processor;
 
+use KevinVR\FootbelBackendBundle\Entity\Ranking;
+
 /**
  * Class ResourceProcessorRank
  * @package KevinVR\FootbelProcessorBundle\Processor
@@ -24,13 +26,81 @@ class ResourceProcessorRank extends ResourceProcessor
      * - PTS
      * - PER
      *
+     * @param int $seasonId
+     * @param int $levelId
+     * @param int $provindeId
      * @param array $row
      *   Row with data.
      */
-    public function process($row)
+    public function process($seasonId, $levelId, $provindeId, $row)
     {
+        $seasonRepository = $this->entityManager->getRepository('FootbelBackendBundle:Season');
+        $levelRepository = $this->entityManager->getRepository('FootbelBackendBundle:Level');
+        $provinceRepository = $this->entityManager->getRepository('FootbelBackendBundle:Province');
 
-        var_dump($row);
+        $season = $seasonRepository->find($seasonId);
+        $level = $levelRepository->find($levelId);
+        $province = null;
+
+        if ($provindeId) {
+            $province = $provinceRepository->find($provindeId);
+        }
+
+        $div = $row['DIV'];
+        $pos = $row['POS'];
+        $team = $row['TEAM'];
+        $matches = $row['M'];
+        $wins = $row['W'];
+        $losses = $row['L'];
+        $draws = $row['D'];
+        $goals_pro = $row['G+'];
+        $goals_against = $row['G-'];
+        $points = $row['PTS'];
+        $period = $row['PER'];
+
+        $rankRepository = $this->entityManager->getRepository('FootbelBackendBundle:Ranking');
+        $ranking = $rankRepository->findOneBy(
+            array(
+                'season' => $season,
+                'level' => $level,
+                'province' => $province,
+                'division' => $div,
+                'period' => $period,
+                'team' => $team,
+            )
+        );
+
+        if (!$ranking) {
+            $ranking = new Ranking(
+                $season,
+                $level,
+                $province,
+                $div,
+                $pos,
+                $team,
+                $matches,
+                $wins,
+                $draws,
+                $losses,
+                $goals_pro,
+                $goals_against,
+                $points,
+                $period
+            );
+        }
+        else {
+            $ranking->setPosition($pos);
+            $ranking->setMatches($matches);
+            $ranking->setWins($wins);
+            $ranking->setDraws($draws);
+            $ranking->setLosses($losses);
+            $ranking->setGoalsPro($goals_pro);
+            $ranking->setGoalsAgainst($goals_against);
+            $ranking->setPoints($points);
+        }
+
+        $this->entityManager->persist($ranking);
+        $this->entityManager->flush();
 
     }
 }

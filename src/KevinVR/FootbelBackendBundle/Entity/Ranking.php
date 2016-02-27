@@ -130,6 +130,55 @@ class Ranking
      */
     private $period;
 
+    /**
+     * Ranking constructor.
+     * @param $season
+     * @param $level
+     * @param $province
+     * @param string $division
+     * @param int $position
+     * @param string $team
+     * @param int $matches
+     * @param int $wins
+     * @param int $draws
+     * @param int $losses
+     * @param int $goalsPro
+     * @param int $goalsAgainst
+     * @param int $points
+     * @param int $period
+     */
+    public function __construct(
+        $season,
+        $level,
+        $province,
+        $division,
+        $position,
+        $team,
+        $matches,
+        $wins,
+        $draws,
+        $losses,
+        $goalsPro,
+        $goalsAgainst,
+        $points,
+        $period
+    ) {
+        $this->season = $season;
+        $this->level = $level;
+        $this->province = $province;
+        $this->division = $division;
+        $this->position = $position;
+        $this->team = $team;
+        $this->matches = $matches;
+        $this->wins = $wins;
+        $this->draws = $draws;
+        $this->losses = $losses;
+        $this->goalsPro = $goalsPro;
+        $this->goalsAgainst = $goalsAgainst;
+        $this->points = $points;
+        $this->period = $period;
+    }
+
 
     /**
      * Get id
