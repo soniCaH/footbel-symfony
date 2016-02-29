@@ -12,4 +12,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class ResourceRepository extends EntityRepository
 {
+    public function findResourcesToProcess()
+    {
+        $dt = new \DateTime();
+
+        $criteria = new \Doctrine\Common\Collections\Criteria();
+        $criteria
+            ->where($criteria->expr()->lt('checked', $dt->sub(new \DateInterval('PT2H'))))
+            ->andWhere($criteria->expr()->isNull('queued'));
+
+        $results = $this->matching($criteria);
+
+        return $results;
+    }
 }
