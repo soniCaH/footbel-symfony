@@ -18,7 +18,7 @@ role :web,        domain                         # Your HTTP server, Apache/etc
 role :app,        domain, :primary => true       # This may be the same as your `Web` server
 
 set  :use_sudo,      false
-set  :keep_releases,  3
+set  :keep_releases,  5
 
 set :shared_files,      ["app/config/parameters.yml"]
 set :shared_children,     [app_path + "/logs", web_path + "/uploads", "vendor"]
@@ -30,3 +30,5 @@ set :update_vendors, true
 # logger.level = Logger::MAX_LEVEL
 
 set :symfony_console, "bin/console"
+
+after "deploy", "deploy:cleanup"
