@@ -2,6 +2,7 @@
 
 namespace KevinVR\FootbelProcessorBundle\Command;
 
+use KevinVR\FootbelProcessorBundle\Processor\ResourceFileProcessor;
 use PhpAmqpLib\Message\AMQPMessage;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -21,7 +22,7 @@ class ResourceProcessorAllCommand extends ContainerAwareCommand
         try {
             $queueworker = $this->getContainer()->get('rabbit_worker');
         } catch (\Exception $e) {
-            // @TODO: Logging!
+            $output->writeln('Cannot connect to the queue!');
             exit(1);
         }
 
@@ -37,7 +38,7 @@ class ResourceProcessorAllCommand extends ContainerAwareCommand
             );
             $resourceFileProcessor->process();
         }
-
+        $output->writeln('All resources processed!');
         exit(0);
     }
 }
