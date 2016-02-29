@@ -5,6 +5,11 @@
 
     <a href="{{ path('admin_homepage') }}">Back to overview</a>
 
+    <div class="right-align">
+        <a href="{{  path('process_all') }}" class="waves-effect waves-light btn teal lighten-2">Process all resources</a>
+    </div>
+
+    <div>
     <table class="striped responsive-table">
         <thead>
         <tr>
@@ -46,6 +51,7 @@
         {% endfor %}
         </tbody>
     </table>
+    </div>
 
     <ul>
         <li>
