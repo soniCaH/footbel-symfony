@@ -38,7 +38,11 @@ class ResourceProcessorAllCommand extends ContainerAwareCommand
             );
             $resourceFileProcessor->process();
         }
-        $output->writeln('All resources processed!');
+        if (count($resources) > 0) {
+            $output->writeln(count($resources).' resources processed!');
+        } else {
+            $output->writeln('No resource to process!');
+        }
         exit(0);
     }
 }
