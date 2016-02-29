@@ -37,9 +37,9 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
      * @param \KevinVR\FootbelProcessorBundle\Processor\ResourceQueueWorkerInterface $queueworker
      */
     public function __construct(
-      ResourceInterface $resource,
-      ResourceQueueWorkerInterface $queueworker,
-      EntityManager $em
+        ResourceInterface $resource,
+        ResourceQueueWorkerInterface $queueworker,
+        EntityManager $em
     ) {
         $this->resource = $resource;
         $this->queueworker = $queueworker;
@@ -51,7 +51,7 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
      */
     public function process()
     {
-//        if (!$this->isMD5HashSame()) {
+        if (!$this->isMD5HashSame()) {
             $csvFile = $this->extract();
 
             $this->resource->setCsvPath($csvFile);
@@ -69,20 +69,19 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
 
             $this->resource->setQueued(new \DateTime());
             $this->save();
-//        } else {
+        } else {
             $this->resource->setModified(0);
             $this->resource->setChecked(new \DateTime());
             $this->resource->setQueued(null);
             $this->save();
-//        }
+        }
 
     }
 
     /**
      * {@inheritDoc}
      */
-    public
-    function isMD5HashSame()
+    public function isMD5HashSame()
     {
         $md5 = $this->resource->getHash();
 
@@ -101,7 +100,7 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
      * @return string
      *   Path of the extracted CSV file.
      */
-    private function extract()
+    protected function extract()
     {
         if ($this->download()) {
             // Use the ZipArchive library (based on zlib).
@@ -111,10 +110,7 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
                 if (true === $zip->extractTo(sys_get_temp_dir())) {
                     $zip->close();
 
-                    $csvFile = sys_get_temp_dir().DIRECTORY_SEPARATOR.basename(
-                        $this->archivePath,
-                        '.zip'
-                      ).'.csv';
+                    $csvFile = sys_get_temp_dir().DIRECTORY_SEPARATOR.basename($this->archivePath, '.zip').'.csv';
 
                     return $csvFile;
                 } else {
@@ -131,7 +127,7 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
      *
      * @return bool
      */
-    private function download()
+    protected function download()
     {
         $url = $this->resource->getUrl();
         $filename = basename($url);
@@ -163,6 +159,9 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
         return false;
     }
 
+    /**
+     * Persist the current resource.
+     */
     protected function save()
     {
         $this->em->persist($this->resource);

@@ -5,6 +5,7 @@ namespace KevinVR\FootbelProcessorBundle\Processor;
 use Doctrine\ORM\EntityManager;
 use OldSound\RabbitMqBundle\RabbitMq\ConsumerInterface;
 use PhpAmqpLib\Message\AMQPMessage;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
  * Class ResourceProcessorMatch
@@ -23,6 +24,11 @@ class ResourceProcessorConsumer implements ConsumerInterface
     private $queueworker;
     private $entityManager;
 
+    /**
+     * ResourceProcessorConsumer constructor.
+     * @param \KevinVR\FootbelProcessorBundle\Processor\ResourceQueueWorkerInterface $rabbitWorker
+     * @param \Doctrine\ORM\EntityManager $entityManager
+     */
     public function __construct(
         ResourceQueueWorkerInterface $rabbitWorker,
         EntityManager $entityManager
@@ -47,7 +53,7 @@ class ResourceProcessorConsumer implements ConsumerInterface
         $this->start = $params['start'];
         $this->limit = $params['limit'];
 
-        $this->process();
+        return $this->process();
     }
 
     private function process()
@@ -65,16 +71,22 @@ class ResourceProcessorConsumer implements ConsumerInterface
         $header = $parser->getHeader();
 
         foreach ($parser as $row) {
-            $item = array();
-            foreach ($row as $delta => $cell) {
-                $key = isset($header[$delta]) ? $header[$delta] : $delta;
-                $item[$key] = $cell;
+            try {
+                $item = array();
+                foreach ($row as $delta => $cell) {
+                    $key = isset($header[$delta]) ? $header[$delta] : $delta;
+                    $item[$key] = $cell;
+                }
+
+                $result[] = $item;
+
+                $handler = new $this->handler($this->entityManager);
+                $handler->process($this->season, $this->level, $this->province, $item);
+            } catch (Exception $e) {
+                var_dump($e->getTraceAsString());
+
+                return false;
             }
-
-            $result[] = $item;
-
-            $handler = new $this->handler($this->entityManager);
-            $handler->process($this->season, $this->level, $this->province, $item);
         }
 
         if ($parser->lastLinePos() < $total) {
@@ -86,6 +98,8 @@ class ResourceProcessorConsumer implements ConsumerInterface
                 $this->handler,
                 $parser->lastLinePos()
             );
+
+            var_dump('Requeued '.$this->file.' at '.$this->start);
         } else {
             // Is finished.
             // Set queued = 0, modified to FALSE.
@@ -103,6 +117,10 @@ class ResourceProcessorConsumer implements ConsumerInterface
 
             $this->entityManager->persist($resource);
             $this->entityManager->flush();
+
+            var_dump($this->file.' is done processing.');
         }
+
+        return true;
     }
 }

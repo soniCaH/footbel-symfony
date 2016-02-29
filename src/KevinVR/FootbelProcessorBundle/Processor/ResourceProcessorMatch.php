@@ -47,57 +47,63 @@ class ResourceProcessorMatch extends ResourceProcessor
             $province = $provinceRepository->find($provindeId);
         }
 
-        $div = $row['DIV'];
-        $md = $row['MD'];
-        $regnumberhome = $row['REGNUMBERHOME'];
-        $regnumberaway = $row['REGNUMBERAWAY'];
-        $date = $row['DATE'];
-        $hour = $row['HOUR'];
-        $home = $row['HOME'];
-        $away = $row['AWAY'];
-        $rh = $row['RH'];
-        $ra = $row['RA'];
-        $status = $row['STATUS'];
+        try {
+            $div = $row['DIV'];
+            $md = $row['MD'];
+            $regnumberhome = $row['REGNUMBERHOME'];
+            $regnumberaway = $row['REGNUMBERAWAY'];
+            $date = $row['DATE'];
+            $hour = $row['HOUR'];
+            $home = $row['HOME'];
+            $away = $row['AWAY'];
+            $rh = $row['RH'];
+            $ra = $row['RA'];
+            $status = $row['STATUS'];
 
-        $matchRepository = $this->entityManager->getRepository('FootbelBackendBundle:Game');
-        $match = $matchRepository->findOneBy(
-            array(
-                'season' => $season,
-                'level' => $level,
-                'province' => $province,
-                'division' => $div,
-                'matchday' => $md,
-                'homeRegnr' => $regnumberhome,
-                'awayRegnr' => $regnumberaway,
-            )
-        );
-
-        $datetime = \DateTime::createFromFormat('d/m/Y H:i', $date.' '.$hour);
-
-        if (!$match) {
-            $match = new Game(
-                $season,
-                $level,
-                $province,
-                $div,
-                $md,
-                $datetime,
-                $home,
-                $away,
-                $regnumberhome,
-                $regnumberaway,
-                $rh,
-                $ra,
-                $status
+            $matchRepository = $this->entityManager->getRepository('FootbelBackendBundle:Game');
+            $match = $matchRepository->findOneBy(
+                array(
+                    'season' => $season,
+                    'level' => $level,
+                    'province' => $province,
+                    'division' => $div,
+                    'matchday' => $md,
+                    'homeRegnr' => $regnumberhome,
+                    'awayRegnr' => $regnumberaway,
+                )
             );
-        } else {
-            $match->setScoreHome($rh);
-            $match->setScoreAway($ra);
-            $match->setStatus($status);
-            $match->setDatetime($datetime);
-        }
 
-        $this->entityManager->persist($match);
-        $this->entityManager->flush();
+            $datetime = \DateTime::createFromFormat('d/m/Y H:i', $date.' '.$hour);
+
+            if (!$match) {
+                $match = new Game(
+                    $season,
+                    $level,
+                    $province,
+                    $div,
+                    $md,
+                    $datetime,
+                    $home,
+                    $away,
+                    $regnumberhome,
+                    $regnumberaway,
+                    $rh,
+                    $ra,
+                    $status
+                );
+            } else {
+                $match->setScoreHome($rh);
+                $match->setScoreAway($ra);
+                $match->setStatus($status);
+                $match->setDatetime($datetime);
+            }
+
+            $this->entityManager->persist($match);
+            $this->entityManager->flush();
+        }
+        catch (\Symfony\Component\Debug\Exception\ContextErrorException $contextException)
+        {
+            // NEXT.
+        }
     }
 }
