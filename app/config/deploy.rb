@@ -23,8 +23,8 @@ set  :keep_releases,  5
 set :shared_files,      ["app/config/parameters.yml"]
 set :shared_children,     [app_path + "/logs", web_path + "/uploads", "vendor"]
 
-set :use_composer, true
-set :update_vendors, true
+# set :use_composer, true
+# set :update_vendors, true
 
 # Be more verbose by uncommenting the following line
 # logger.level = Logger::MAX_LEVEL
