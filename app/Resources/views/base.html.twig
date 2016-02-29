@@ -3,11 +3,50 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+
+        {% block stylesheets %}
+            {% stylesheets filter="sass"
+            '@FootbelBackendBundle/Resources/public/materialize-src/sass/materialize.scss'
+            '@FootbelBackendBundle/Resources/public/sass/footbel.scss'
+            %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+
+        <div class="container">
+            <div class="row">
+                {% for flash_message in app.session.flashbag.get('notice') %}
+                    <div class="flash-notice card-panel teal lighten-2 white-text">
+                        {{ flash_message }}
+                    </div>
+                {% endfor %}
+                {% for flash_message in app.session.flashbag.get('error') %}
+                    <div class="flash-error card-panel red lighten-2 white-text">
+                        {{ flash_message }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="row">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+        {% block javascripts %}
+            {% javascripts
+            '@FootbelBackendBundle/Resources/public/jquery-2.2.0.min.js'
+            '@FootbelBackendBundle/Resources/public/materialize-src/js/*'
+            %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $('select').material_select();
+                });
+            </script>
+            {% endjavascripts %}
+        {% endblock %}
     </body>
 </html>

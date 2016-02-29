@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1>Overviews</h1>
+
+{% if (overviews is not empty) %}
+    <ul>
+    {% for overview, label in overviews %}
+        <li><a href="{{ path(overview) }}">{{ label }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No overviews available.</p>
+{% endif %}
+
+{% endblock %}

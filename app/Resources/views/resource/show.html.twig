@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Resource</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ resource.id }}</td>
+            </tr>
+            <tr>
+                <th>Url</th>
+                <td>{{ resource.url }}</td>
+            </tr>
+            <tr>
+                <th>Checked</th>
+                <td>{% if resource.checked %}{{ resource.checked|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Queued</th>
+                <td>{% if resource.queued %}{{ resource.queued|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Modified</th>
+                <td>{% if resource.modified %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Hash</th>
+                <td>{{ resource.hash }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('resource_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('resource_edit', { 'id': resource.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

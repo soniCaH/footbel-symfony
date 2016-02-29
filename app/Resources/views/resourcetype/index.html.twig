@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ResourceType list</h1>
+
+    <a href="{{ path('admin_homepage') }}">Back to overview</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Shorthand</th>
+                <th>Label</th>
+                <th>Handler</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for resourceType in resourceTypes %}
+            <tr>
+                <td><a href="{{ path('resourcetype_show', { 'id': resourceType.id }) }}">{{ resourceType.id }}</a></td>
+                <td>{{ resourceType.shorthand }}</td>
+                <td>{{ resourceType.label }}</td>
+                <td>{{ resourceType.handler }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('resourcetype_show', { 'id': resourceType.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('resourcetype_edit', { 'id': resourceType.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('resourcetype_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

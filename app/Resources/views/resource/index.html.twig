@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Resource list</h1>
+
+    <a href="{{ path('admin_homepage') }}">Back to overview</a>
+
+    <table class="striped responsive-table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Url</th>
+            <th>Checked</th>
+            <th>Queued</th>
+            <th>Modified</th>
+            <th>Hash</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for resource in resources %}
+            <tr>
+                <td><a href="{{ path('resource_show', { 'id': resource.id }) }}">{{ resource.id }}</a></td>
+                <td class="break">{{ resource.url }}</td>
+                <td>{% if resource.checked %}{{ resource.checked|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if resource.queued %}{{ resource.queued|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if resource.modified %}Yes{% else %}No{% endif %}</td>
+                <td class="break">{{ resource.hash }}</td>
+                <td>
+                    <ul>
+                        <li class="nobreak">
+                            <i class="mdi-action-info-outline"></i> <a
+                                    href="{{ path('resource_show', { 'id': resource.id }) }}">show</a>
+                        </li>
+                        <li class="nobreak">
+                            <i class="mdi-editor-mode-edit"></i> <a
+                                    href="{{ path('resource_edit', { 'id': resource.id }) }}">edit</a>
+                        </li>
+                        <li class="nobreak">
+                            <i class="mdi-av-play-arrow"></i> <a
+                                    href="{{ path('process_go', { 'id': resource.id }) }}">process</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('resource_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

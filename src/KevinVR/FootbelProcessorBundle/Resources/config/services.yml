@@ -1,0 +1,4 @@
+services:
+#    footbel_processor.example:
+#        class: KevinVR\FootbelProcessorBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

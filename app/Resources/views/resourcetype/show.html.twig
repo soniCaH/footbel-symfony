@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>ResourceType</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ resourceType.id }}</td>
+            </tr>
+            <tr>
+                <th>Shorthand</th>
+                <td>{{ resourceType.shorthand }}</td>
+            </tr>
+            <tr>
+                <th>Label</th>
+                <td>{{ resourceType.label }}</td>
+            </tr>
+            <tr>
+                <th>Handler</th>
+                <td>{{ resourceType.handler }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('resourcetype_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('resourcetype_edit', { 'id': resourceType.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
