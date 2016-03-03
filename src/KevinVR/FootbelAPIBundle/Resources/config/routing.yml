@@ -1,0 +1,4 @@
+rankings:
+  type: rest
+  resource:     "@FootbelAPIBundle/Controller/RankingController.php"
+  name_prefix:  api_rankings_

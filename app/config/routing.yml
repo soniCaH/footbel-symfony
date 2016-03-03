@@ -1,7 +1,7 @@
 footbel_api:
-    resource: "@FootbelAPIBundle/Controller/"
-    type:     annotation
-    prefix:   /
+    resource: "@FootbelAPIBundle/Resources/config/routing.yml"
+    type:     rest
+    prefix:   /api
 
 footbel_processor:
     resource: "@FootbelProcessorBundle/Controller/"
