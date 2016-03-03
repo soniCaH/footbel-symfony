@@ -1,4 +1,4 @@
 rankings:
-  type: rest
+  type: annotation
   resource:     "@FootbelAPIBundle/Controller/RankingController.php"
   name_prefix:  api_rankings_
