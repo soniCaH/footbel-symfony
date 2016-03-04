@@ -62,7 +62,7 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
             $this->queueworker->queue(
                 $this->resource->getSeason()->getId(),
                 $this->resource->getLevel()->getId(),
-                $this->resource->getProvince()->getId(),
+                ($this->resource->getProvince()) ? $this->resource->getProvince()->getId() : null,
                 $this->resource->getCsvPath(),
                 $this->resource->getType()->getHandler()
             );
