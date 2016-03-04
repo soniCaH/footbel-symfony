@@ -83,7 +83,7 @@ class RankingController extends FOSRestController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/ranking/short/national/{shorthand_season}/{division}/{teamname}/{number}/{period}", name="ranking_national", defaults={"period" = 0, "number" = 5})
+     * @Route("/ranking/short/national/{shorthand_season}/{division}/{teamname}/{number}/{period}", name="ranking_national_short", defaults={"period" = 0, "number" = 5})
      * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
      * @Method("GET")
      * @Rest\View
@@ -119,7 +119,7 @@ class RankingController extends FOSRestController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/ranking/short/{shorthand_province}/{shorthand_season}/{division}/{teamname}/{number}/{period}", name="ranking_province", defaults={"period" = 0, "number" = 5})
+     * @Route("/ranking/short/{shorthand_province}/{shorthand_season}/{division}/{teamname}/{number}/{period}", name="ranking_province_short", defaults={"period" = 0, "number" = 5})
      * @ParamConverter("province", options={"mapping": {"shorthand_province": "shorthand"}})
      * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
      * @Method("GET")
