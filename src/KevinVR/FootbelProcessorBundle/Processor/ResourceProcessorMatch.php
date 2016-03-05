@@ -57,8 +57,8 @@ class ResourceProcessorMatch extends ResourceProcessor
             $hour = $row['HOUR'];
             $home = $row['HOME'];
             $away = $row['AWAY'];
-            $rh = $row['RH'];
-            $ra = $row['RA'];
+            $rh = ($row['RH'] !== "") ? intval($row['RH']) : null;
+            $ra = ($row['RA'] !== "") ? intval($row['RA']) : null;
             $status = $row['STATUS'];
 
             $matchRepository = $this->entityManager->getRepository('FootbelBackendBundle:Game');
