@@ -30,7 +30,7 @@
         "symfony/assetic-bundle": "^2.7",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "php-amqplib/rabbitmq-bundle": "^1.8",
-        "friendsofsymfony/rest-bundle": "^1.7",
+        "friendsofsymfony/rest-bundle": "^2.0@dev",
         "jms/serializer-bundle": "^1.1"
     },
     "require-dev": {

@@ -146,15 +146,18 @@ assetic:
         #yui_css:
         #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
 fos_rest:
+    versioning: true
     view:
         view_response_listener: 'force'
         formats:
             json: true
+        empty_content: 204
+    param_fetcher_listener: true
+    body_listener: true
     format_listener:
         rules:
             - { path: ^/api, priorities: [ json ], fallback_format: json, prefer_extension: true }
             - { path: ^/, priorities: ['html', '*/*'], fallback_format: html, prefer_extension: true }
-
 
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
