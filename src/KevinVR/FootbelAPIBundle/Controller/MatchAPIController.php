@@ -55,11 +55,13 @@ class MatchAPIController extends FOSRestController
      * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
      * @Rest\View
      */
-    public function getMatchesPerRegnrPrevAction(Season $season, $regnumber)
+    public function getMatchesPerRegnrPrevAction(Season $season, $regnumber, Request $request)
     {
         $matches = $this->_getMatchesBySeasonAndRegnr($season, $regnumber, 'prev');
 
         $output = $this->_getDetails($matches);
+
+        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_per_regnr_prev');
 
         return $output;
     }
@@ -78,11 +80,18 @@ class MatchAPIController extends FOSRestController
      * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
      * @Rest\View
      */
-    public function getMatchesPerRegnrDivisionNextAction(Season $season, $regnumber, $division, $number = 1)
-    {
+    public function getMatchesPerRegnrDivisionNextAction(
+        Season $season,
+        $regnumber,
+        $division,
+        $number,
+        Request $request
+    ) {
         $matches = $this->_getMatchesByRegnrAndDivision($season, $regnumber, $division, 'next', $number);
 
         $output = $this->_getDetails($matches);
+
+        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_per_regnr_division_next');
 
         return $output;
     }
@@ -101,11 +110,18 @@ class MatchAPIController extends FOSRestController
      * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
      * @Rest\View
      */
-    public function getMatchesPerRegnrDivisionPrevAction(Season $season, $regnumber, $division, $number = 1)
-    {
+    public function getMatchesPerRegnrDivisionPrevAction(
+        Season $season,
+        $regnumber,
+        $division,
+        $number,
+        Request $request
+    ) {
         $matches = $this->_getMatchesByRegnrAndDivision($season, $regnumber, $division, 'prev', $number);
 
         $output = $this->_getDetails($matches);
+
+        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_per_regnr_division_prev');
 
         return $output;
     }
@@ -123,7 +139,7 @@ class MatchAPIController extends FOSRestController
      * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
      * @Rest\View
      */
-    public function getMatchesNationalBySeasonAndDivisionAction(Season $season, $division, $matchday)
+    public function getMatchesNationalBySeasonAndDivisionAction(Season $season, $division, $matchday, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -133,6 +149,8 @@ class MatchAPIController extends FOSRestController
         $matches = $this->_getMatchesBySeasonAndDivisionPerLevel($level, $season, $division, null, $matchday);
 
         $output = $this->_getDetails($matches);
+
+        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_national_by_season_and_division');
 
         return $output;
     }
@@ -156,7 +174,8 @@ class MatchAPIController extends FOSRestController
         Province $province,
         Season $season,
         $division,
-        $matchday
+        $matchday,
+        Request $request
     ) {
         $em = $this->getDoctrine()->getManager();
 
@@ -166,6 +185,8 @@ class MatchAPIController extends FOSRestController
         $matches = $this->_getMatchesBySeasonAndDivisionPerLevel($level, $season, $division, $province, $matchday);
 
         $output = $this->_getDetails($matches);
+
+        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_per_province_by_season_and_division');
 
         return $output;
     }
