@@ -2,3 +2,8 @@ rankings:
   type: rest
   resource:     "@FootbelAPIBundle/Controller/RankingAPIController.php"
   name_prefix:  api_rankings_
+
+matches:
+  type: rest
+  resource:     "@FootbelAPIBundle/Controller/MatchAPIController.php"
+  name_prefix:  api_matches_
