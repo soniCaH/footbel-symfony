@@ -6,3 +6,7 @@ match_api:
   type: rest
   resource:     "@FootbelAPIBundle/Controller/MatchAPIController.php"
   name_prefix:  api_matches_
+logo_api:
+  type: annotation
+  resource:     "@FootbelAPIBundle/Controller/LogoController.php"
+  name_prefix:  api_logo_
