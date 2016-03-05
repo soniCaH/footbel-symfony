@@ -19,6 +19,10 @@ security:
             security: false
 
         main:
+            guard:
+                authenticators:
+                    - app.token_authenticator
+
             pattern: ^/
             form_login:
                 provider: fos_userbundle
@@ -42,3 +46,4 @@ security:
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/process, role: ROLE_ADMIN }
         - { path: ^/process/, role: ROLE_ADMIN }
+        - { path: ^/api/, role: ROLE_USER }
