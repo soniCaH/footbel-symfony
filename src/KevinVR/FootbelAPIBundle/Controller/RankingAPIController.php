@@ -16,7 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
  * Class RankingController
  * @package KevinVR\FootbelAPIBundle\Controller
  */
-class RankingController extends FOSRestController
+class RankingAPIController extends FOSRestController
 {
     /**
      * Retrieve national rankings with optional period.
