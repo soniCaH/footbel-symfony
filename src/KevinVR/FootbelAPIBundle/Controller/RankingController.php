@@ -12,6 +12,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
+/**
+ * Class RankingController
+ * @package KevinVR\FootbelAPIBundle\Controller
+ */
 class RankingController extends FOSRestController
 {
     /**
@@ -51,7 +55,7 @@ class RankingController extends FOSRestController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @@Rest\Get("/ranking/{shorthand_province}/{shorthand_season}/{division}/{period}", name="ranking_province", defaults={"period" = 0})
+     * @Rest\Get("/ranking/{shorthand_province}/{shorthand_season}/{division}/{period}", name="ranking_province", defaults={"period" = 0})
      * @ParamConverter("province", options={"mapping": {"shorthand_province": "shorthand"}})
      * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
      * @Rest\View
@@ -81,7 +85,7 @@ class RankingController extends FOSRestController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @@Rest\Get("/ranking/short/national/{shorthand_season}/{division}/{teamname}/{number}/{period}", name="ranking_national_short", defaults={"period" = 0, "number" = 5})
+     * @Rest\Get("/ranking/short/national/{shorthand_season}/{division}/{teamname}/{number}/{period}", name="ranking_national_short", defaults={"period" = 0, "number" = 5})
      * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
      * @Rest\View
      */
