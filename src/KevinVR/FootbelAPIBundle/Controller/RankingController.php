@@ -23,9 +23,8 @@ class RankingController extends FOSRestController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/ranking/national/{shorthand_season}/{division}/{period}", name="ranking_national", defaults={"period" = 0})
+     * @Rest\Get("/ranking/national/{shorthand_season}/{division}/{period}", name="ranking_national", defaults={"period" = 0})
      * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
-     * @Method("GET")
      * @Rest\View
      */
     public function getRankingNationalAction(Season $season, $division, $period)
@@ -52,10 +51,9 @@ class RankingController extends FOSRestController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/ranking/{shorthand_province}/{shorthand_season}/{division}/{period}", name="ranking_province", defaults={"period" = 0})
+     * @@Rest\Get("/ranking/{shorthand_province}/{shorthand_season}/{division}/{period}", name="ranking_province", defaults={"period" = 0})
      * @ParamConverter("province", options={"mapping": {"shorthand_province": "shorthand"}})
      * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
-     * @Method("GET")
      * @Rest\View
      */
     public function getRankingPerProvinceAction(Province $province, Season $season, $division, $period)
@@ -83,9 +81,8 @@ class RankingController extends FOSRestController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/ranking/short/national/{shorthand_season}/{division}/{teamname}/{number}/{period}", name="ranking_national_short", defaults={"period" = 0, "number" = 5})
+     * @@Rest\Get("/ranking/short/national/{shorthand_season}/{division}/{teamname}/{number}/{period}", name="ranking_national_short", defaults={"period" = 0, "number" = 5})
      * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
-     * @Method("GET")
      * @Rest\View
      */
     public function getRankingNationalShortAction(
@@ -119,10 +116,9 @@ class RankingController extends FOSRestController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/ranking/short/{shorthand_province}/{shorthand_season}/{division}/{teamname}/{number}/{period}", name="ranking_province_short", defaults={"period" = 0, "number" = 5})
+     * @Rest\Get("/ranking/short/{shorthand_province}/{shorthand_season}/{division}/{teamname}/{number}/{period}", name="ranking_province_short", defaults={"period" = 0, "number" = 5})
      * @ParamConverter("province", options={"mapping": {"shorthand_province": "shorthand"}})
      * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
-     * @Method("GET")
      * @Rest\View
      */
     public function getRankingPerProvinceShortAction(
