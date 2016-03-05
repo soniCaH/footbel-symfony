@@ -19,6 +19,9 @@ services:
             class: KevinVR\FootbelAPIBundle\Security\TokenAuthenticator
             arguments: ['@doctrine.orm.entity_manager']
 
+    google_analytics:
+        class: KevinVR\FootbelAPIBundle\Service\GoogleAnalyticsService
+        arguments: ['@service_container']
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]

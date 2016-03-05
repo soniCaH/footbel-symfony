@@ -12,6 +12,7 @@ use KevinVR\FootbelBackendBundle\Entity\Season;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class MatchAPIController
@@ -31,11 +32,13 @@ class MatchAPIController extends FOSRestController
      * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
      * @Rest\View
      */
-    public function getMatchesPerRegnrNextAction(Season $season, $regnumber)
+    public function getMatchesPerRegnrNextAction(Season $season, $regnumber, Request $request)
     {
         $matches = $this->_getMatchesBySeasonAndRegnr($season, $regnumber);
 
         $output = $this->_getDetails($matches);
+
+        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_per_regnr_next');
 
         return $output;
     }
