@@ -325,6 +325,18 @@ class Game
     }
 
     /**
+     * Get datetime in a formatted way
+     *
+     * @param string $format
+     *
+     * @return string
+     */
+    public function getDatetimeFormatted($format)
+    {
+        return $this->datetime->format($format);
+    }
+
+    /**
      * Set homeName
      *
      * @param string $homeName
