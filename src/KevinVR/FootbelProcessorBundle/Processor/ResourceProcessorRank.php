@@ -46,17 +46,17 @@ class ResourceProcessorRank extends ResourceProcessor
             $province = $provinceRepository->find($provindeId);
         }
 
-        $div = utf8_encode($row['DIV']);
-        $pos = utf8_encode($row['POS']);
-        $team = utf8_encode($row['TEAM']);
-        $matches = utf8_encode($row['M']);
-        $wins = utf8_encode($row['W']);
-        $losses = utf8_encode($row['L']);
-        $draws = utf8_encode($row['D']);
-        $goals_pro = utf8_encode($row['G+']);
-        $goals_against = utf8_encode($row['G-']);
-        $points = utf8_encode($row['PTS']);
-        $period = utf8_encode($row['PER']);
+        $div = $row['DIV'];
+        $pos = $row['POS'];
+        $team = $row['TEAM'];
+        $matches = $row['M'];
+        $wins = $row['W'];
+        $losses = $row['L'];
+        $draws = $row['D'];
+        $goals_pro = $row['G+'];
+        $goals_against = $row['G-'];
+        $points = $row['PTS'];
+        $period = $row['PER'];
 
         $rankRepository = $this->entityManager->getRepository('FootbelBackendBundle:Ranking');
         $ranking = $rankRepository->findOneBy(
