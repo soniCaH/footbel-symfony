@@ -38,11 +38,11 @@ class RankingAPIController extends FOSRestController
         // Retrieve the ranking based on shorthand.
         $level = $em->getRepository('FootbelBackendBundle:Level')->findOneBy(array('shorthand' => 'nat'));
 
-        $ranks = $this->_getRankingPerLevel($level, $season, $division, null, $period);
+        $rankings = $this->_getRankingPerLevel($level, $season, $division, null, $period);
 
-        $rankings = $this->_getDetails($ranks);
+        $output = $this->_getDetails($rankings);
 
-        return $rankings;
+        return $output;
     }
 
     /**
@@ -172,7 +172,8 @@ class RankingAPIController extends FOSRestController
                 'province' => $province,
                 'division' => $division,
                 'period' => $period,
-            )
+            ),
+            array('position' => 'ASC')
         );
 
         return $rankings;
@@ -188,18 +189,6 @@ class RankingAPIController extends FOSRestController
     private function _getDetails($rankings)
     {
         $rankOutput = array();
-
-        usort(
-            $rankings,
-            function ($a, $b) {
-                if ($a->getPosition() == $b->getPosition()) {
-                    return 0;
-                }
-
-                return ($a->getPosition() < $b->getPosition()) ? -1 : 1;
-
-            }
-        );
 
         foreach ($rankings as $ranking) {
             $rankOutput[] = array(
