@@ -75,7 +75,7 @@ class ResourceProcessorConsumer implements ConsumerInterface
                 $item = array();
                 foreach ($row as $delta => $cell) {
                     $key = isset($header[$delta]) ? $header[$delta] : $delta;
-                    $item[$key] = $cell;
+                    $item[$key] = mb_convert_encoding(trim($cell), "UTF-8");
                 }
 
                 $result[] = $item;
