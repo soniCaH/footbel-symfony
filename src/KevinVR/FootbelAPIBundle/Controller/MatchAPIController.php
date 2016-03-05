@@ -33,7 +33,16 @@ class MatchAPIController extends FOSRestController
      */
     public function getMatchesNationalBySeasonAndDivisionAction(Season $season, $division, $matchday)
     {
+        $em = $this->getDoctrine()->getManager();
 
+        // Retrieve the ranking based on shorthand.
+        $level = $em->getRepository('FootbelBackendBundle:Level')->findOneBy(array('shorthand' => 'nat'));
+
+        $matches = $this->_getMatchesBySeasonAndDivisionPerLevel($level, $season, $division, null, $matchday);
+
+        $output = $this->_getDetails($matches);
+
+        return $output;
     }
 
     /**
@@ -57,6 +66,16 @@ class MatchAPIController extends FOSRestController
         $division,
         $matchday
     ) {
+        $em = $this->getDoctrine()->getManager();
+
+        // Retrieve the ranking based on shorthand.
+        $level = $em->getRepository('FootbelBackendBundle:Level')->findOneBy(array('shorthand' => 'prov'));
+
+        $matches = $this->_getMatchesBySeasonAndDivisionPerLevel($level, $season, $division, $province, $matchday);
+
+        $output = $this->_getDetails($matches);
+
+        return $output;
     }
 
     /**
