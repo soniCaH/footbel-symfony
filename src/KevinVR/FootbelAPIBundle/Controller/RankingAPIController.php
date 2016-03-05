@@ -55,7 +55,7 @@ class RankingAPIController extends FOSRestController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @Rest\Get("/ranking/{shorthand_province}/{shorthand_season}/{division}/{period}", defaults={"period" = 0})
+     * @Rest\Get("/ranking/prov/{shorthand_province}/{shorthand_season}/{division}/{period}", defaults={"period" = 0})
      * @ParamConverter("province", options={"mapping": {"shorthand_province": "shorthand"}})
      * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
      * @Rest\View
@@ -120,7 +120,7 @@ class RankingAPIController extends FOSRestController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @Rest\Get("/ranking/short/{shorthand_province}/{shorthand_season}/{division}/{teamname}/{number}/{period}", defaults={"period" = 0, "number" = 5})
+     * @Rest\Get("/ranking/short/prov/{shorthand_province}/{shorthand_season}/{division}/{teamname}/{number}/{period}", defaults={"period" = 0, "number" = 5})
      * @ParamConverter("province", options={"mapping": {"shorthand_province": "shorthand"}})
      * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
      * @Rest\View
