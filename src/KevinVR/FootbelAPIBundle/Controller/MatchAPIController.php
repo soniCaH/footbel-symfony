@@ -2,6 +2,7 @@
 
 namespace KevinVR\FootbelAPIBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\FOSRestController;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -19,83 +20,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class MatchAPIController extends FOSRestController
 {
     /**
-     * Retrieve matches for a specific (national) division, with optional matchday.
-     *
-     * @param \KevinVR\FootbelBackendBundle\Entity\Season $season
-     * @param string $division
-     * @param int $matchday
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @Rest\Get("/matches/national/{shorthand_season}/{division}/{matchday}", defaults={"matchday" = 0})
-     * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
-     * @Rest\View
-     */
-    public function getMatchesNationalBySeasonAndDivisionAction(Season $season, $division, $matchday)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        // Retrieve the ranking based on shorthand.
-        $level = $em->getRepository('FootbelBackendBundle:Level')->findOneBy(array('shorthand' => 'nat'));
-
-        $matches = $this->_getMatchesBySeasonAndDivisionPerLevel($level, $season, $division, null, $matchday);
-
-        $output = $this->_getDetails($matches);
-
-        return $output;
-    }
-
-    /**
-     * Retrieve matches for a specific (province) division, with optional matchday.
-     *
-     * @param \KevinVR\FootbelBackendBundle\Entity\Province $province
-     * @param \KevinVR\FootbelBackendBundle\Entity\Season $season
-     * @param string $division
-     * @param int $matchday
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @Rest\Get("/matches/{shorthand_province}/{shorthand_season}/{division}/{matchday}", defaults={"matchday" = 0})
-     * @ParamConverter("province", options={"mapping": {"shorthand_province": "shorthand"}})
-     * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
-     * @Rest\View
-     */
-    public function getMatchesPerProvinceBySeasonAndDivisionAction(
-        Province $province,
-        Season $season,
-        $division,
-        $matchday
-    ) {
-        $em = $this->getDoctrine()->getManager();
-
-        // Retrieve the ranking based on shorthand.
-        $level = $em->getRepository('FootbelBackendBundle:Level')->findOneBy(array('shorthand' => 'prov'));
-
-        $matches = $this->_getMatchesBySeasonAndDivisionPerLevel($level, $season, $division, $province, $matchday);
-
-        $output = $this->_getDetails($matches);
-
-        return $output;
-    }
-
-    /**
-     * Retrieve next matches for each team (1 per team) of a specified reg number.
-     *
-     * @param \KevinVR\FootbelBackendBundle\Entity\Season $season
-     * @param string $regnumber
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @Rest\Get("/matches/next/{shorthand_season}/{regnumber}")
-     * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
-     * @Rest\View
-     */
-    public function getMatchesPerRegnrNextAction($season, $regnumber)
-    {
-
-    }
-
-    /**
      * Retrieve previous matches for each team (1 per team) of a specified reg number.
      *
      * @param \KevinVR\FootbelBackendBundle\Entity\Season $season
@@ -107,9 +31,104 @@ class MatchAPIController extends FOSRestController
      * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
      * @Rest\View
      */
-    public function matchesPerRegnrPrevAction($season, $regnumber)
+    public function matchesPerRegnrPrevAction(Season $season, $regnumber)
     {
+        $matches = $this->_getMatchesSeasonAndRegnr($season, $regnumber, 'prev');
 
+        $output = $this->_getDetails($matches);
+
+        return $output;
+    }
+
+    private function _getMatchesSeasonAndRegnr(Season $season, $regnumber, $direction = 'next')
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        switch ($direction) {
+            case 'prev':
+                $time_where = 'g.datetime < :time';
+                $order = 'DESC';
+                break;
+            case 'next':
+            default:
+                $time_where = 'g.datetime >= :time';
+                $order = 'ASC';
+                break;
+        }
+
+        $divisions = $this->_getDivisionsPerSeason($em, $season, $regnumber);
+
+        if (empty($divisions)) {
+            return array();
+        }
+
+        foreach ($divisions as $division) {
+            $matches_query = $em->getRepository('FootbelBackendBundle:Game')
+                ->createQueryBuilder('g')
+                ->where('g.division = :division')
+                ->andWhere('g.homeRegnr = :home_regnr OR g.awayRegnr = :away_regnr')
+                ->andWhere($time_where)
+                ->setParameter('division', $division)
+                ->setParameter('home_regnr', $regnumber)
+                ->setParameter('away_regnr', $regnumber)
+                ->setParameter('time', new \DateTime())
+                ->orderBy('g.datetime', $order)
+                ->getQuery();
+
+            $result = $matches_query->setMaxResults(1)->getOneOrNullResult();
+            if ($result) {
+                $matches[] = $result;
+            }
+        }
+
+        return $matches;
+    }
+
+    private function _getDivisionsPerSeason(EntityManager $em, Season $season, $regnumber)
+    {
+        $division = $em->getRepository('FootbelBackendBundle:Game')
+            ->createQueryBuilder('g')
+            ->select('g.division')
+            ->where('g.season = :season')
+            ->andWhere('g.homeRegnr = :home_regnr OR g.awayRegnr = :away_regnr')
+            ->setParameter('season', $season)
+            ->setParameter('home_regnr', $regnumber)
+            ->setParameter('away_regnr', $regnumber)
+            ->distinct()
+            ->orderBy('g.datetime')
+            ->getQuery();
+
+        $divisions = $division->getResult();
+
+        return array_column($divisions, 'division');
+    }
+
+    private function _getDetails($matches)
+    {
+        $matchOutput = array();
+
+        foreach ($matches as $match) {
+            $matchOutput[] = array(
+                'season' => $match->getSeason()->getShorthand(),
+                'level' => $match->getLevel()->getShorthand(),
+                'province' => ($match->getProvince()) ? $match->getProvince()->getShorthand() : '',
+                'division' => $match->getDivision(),
+                'matchday' => $match->getMatchday(),
+                'datetime' => $match->getDatetime(),
+                'datetime_formatted' => $match->getDatetimeFormatted('D d/m/Y H:i'),
+                'home_name' => $match->getHomeName(),
+                'home_regnr' => $match->getHomeRegnr(),
+                'away_name' => $match->getAwayName(),
+                'away_regnr' => $match->getAwayRegnr(),
+                'score_home' => ($match->getScoreHome()) ? $match->getScoreHome() : '',
+                'score_away' => ($match->getScoreAway()) ? $match->getScoreAway() : '',
+                'status' => $match->getStatus(),
+                'logo_home' => '/logo/'.$match->getHomeRegnr(),
+                'logo_away' => '/logo/'.$match->getAwayRegnr(),
+            );
+        }
+
+        return $matchOutput;
     }
 
     /**
@@ -151,6 +170,33 @@ class MatchAPIController extends FOSRestController
 
     }
 
+    /**
+     * Retrieve matches for a specific (national) division, with optional matchday.
+     *
+     * @param \KevinVR\FootbelBackendBundle\Entity\Season $season
+     * @param string $division
+     * @param int $matchday
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Rest\Get("/matches/national/{shorthand_season}/{division}/{matchday}", defaults={"matchday" = 0})
+     * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
+     * @Rest\View
+     */
+    public function getMatchesNationalBySeasonAndDivisionAction(Season $season, $division, $matchday)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        // Retrieve the ranking based on shorthand.
+        $level = $em->getRepository('FootbelBackendBundle:Level')->findOneBy(array('shorthand' => 'nat'));
+
+        $matches = $this->_getMatchesBySeasonAndDivisionPerLevel($level, $season, $division, null, $matchday);
+
+        $output = $this->_getDetails($matches);
+
+        return $output;
+    }
+
     private function _getMatchesBySeasonAndDivisionPerLevel(
         Level $level,
         Season $season,
@@ -160,53 +206,81 @@ class MatchAPIController extends FOSRestController
     ) {
         $em = $this->getDoctrine()->getManager();
 
-        $criteria = ($matchday) ? array(
-            'season' => $season,
-            'level' => $level,
-            'province' => $province,
-            'division' => $division,
-            'matchday' => $matchday,
-        ) : array(
-            'season' => $season,
-            'level' => $level,
-            'province' => $province,
-            'division' => $division,
-        );
+        if ($matchday) {
+            $criteria = array(
+                'season' => $season,
+                'level' => $level,
+                'province' => $province,
+                'division' => $division,
+                'matchday' => $matchday,
+            );
+        } else {
+            $criteria = array(
+                'season' => $season,
+                'level' => $level,
+                'province' => $province,
+                'division' => $division,
+            );
+        }
 
-        $matches = $em->getRepository('FootbelBackendBundle:Game')->findBy(
-            $criteria,
-            array('matchday' => 'ASC', 'datetime' => 'ASC')
-        );
+
+        $matches = $em->getRepository('FootbelBackendBundle:Game')->findBy($criteria);
 
         return $matches;
 
     }
 
-    private function _getDetails($matches)
+    /**
+     * Retrieve matches for a specific (province) division, with optional matchday.
+     *
+     * @param \KevinVR\FootbelBackendBundle\Entity\Province $province
+     * @param \KevinVR\FootbelBackendBundle\Entity\Season $season
+     * @param string $division
+     * @param int $matchday
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Rest\Get("/matches/prov/{shorthand_province}/{shorthand_season}/{division}/{matchday}", defaults={"matchday" = 0})
+     * @ParamConverter("province", options={"mapping": {"shorthand_province": "shorthand"}})
+     * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
+     * @Rest\View
+     */
+    public function getMatchesPerProvinceBySeasonAndDivisionAction(
+        Province $province,
+        Season $season,
+        $division,
+        $matchday
+    ) {
+        $em = $this->getDoctrine()->getManager();
+
+        // Retrieve the ranking based on shorthand.
+        $level = $em->getRepository('FootbelBackendBundle:Level')->findOneBy(array('shorthand' => 'prov'));
+
+        $matches = $this->_getMatchesBySeasonAndDivisionPerLevel($level, $season, $division, $province, $matchday);
+
+        $output = $this->_getDetails($matches);
+
+        return $output;
+    }
+
+    /**
+     * Retrieve next matches for each team (1 per team) of a specified reg number.
+     *
+     * @param \KevinVR\FootbelBackendBundle\Entity\Season $season
+     * @param string $regnumber
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Rest\Get("/matches/next/{shorthand_season}/{regnumber}")
+     * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
+     * @Rest\View
+     */
+    public function getMatchesPerRegnrNextAction(Season $season, $regnumber)
     {
-        $matchOutput = array();
+        $matches = $this->_getMatchesSeasonAndRegnr($season, $regnumber);
 
-        foreach ($matches as $match) {
-            $matchOutput[] = array(
-                'season' => $match->getSeason()->getShorthand(),
-                'level' => $match->getLevel()->getShorthand(),
-                'province' => ($match->getProvince()) ? $match->getProvince()->getShorthand() : '',
-                'division' => $match->getDivision(),
-                'matchday' => $match->getMatchday(),
-                'datetime' => $match->getDatetime(),
-                'datetime_formatted' => $match->getDatetimeFormatted('D d/m/Y H:i'),
-                'home_name' => $match->getHomeName(),
-                'home_regnr' => $match->getHomeRegnr(),
-                'away_name' => $match->getAwayName(),
-                'away_regnr' => $match->getAwayRegnr(),
-                'score_home' => $match->getScoreHome(),
-                'score_away' => $match->getScoreAway(),
-                'status' => $match->getStatus(),
-                'logo_home' => '/logo/'.$match->getHomeRegnr(),
-                'logo_away' => '/logo/'.$match->getAwayRegnr(),
-            );
-        }
+        $output = $this->_getDetails($matches);
 
-        return $matchOutput;
+        return $output;
     }
 }
