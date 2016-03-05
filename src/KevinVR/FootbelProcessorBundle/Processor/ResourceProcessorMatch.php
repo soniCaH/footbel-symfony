@@ -49,17 +49,17 @@ class ResourceProcessorMatch extends ResourceProcessor
         }
 
         try {
-            $div = utf8_encode($row['DIV']);
-            $md = utf8_encode($row['MD']);
-            $regnumberhome = utf8_encode($row['REGNUMBERHOME']);
-            $regnumberaway = utf8_encode($row['REGNUMBERAWAY']);
-            $date = utf8_encode($row['DATE']);
-            $hour = utf8_encode($row['HOUR']);
-            $home = utf8_encode($row['HOME']);
-            $away = utf8_encode($row['AWAY']);
-            $rh = utf8_encode($row['RH']);
-            $ra = utf8_encode($row['RA']);
-            $status = utf8_encode($row['STATUS']);
+            $div = $row['DIV'];
+            $md = $row['MD'];
+            $regnumberhome = $row['REGNUMBERHOME'];
+            $regnumberaway = $row['REGNUMBERAWAY'];
+            $date = $row['DATE'];
+            $hour = $row['HOUR'];
+            $home = $row['HOME'];
+            $away = $row['AWAY'];
+            $rh = $row['RH'];
+            $ra = $row['RA'];
+            $status = $row['STATUS'];
 
             $matchRepository = $this->entityManager->getRepository('FootbelBackendBundle:Game');
             $match = $matchRepository->findOneBy(
