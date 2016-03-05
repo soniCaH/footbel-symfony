@@ -15,6 +15,10 @@ services:
         arguments:
             rabbitProducer: "@old_sound_rabbit_mq.process_resource_producer"
 
+    app.token_authenticator:
+            class: KevinVR\FootbelAPIBundle\Security\TokenAuthenticator
+            arguments: ['@doctrine.orm.entity_manager']
+
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
