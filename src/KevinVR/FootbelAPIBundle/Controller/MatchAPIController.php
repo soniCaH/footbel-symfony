@@ -25,6 +25,7 @@ class MatchAPIController extends FOSRestController
      *
      * @param \KevinVR\FootbelBackendBundle\Entity\Season $season
      * @param string $regnumber
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -48,6 +49,7 @@ class MatchAPIController extends FOSRestController
      *
      * @param \KevinVR\FootbelBackendBundle\Entity\Season $season
      * @param string $regnumber
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -73,6 +75,7 @@ class MatchAPIController extends FOSRestController
      * @param string $regnumber
      * @param string $division
      * @param int $number
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -103,6 +106,7 @@ class MatchAPIController extends FOSRestController
      * @param string $regnumber
      * @param string $division
      * @param int $number
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -132,6 +136,7 @@ class MatchAPIController extends FOSRestController
      * @param \KevinVR\FootbelBackendBundle\Entity\Season $season
      * @param string $division
      * @param int $matchday
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -162,6 +167,7 @@ class MatchAPIController extends FOSRestController
      * @param \KevinVR\FootbelBackendBundle\Entity\Season $season
      * @param string $division
      * @param int $matchday
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
