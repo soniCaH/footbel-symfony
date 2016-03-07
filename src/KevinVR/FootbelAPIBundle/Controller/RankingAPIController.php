@@ -11,6 +11,7 @@ use KevinVR\FootbelBackendBundle\Entity\Season;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class RankingController
@@ -31,7 +32,7 @@ class RankingAPIController extends FOSRestController
      * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
      * @Rest\View
      */
-    public function getRankingNationalAction(Season $season, $division, $period)
+    public function getRankingNationalAction(Season $season, $division, $period, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -41,6 +42,8 @@ class RankingAPIController extends FOSRestController
         $rankings = $this->_getRankingPerLevel($level, $season, $division, null, $period);
 
         $output = $this->_getDetails($rankings);
+
+        $this->container->get('google_analytics')->sendData($request, 'api_rankings_get_ranking_national');
 
         return $output;
     }
@@ -60,7 +63,7 @@ class RankingAPIController extends FOSRestController
      * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
      * @Rest\View
      */
-    public function getRankingPerProvinceAction(Province $province, Season $season, $division, $period)
+    public function getRankingPerProvinceAction(Province $province, Season $season, $division, $period, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -70,6 +73,8 @@ class RankingAPIController extends FOSRestController
         $ranks = $this->_getRankingPerLevel($level, $season, $division, $province, $period);
 
         $rankings = $this->_getDetails($ranks);
+
+        $this->container->get('google_analytics')->sendData($request, 'api_rankings_get_ranking_per_province');
 
         return $rankings;
     }
@@ -94,7 +99,7 @@ class RankingAPIController extends FOSRestController
         $division,
         $teamname,
         $number,
-        $period
+        $period, Request $request
     ) {
         $em = $this->getDoctrine()->getManager();
 
@@ -104,6 +109,8 @@ class RankingAPIController extends FOSRestController
         $ranks = $this->_getRankingPerLevel($level, $season, $division, null, $period);
 
         $rankings = $this->_getDetailsShort($ranks, $teamname, $number);
+
+        $this->container->get('google_analytics')->sendData($request, 'api_rankings_get_ranking_national_short');
 
         return $rankings;
     }
@@ -131,7 +138,7 @@ class RankingAPIController extends FOSRestController
         $division,
         $teamname,
         $number,
-        $period
+        $period, Request $request
     ) {
         $em = $this->getDoctrine()->getManager();
 
@@ -141,6 +148,8 @@ class RankingAPIController extends FOSRestController
         $ranks = $this->_getRankingPerLevel($level, $season, $division, $province, $period);
 
         $rankings = $this->_getDetailsShort($ranks, $teamname, $number);
+
+        $this->container->get('google_analytics')->sendData($request, 'api_rankings_get_ranking_per_province_short');
 
         return $rankings;
     }

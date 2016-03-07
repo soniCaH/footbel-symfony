@@ -193,5 +193,3 @@ old_sound_rabbit_mq:
             exchange_options: {name: 'process-resource', type: direct}
             queue_options:    {name: 'process-resource'}
             callback:         process_resource_service
-gtm:
-    id: GTM-W6QQ7L

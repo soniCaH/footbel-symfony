@@ -24,7 +24,7 @@ class LogoController extends Controller
      * @Route("/logo/{regnumber}", name="logo", requirements={"regnumber" = "\d{5}"})
      * @Method("GET")
      */
-    public function getLogoAction($regnumber)
+    public function getLogoAction($regnumber, Request $request)
     {
         $filename = $regnumber.'.jpg';
         $newFilename = sys_get_temp_dir().DIRECTORY_SEPARATOR.$filename;
@@ -51,6 +51,8 @@ class LogoController extends Controller
 
             return $response;
         }
+
+        $this->container->get('google_analytics')->sendData($request, 'api_logo_logo');
 
         $response = new BinaryFileResponse($newFilename);
         $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_INLINE);
