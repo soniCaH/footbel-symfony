@@ -52,7 +52,7 @@ class LogoController extends Controller
             return $response;
         }
 
-        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_per_province_by_season_and_division');
+        $this->container->get('google_analytics')->sendData($request, 'api_logo_logo');
 
         $response = new BinaryFileResponse($newFilename);
         $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_INLINE);
