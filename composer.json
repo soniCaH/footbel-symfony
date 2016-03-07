@@ -32,7 +32,7 @@
         "php-amqplib/rabbitmq-bundle": "^1.8",
         "friendsofsymfony/rest-bundle": "^2.0@dev",
         "jms/serializer-bundle": "^1.1",
-        "evheniy/gtm-bundle": "1.*"
+        "krizon/php-ga-measurement-protocol": "^1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
