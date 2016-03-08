@@ -8470,3 +8470,9 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 
 .header {
   padding: 0 4rem; }
+  @media only screen and (max-width: 600px) {
+    .header {
+      font-size: 3rem; } }
+
+.parallax-container {
+  max-height: 350px; }
