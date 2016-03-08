@@ -6,8 +6,8 @@
 
         {% block stylesheets %}
             {% stylesheets filter="sass"
-            '@FootbelBackendBundle/Resources/public/materialize-src/sass/materialize.scss'
-            '@FootbelBackendBundle/Resources/public/sass/footbel.scss'
+            '@FootbelFrontendBundle/Resources/public/materialize-src/sass/materialize.scss'
+            '@FootbelFrontendBundle/Resources/public/sass/footbel.scss'
             %}
             <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
@@ -15,8 +15,19 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+    <div class="parallax-container valign-wrapper">
+        <h1 class="header thin center teal lighten-2 white-text valign">Footbel Data API</h1>
 
-        <div class="container">
+        <div class="parallax">
+            {% image '@FootbelFrontendBundle/Resources/public/images/soccer.png'  output="images/soccer.png" %}
+            <img src="{{ asset_url }}">
+            {% endimage %}
+        </div>
+    </div>
+
+    <div class=" container">
+        <div class="section white">
+
             <div class="row">
                 {% for flash_message in app.session.flashbag.get('notice') %}
                     <div class="flash-notice card-panel teal lighten-2 white-text">
@@ -34,19 +45,22 @@
                 {% block body %}{% endblock %}
             </div>
         </div>
-        {% block javascripts %}
-            {% javascripts
-            '@FootbelBackendBundle/Resources/public/jquery-2.2.0.min.js'
-            '@FootbelBackendBundle/Resources/public/materialize-src/js/*'
-            %}
-            <script type="text/javascript" src="{{ asset_url }}"></script>
+                {% block javascripts %}
+                    {% javascripts
+                    '@FootbelFrontendBundle/Resources/public/jquery-2.2.0.min.js'
+                    '@FootbelFrontendBundle/Resources/public/materialize-src/js/*'
+                    %}
+                    <script type="text/javascript" src="{{ asset_url }}"></script>
 
-            <script type="text/javascript">
-                $(document).ready(function() {
-                    $('select').material_select();
-                });
-            </script>
-            {% endjavascripts %}
-        {% endblock %}
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            $('select').material_select();
+
+                            $('.parallax').parallax();
+                        });
+                    </script>
+                    {% endjavascripts %}
+                {% endblock %}
+
     </body>
 </html>

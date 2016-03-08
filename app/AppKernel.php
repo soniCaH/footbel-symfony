@@ -16,7 +16,6 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
-            new AppBundle\AppBundle(),
             new KevinVR\FootbelBackendBundle\FootbelBackendBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new KevinVR\FootbelProcessorBundle\FootbelProcessorBundle(),
@@ -24,6 +23,7 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new KevinVR\FootbelAPIBundle\FootbelAPIBundle(),
+            new KevinVR\FootbelFrontendBundle\FootbelFrontendBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

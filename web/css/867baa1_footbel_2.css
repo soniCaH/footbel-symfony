@@ -1,0 +1,9 @@
+.break {
+  word-break: break-all; }
+
+.nobreak {
+  white-space: nowrap;
+  word-break: normal; }
+
+.header {
+  padding: 0 4rem; }
