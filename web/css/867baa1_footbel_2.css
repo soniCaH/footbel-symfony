@@ -1,10 +1,3 @@
-.break {
-  word-break: break-all; }
-
-.nobreak {
-  white-space: nowrap;
-  word-break: normal; }
-
 .header {
   padding: 0 4rem; }
   @media only screen and (max-width: 600px) {
@@ -13,3 +6,10 @@
 
 .parallax-container {
   max-height: 350px; }
+
+.break {
+  word-break: break-all; }
+
+.nobreak {
+  white-space: nowrap;
+  word-break: normal; }

@@ -76,7 +76,7 @@ swiftmailer:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ]
+    bundles:        [ 'FootbelFrontendBundle' ]
     #java: /usr/bin/java
     assets:
         roboto-bold-ttf:
