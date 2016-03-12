@@ -8,6 +8,7 @@ use KevinVR\FootbelBackendBundle\Repository\ResourceRepository;
 use KevinVR\FootbelProcessorBundle\Processor\ResourceFileProcessor;
 use KevinVR\FootbelProcessorBundle\Processor\ResourceQueueWorkerRabbitMQ;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class DefaultController extends Controller
@@ -16,11 +17,13 @@ class DefaultController extends Controller
     /**
      * Retrieves all resources and queues them if needed (new MD5 hash).
      *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
      * @Route("/", name="process_all")
      */
-    public function processAllAction()
+    public function processAllAction(Request $request)
     {
         try {
             $queueworker = $this->get('rabbit_worker');
@@ -30,13 +33,15 @@ class DefaultController extends Controller
                 'Unable to connect to message queue.'
             );
 
+            $this->container->get('google_analytics')->sendData($request, 'process_all_failed');
+
             return $this->redirectToRoute('resource_index');
         }
 
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository("FootbelBackendBundle:Resource");
 
-        $resources = $repository->findAll();
+        $resources = $repository->findResourcesToProcess();
 
         foreach ($resources as $resource) {
             $resourceFileProcessor = new ResourceFileProcessor(
@@ -52,6 +57,8 @@ class DefaultController extends Controller
             'All resources queued for processing!'
         );
 
+        $this->container->get('google_analytics')->sendData($request, 'process_all');
+
         return $this->redirectToRoute('resource_index');
     }
 
@@ -59,11 +66,13 @@ class DefaultController extends Controller
      * Finds and processes a Resource entity.
      *
      * @param \KevinVR\FootbelBackendBundle\Entity\Resource $resource
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
      * @Route("/{id}", name="process_go")
      */
-    public function processAction(Resource $resource)
+    public function processAction(Resource $resource, Request $request)
     {
         try {
             $queueworker = $this->get('rabbit_worker');
@@ -90,7 +99,7 @@ class DefaultController extends Controller
             'Resource queued for processing!'
         );
 
-        // $this->addFlash is equivalent to $this->get('session')->getFlashBag()->add
+        $this->container->get('google_analytics')->sendData($request, 'process_one');
 
         return $this->redirectToRoute('resource_index');
 
