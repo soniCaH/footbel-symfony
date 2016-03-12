@@ -25,6 +25,7 @@ class RankingAPIController extends FOSRestController
      * @param \KevinVR\FootbelBackendBundle\Entity\Season $season
      * @param string $division
      * @param int $period
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -55,6 +56,7 @@ class RankingAPIController extends FOSRestController
      * @param \KevinVR\FootbelBackendBundle\Entity\Season $season
      * @param string $division
      * @param int $period
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -86,7 +88,8 @@ class RankingAPIController extends FOSRestController
      * @param string $division
      * @param string $teamname
      * @param int $number
-     * @param int $period
+     * @param int
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -124,6 +127,7 @@ class RankingAPIController extends FOSRestController
      * @param string $teamname
      * @param int $number
      * @param int $period
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -162,6 +166,7 @@ class RankingAPIController extends FOSRestController
      * @param string $division
      * @param \KevinVR\FootbelBackendBundle\Entity\Province|null $province
      * @param int $period
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \KevinVR\FootbelBackendBundle\Entity\Ranking[]
      */

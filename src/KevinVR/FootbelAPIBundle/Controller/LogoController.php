@@ -21,6 +21,11 @@ class LogoController extends Controller
     /**
      * Display the logo of a regnumber.
      *
+     * @param $regnumber
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return BinaryFileResponse|Response
+     *
      * @Route("/logo/{regnumber}", name="logo", requirements={"regnumber" = "\d{5}"})
      * @Method("GET")
      */
