@@ -41,7 +41,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository("FootbelBackendBundle:Resource");
 
-        $resources = $repository->findAll();
+        $resources = $repository->findResourcesToProcess();
 
         foreach ($resources as $resource) {
             $resourceFileProcessor = new ResourceFileProcessor(
