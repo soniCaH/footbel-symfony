@@ -81,9 +81,15 @@ class CSVIterator implements \Iterator
      */
     public static function createFromFilePath($filepath)
     {
-        if (!file_exists($filepath) || !is_readable($filepath)) {
+        if (!file_exists($filepath)) {
             throw new \InvalidArgumentException(
-                'Filepath must exist and be readable.'
+                'Filepath '.$filepath.' must exist.'
+            );
+        }
+
+        if (!is_readable($filepath)) {
+            throw new \InvalidArgumentException(
+                'Filepath '.$filepath.' must be readable.'
             );
         }
 
