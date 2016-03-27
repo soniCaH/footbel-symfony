@@ -54,6 +54,10 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
         if (!$this->isMD5HashSame()) {
             $csvFile = $this->extract();
 
+            if (empty($csvFile) || !file_exists($csvFile)) {
+                return;
+            }
+
             $this->resource->setCsvPath($csvFile);
             $this->resource->setModified(1);
 
