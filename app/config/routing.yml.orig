@@ -1,0 +1,25 @@
+<<<<<<< 0a9f7013f1ac98af3b7b99c3779e1b7a3da1654f
+footbalisto_frontend:
+    resource: "@FootbalistoFrontendBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+=======
+>>>>>>> Rename routings and bundles
+footbalisto_api:
+    resource: "@FootbalistoAPIBundle/Resources/config/routing.yml"
+    type:     rest
+    prefix:   /api
+
+footbalisto_processor:
+    resource: "@FootbalistoProcessorBundle/Controller/"
+    type:     annotation
+    prefix:   /process
+
+footbalisto_backend:
+    resource: "@FootbalistoBackendBundle/Controller/"
+    type:     annotation
+    prefix:   /admin
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
