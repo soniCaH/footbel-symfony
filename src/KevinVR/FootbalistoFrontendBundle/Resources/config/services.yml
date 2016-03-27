@@ -1,4 +1,1 @@
 services:
-#    footbel_frontend.example:
-#        class: KevinVR\FootbalistoFrontendBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
