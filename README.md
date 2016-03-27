@@ -1,5 +1,5 @@
-Footbel Data
-============
+Footbalisto Data
+================
 
 Project to retrieve, process and expose footbel (Belgian Football) data (results and rankings).
 Create public API to display data, create webdav calendar etc...
