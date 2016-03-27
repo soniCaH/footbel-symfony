@@ -1,14 +1,14 @@
-footbel_api:
+footbalisto_api:
     resource: "@FootbalistoAPIBundle/Resources/config/routing.yml"
     type:     rest
     prefix:   /api
 
-footbel_processor:
+footbalisto_processor:
     resource: "@FootbalistoProcessorBundle/Controller/"
     type:     annotation
     prefix:   /process
 
-footbel_backend:
+footbalisto_backend:
     resource: "@FootbalistoBackendBundle/Controller/"
     type:     annotation
     prefix:   /admin

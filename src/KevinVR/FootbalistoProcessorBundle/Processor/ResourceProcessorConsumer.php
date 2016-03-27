@@ -26,7 +26,7 @@ class ResourceProcessorConsumer implements ConsumerInterface
 
     /**
      * ResourceProcessorConsumer constructor.
-     * @param \KevinVR\FootbelProcessorBundle\Processor\ResourceQueueWorkerInterface $rabbitWorker
+     * @param \KevinVR\FootbalistoProcessorBundle\Processor\ResourceQueueWorkerInterface $rabbitWorker
      * @param \Doctrine\ORM\EntityManager $entityManager
      */
     public function __construct(
@@ -104,7 +104,7 @@ class ResourceProcessorConsumer implements ConsumerInterface
             // Is finished.
             // Set queued = 0, modified to FALSE.
             $resource = $this->entityManager->getRepository(
-                'FootbelBackendBundle:Resource'
+                'FootbalistoBackendBundle:Resource'
             )->findOneBy(array('csv_path' => $this->file));
 
             $resource->setModified(0);

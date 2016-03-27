@@ -2,7 +2,7 @@
 
 namespace KevinVR\FootbalistoProcessorBundle\Command;
 
-use KevinVR\FootbelProcessorBundle\Processor\ResourceFileProcessor;
+use KevinVR\FootbalistoProcessorBundle\Processor\ResourceFileProcessor;
 use PhpAmqpLib\Message\AMQPMessage;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;

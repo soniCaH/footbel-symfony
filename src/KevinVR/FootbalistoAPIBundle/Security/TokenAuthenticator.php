@@ -43,7 +43,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
         // if null, authentication will fail
         // if a User object, checkCredentials() is called
-        return $this->em->getRepository('FootbelBackendBundle:User')
+        return $this->em->getRepository('FootbalistoBackendBundle:User')
             ->findOneBy(array('apiKey' => $apiKey));
     }
 

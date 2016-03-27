@@ -243,7 +243,7 @@ class MatchAPIController extends FOSRestController
 
     private function _getDivisionsPerSeason(EntityManager $em, Season $season, $regnumber)
     {
-        $division = $em->getRepository('FootbelBackendBundle:Game')
+        $division = $em->getRepository('FootbalistoBackendBundle:Game')
             ->createQueryBuilder('g')
             ->select('g.division')
             ->where('g.season = :season')
