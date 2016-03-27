@@ -5,13 +5,13 @@ parameters:
 
 services:
     process_resource_service:
-        class: KevinVR\FootbalistoProcessorBundle\Processor\ResourceProcessorConsumer
+        class: KevinVR\FootbelProcessorBundle\Processor\ResourceProcessorConsumer
         arguments:
             rabbitWorker: "@rabbit_worker"
             entityManager: "@doctrine.orm.entity_manager"
 
     rabbit_worker:
-        class: KevinVR\FootbalistoProcessorBundle\Processor\ResourceQueueWorkerRabbitMQ
+        class: KevinVR\FootbelProcessorBundle\Processor\ResourceQueueWorkerRabbitMQ
         arguments:
             rabbitProducer: "@old_sound_rabbit_mq.process_resource_producer"
 

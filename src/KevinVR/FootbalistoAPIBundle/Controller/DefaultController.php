@@ -12,6 +12,6 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('FootbalistoAPIBundle:Default:index.html.twig');
+        return $this->render('FootbelAPIBundle:Default:index.html.twig');
     }
 }

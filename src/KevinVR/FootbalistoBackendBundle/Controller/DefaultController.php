@@ -33,7 +33,7 @@ class DefaultController extends Controller
         $build['overviews'] = $overviews;
 
         return $this->render(
-          'FootbalistoBackendBundle:Default:index.html.twig',
+          'FootbelBackendBundle:Default:index.html.twig',
           $build
         );
     }
