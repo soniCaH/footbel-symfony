@@ -1,52 +1,91 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Footbalisto Backend overview!{% endblock %}</title>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}Footbel Backend overview!{% endblock %}</title>
 
-        {% block stylesheets %}
-            {% stylesheets filter="sass"
-            '@FootbalistoBackendBundle/Resources/public/materialize-src/sass/materialize.scss'
-            '@FootbalistoBackendBundle/Resources/public/sass/footbel.scss'
-            %}
-            <link rel="stylesheet" href="{{ asset_url }}" />
-            {% endstylesheets %}
-        {% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
+    {% block stylesheets %}
+        {% stylesheets filter="sass"
+        '@FootbalistoFrontendBundle/Resources/public/materialize-src/sass/materialize.scss'
+        '@FootbalistoFrontendBundle/Resources/public/sass/footbel.scss' %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
 
-        <div class="container">
-            <div class="row">
-                {% for flash_message in app.session.flashbag.get('notice') %}
-                    <div class="flash-notice card-panel teal lighten-2 white-text">
-                        {{ flash_message }}
-                    </div>
-                {% endfor %}
-                {% for flash_message in app.session.flashbag.get('error') %}
-                    <div class="flash-error card-panel red lighten-2 white-text">
-                        {{ flash_message }}
-                    </div>
-                {% endfor %}
+<body>
+
+<header class="parallax-container valign-wrapper">
+    <h1 class="header thin center teal lighten-2 white-text valign">Footbel Data API</h1>
+
+    <div class="parallax">
+        {% image '@FootbalistoFrontendBundle/Resources/public/images/soccer.png' output="images/soccer.png" %}
+        <img src="{{ asset_url }}">
+        {% endimage %}
+    </div>
+</header>
+
+<div class="container">
+    <div class="row">
+        {% for flash_message in app.session.flashbag.get('notice') %}
+            <div class="flash-notice card-panel teal lighten-2 white-text">
+                {{ flash_message }}
             </div>
+        {% endfor %}
+        {% for flash_message in app.session.flashbag.get('error') %}
+            <div class="flash-error card-panel red lighten-2 white-text">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+    </div>
 
-            <div class="row">
-                {% block body %}{% endblock %}
+    {% block body %}
+    {% endblock %}
+
+</div>
+
+<footer class="page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">Footer Content</h5>
+                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                </ul>
             </div>
         </div>
-        {% block javascripts %}
-            {% javascripts
-            '@FootbalistoBackendBundle/Resources/public/jquery-2.2.0.min.js'
-            '@FootbalistoBackendBundle/Resources/public/materialize-src/js/*'
-            %}
-            <script type="text/javascript" src="{{ asset_url }}"></script>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            2015-2016 Created by Kevin Van Ransbeeck // <a href="https://www.twitter.com/KevinVRansbeeck" target="_blank" title="KevinVRansbeeck on Twitter" class="grey-text text-lighten-4">Follow on Twitter</a>.
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+        </div>
+    </div>
+</footer>
 
-            <script type="text/javascript">
-                $(document).ready(function() {
-                    $('select').material_select();
-                });
-            </script>
-            {% endjavascripts %}
-        {% endblock %}
-    </body>
+
+{% block javascripts %}
+    {% javascripts
+    '@FootbalistoFrontendBundle/Resources/public/jquery-2.2.0.min.js'
+    '@FootbalistoFrontendBundle/Resources/public/materialize-src/js/*' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('select').material_select();
+            $('.parallax').parallax();
+        });
+    </script>
+    {% endjavascripts %}
+{% endblock %}
+
+</body>
 </html>

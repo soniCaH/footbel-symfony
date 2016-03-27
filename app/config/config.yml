@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@FootbalistoAPIBundle/Resources/config/services.yml" }
+    - { resource: "@FootbalistoFrontendBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -75,68 +76,68 @@ swiftmailer:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ]
+    bundles:        [ 'FootbalistoFrontendBundle' ]
     #java: /usr/bin/java
     assets:
         roboto-bold-ttf:
-            inputs: '@FootbalistoBackendBundle/Resources/public/materialize-src/font/roboto/Roboto-Bold.ttf'
+            inputs: '@FootbalistoFrontendBundle/Resources/public/materialize-src/font/roboto/Roboto-Bold.ttf'
             output: 'font/roboto/Roboto-Bold.ttf'
         roboto-bold-woff:
-            inputs: '@FootbalistoBackendBundle/Resources/public/materialize-src/font/roboto/Roboto-Bold.woff'
+            inputs: '@FootbalistoFrontendBundle/Resources/public/materialize-src/font/roboto/Roboto-Bold.woff'
             output: 'font/roboto/Roboto-Bold.woff'
         roboto-bold-woff2:
-            inputs: '@FootbalistoBackendBundle/Resources/public/materialize-src/font/roboto/Roboto-Bold.woff2'
+            inputs: '@FootbalistoFrontendBundle/Resources/public/materialize-src/font/roboto/Roboto-Bold.woff2'
             output: 'font/roboto/Roboto-Bold.woff2'
         roboto-light-ttf:
-            inputs: '@FootbalistoBackendBundle/Resources/public/materialize-src/font/roboto/Roboto-Light.ttf'
+            inputs: '@FootbalistoFrontendBundle/Resources/public/materialize-src/font/roboto/Roboto-Light.ttf'
             output: 'font/roboto/Roboto-Light.ttf'
         roboto-light-woff:
-            inputs: '@FootbalistoBackendBundle/Resources/public/materialize-src/font/roboto/Roboto-Light.woff'
+            inputs: '@FootbalistoFrontendBundle/Resources/public/materialize-src/font/roboto/Roboto-Light.woff'
             output: 'font/roboto/Roboto-Light.woff'
         roboto-light-woff2:
-            inputs: '@FootbalistoBackendBundle/Resources/public/materialize-src/font/roboto/Roboto-Light.woff2'
+            inputs: '@FootbalistoFrontendBundle/Resources/public/materialize-src/font/roboto/Roboto-Light.woff2'
             output: 'font/roboto/Roboto-Light.woff2'
         roboto-medium-ttf:
-            inputs: '@FootbalistoBackendBundle/Resources/public/materialize-src/font/roboto/Roboto-Medium.ttf'
+            inputs: '@FootbalistoFrontendBundle/Resources/public/materialize-src/font/roboto/Roboto-Medium.ttf'
             output: 'font/roboto/Roboto-Medium.ttf'
         roboto-medium-woff:
-            inputs: '@FootbalistoBackendBundle/Resources/public/materialize-src/font/roboto/Roboto-Medium.woff'
+            inputs: '@FootbalistoFrontendBundle/Resources/public/materialize-src/font/roboto/Roboto-Medium.woff'
             output: 'font/roboto/Roboto-Medium.woff'
         roboto-medium-woff2:
-            inputs: '@FootbalistoBackendBundle/Resources/public/materialize-src/font/roboto/Roboto-Medium.woff2'
+            inputs: '@FootbalistoFrontendBundle/Resources/public/materialize-src/font/roboto/Roboto-Medium.woff2'
             output: 'font/roboto/Roboto-Medium.woff2'
         roboto-regular-ttf:
-            inputs: '@FootbalistoBackendBundle/Resources/public/materialize-src/font/roboto/Roboto-Regular.ttf'
+            inputs: '@FootbalistoFrontendBundle/Resources/public/materialize-src/font/roboto/Roboto-Regular.ttf'
             output: 'font/roboto/Roboto-Regular.ttf'
         roboto-regular-woff:
-            inputs: '@FootbalistoBackendBundle/Resources/public/materialize-src/font/roboto/Roboto-Regular.woff'
+            inputs: '@FootbalistoFrontendBundle/Resources/public/materialize-src/font/roboto/Roboto-Regular.woff'
             output: 'font/roboto/Roboto-Regular.woff'
         roboto-regular-woff2:
-            inputs: '@FootbalistoBackendBundle/Resources/public/materialize-src/font/roboto/Roboto-Regular.woff2'
+            inputs: '@FootbalistoFrontendBundle/Resources/public/materialize-src/font/roboto/Roboto-Regular.woff2'
             output: 'font/roboto/Roboto-Regular.woff2'
         roboto-thin-ttf:
-            inputs: '@FootbalistoBackendBundle/Resources/public/materialize-src/font/roboto/Roboto-Thin.ttf'
+            inputs: '@FootbalistoFrontendBundle/Resources/public/materialize-src/font/roboto/Roboto-Thin.ttf'
             output: 'font/roboto/Roboto-Thin.ttf'
         roboto-thin-woff:
-            inputs: '@FootbalistoBackendBundle/Resources/public/materialize-src/font/roboto/Roboto-Thin.woff'
+            inputs: '@FootbalistoFrontendBundle/Resources/public/materialize-src/font/roboto/Roboto-Thin.woff'
             output: 'font/roboto/Roboto-Thin.woff'
         roboto-thin-woff2:
-            inputs: '@FootbalistoBackendBundle/Resources/public/materialize-src/font/roboto/Roboto-Thin.woff2'
+            inputs: '@FootbalistoFrontendBundle/Resources/public/materialize-src/font/roboto/Roboto-Thin.woff2'
             output: 'font/roboto/Roboto-Thin.woff2'
         material-design-icons-eot:
-            inputs: '@FootbalistoBackendBundle/Resources/public/materialize-src/font/material-design-icons/Material-Design-Icons.eot'
+            inputs: '@FootbalistoFrontendBundle/Resources/public/materialize-src/font/material-design-icons/Material-Design-Icons.eot'
             output: 'font/material-design-icons/Material-Design-Icons.eot'
         material-design-icons-svg:
-            inputs: '@FootbalistoBackendBundle/Resources/public/materialize-src/font/material-design-icons/Material-Design-Icons.svg'
+            inputs: '@FootbalistoFrontendBundle/Resources/public/materialize-src/font/material-design-icons/Material-Design-Icons.svg'
             output: 'font/material-design-icons/Material-Design-Icons.svg'
         material-design-icons-ttf:
-            inputs: '@FootbalistoBackendBundle/Resources/public/materialize-src/font/material-design-icons/Material-Design-Icons.ttf'
+            inputs: '@FootbalistoFrontendBundle/Resources/public/materialize-src/font/material-design-icons/Material-Design-Icons.ttf'
             output: 'font/material-design-icons/Material-Design-Icons.ttf'
         material-design-icons-woff:
-            inputs: '@FootbalistoBackendBundle/Resources/public/materialize-src/font/material-design-icons/Material-Design-Icons.woff'
+            inputs: '@FootbalistoFrontendBundle/Resources/public/materialize-src/font/material-design-icons/Material-Design-Icons.woff'
             output:
         material-design-icons-woff2:
-            inputs: '@FootbalistoBackendBundle/Resources/public/materialize-src/font/material-design-icons/Material-Design-Icons.woff2'
+            inputs: '@FootbalistoFrontendBundle/Resources/public/materialize-src/font/material-design-icons/Material-Design-Icons.woff2'
             output: 'font/material-design-icons/Material-Design-Icons.woff2'
     filters:
         cssrewrite: ~
