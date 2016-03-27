@@ -36,9 +36,9 @@ class ResourceProcessorMatch extends ResourceProcessor
      */
     public function process($seasonId, $levelId, $provindeId, $row)
     {
-        $seasonRepository = $this->entityManager->getRepository('FootbelBackendBundle:Season');
-        $levelRepository = $this->entityManager->getRepository('FootbelBackendBundle:Level');
-        $provinceRepository = $this->entityManager->getRepository('FootbelBackendBundle:Province');
+        $seasonRepository = $this->entityManager->getRepository('FootbalistoBackendBundle:Season');
+        $levelRepository = $this->entityManager->getRepository('FootbalistoBackendBundle:Level');
+        $provinceRepository = $this->entityManager->getRepository('FootbalistoBackendBundle:Province');
 
         $season = $seasonRepository->find($seasonId);
         $level = $levelRepository->find($levelId);
@@ -61,7 +61,7 @@ class ResourceProcessorMatch extends ResourceProcessor
             $ra = ($row['RA'] !== "") ? intval($row['RA']) : null;
             $status = $row['STATUS'];
 
-            $matchRepository = $this->entityManager->getRepository('FootbelBackendBundle:Game');
+            $matchRepository = $this->entityManager->getRepository('FootbalistoBackendBundle:Game');
             $match = $matchRepository->findOneBy(
                 array(
                     'season' => $season,

@@ -5,8 +5,13 @@ namespace KevinVR\FootbalistoProcessorBundle\Controller;
 use Assetic\Factory\Resource\ResourceInterface;
 use KevinVR\FootbalistoBackendBundle\Entity\Resource;
 use KevinVR\FootbalistoBackendBundle\Repository\ResourceRepository;
+<<<<<<< Updated upstream:src/KevinVR/FootbalistoProcessorBundle/Controller/DefaultController.php
 use KevinVR\FootbelProcessorBundle\Processor\ResourceFileProcessor;
 use KevinVR\FootbelProcessorBundle\Processor\ResourceQueueWorkerRabbitMQ;
+=======
+use KevinVR\FootbalistoProcessorBundle\Processor\ResourceFileProcessor;
+use KevinVR\FootbalistoProcessorBundle\Processor\ResourceQueueWorkerRabbitMQ;
+>>>>>>> Stashed changes:src/KevinVR/FootbalistoProcessorBundle/Controller/DefaultController.php
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

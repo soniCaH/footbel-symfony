@@ -34,9 +34,9 @@ class ResourceProcessorRank extends ResourceProcessor
      */
     public function process($seasonId, $levelId, $provindeId, $row)
     {
-        $seasonRepository = $this->entityManager->getRepository('FootbelBackendBundle:Season');
-        $levelRepository = $this->entityManager->getRepository('FootbelBackendBundle:Level');
-        $provinceRepository = $this->entityManager->getRepository('FootbelBackendBundle:Province');
+        $seasonRepository = $this->entityManager->getRepository('FootbalistoBackendBundle:Season');
+        $levelRepository = $this->entityManager->getRepository('FootbalistoBackendBundle:Level');
+        $provinceRepository = $this->entityManager->getRepository('FootbalistoBackendBundle:Province');
 
         $season = $seasonRepository->find($seasonId);
         $level = $levelRepository->find($levelId);
@@ -58,7 +58,7 @@ class ResourceProcessorRank extends ResourceProcessor
         $points = $row['PTS'];
         $period = $row['PER'];
 
-        $rankRepository = $this->entityManager->getRepository('FootbelBackendBundle:Ranking');
+        $rankRepository = $this->entityManager->getRepository('FootbalistoBackendBundle:Ranking');
         $ranking = $rankRepository->findOneBy(
             array(
                 'season' => $season,
