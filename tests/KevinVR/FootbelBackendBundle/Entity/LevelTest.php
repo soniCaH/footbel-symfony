@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\KevinVR\FootbelBackendBundle\Entity;
+namespace Tests\KevinVR\FootbalistoBackendBundle\Entity;
 
-use KevinVR\FootbelBackendBundle\Entity\Level;
+use KevinVR\FootbalistoBackendBundle\Entity\Level;
 
 class LevelTest extends \PHPUnit_Framework_TestCase
 {

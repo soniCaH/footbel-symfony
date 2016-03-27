@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\KevinVR\FootbelBackendBundle\Entity;
+namespace Tests\KevinVR\FootbalistoBackendBundle\Entity;
 
-use KevinVR\FootbelBackendBundle\Entity\Level;
-use KevinVR\FootbelBackendBundle\Entity\Province;
-use KevinVR\FootbelBackendBundle\Entity\Resource;
-use KevinVR\FootbelBackendBundle\Entity\ResourceType;
-use KevinVR\FootbelBackendBundle\Entity\Season;
+use KevinVR\FootbalistoBackendBundle\Entity\Level;
+use KevinVR\FootbalistoBackendBundle\Entity\Province;
+use KevinVR\FootbalistoBackendBundle\Entity\Resource;
+use KevinVR\FootbalistoBackendBundle\Entity\ResourceType;
+use KevinVR\FootbalistoBackendBundle\Entity\Season;
 
 class ResourceTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,7 +29,7 @@ class ResourceTest extends \PHPUnit_Framework_TestCase
     /**
      * Helper to create Resource Object.
      *
-     * @return \KevinVR\FootbelBackendBundle\Entity\Resource
+     * @return \KevinVR\FootbalistoBackendBundle\Entity\Resource
      */
     private function getResourceObject()
     {

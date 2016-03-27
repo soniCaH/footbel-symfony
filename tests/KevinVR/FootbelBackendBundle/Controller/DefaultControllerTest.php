@@ -1,6 +1,6 @@
 <?php
 
-namespace KevinVR\FootbelBackendBundle\Tests\Controller;
+namespace KevinVR\FootbalistoBackendBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

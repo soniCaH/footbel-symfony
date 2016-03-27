@@ -5,22 +5,22 @@ parameters:
 
 services:
     process_resource_service:
-        class: KevinVR\FootbelProcessorBundle\Processor\ResourceProcessorConsumer
+        class: KevinVR\FootbalistoProcessorBundle\Processor\ResourceProcessorConsumer
         arguments:
             rabbitWorker: "@rabbit_worker"
             entityManager: "@doctrine.orm.entity_manager"
 
     rabbit_worker:
-        class: KevinVR\FootbelProcessorBundle\Processor\ResourceQueueWorkerRabbitMQ
+        class: KevinVR\FootbalistoProcessorBundle\Processor\ResourceQueueWorkerRabbitMQ
         arguments:
             rabbitProducer: "@old_sound_rabbit_mq.process_resource_producer"
 
     app.token_authenticator:
-            class: KevinVR\FootbelAPIBundle\Security\TokenAuthenticator
+            class: KevinVR\FootbalistoAPIBundle\Security\TokenAuthenticator
             arguments: ['@doctrine.orm.entity_manager']
 
     google_analytics:
-        class: KevinVR\FootbelAPIBundle\Service\GoogleAnalyticsService
+        class: KevinVR\FootbalistoAPIBundle\Service\GoogleAnalyticsService
         arguments: ['@service_container']
 #    service_name:
 #        class: AppBundle\Directory\ClassName

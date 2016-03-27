@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\KevinVR\FootbelBackendBundle\Entity;
+namespace Tests\KevinVR\FootbalistoBackendBundle\Entity;
 
-use KevinVR\FootbelBackendBundle\Entity\Province;
+use KevinVR\FootbalistoBackendBundle\Entity\Province;
 
 class ProvinceTest extends \PHPUnit_Framework_TestCase
 {
