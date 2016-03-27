@@ -1,6 +1,6 @@
 <?php
 
-namespace KevinVR\FootbalistoBackendBundle\Tests\Controller;
+namespace KevinVR\FootbalistoAPIBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -10,7 +10,7 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/admin/');
+        $crawler = $client->request('GET', '/');
 
         $this->assertContains('Hello World', $client->getResponse()->getContent());
     }

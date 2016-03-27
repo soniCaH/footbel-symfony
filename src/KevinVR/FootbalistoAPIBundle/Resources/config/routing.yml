@@ -1,0 +1,12 @@
+ranking_api:
+  type: rest
+  resource:     "@FootbalistoAPIBundle/Controller/RankingAPIController.php"
+  name_prefix:  api_rankings_
+match_api:
+  type: rest
+  resource:     "@FootbalistoAPIBundle/Controller/MatchAPIController.php"
+  name_prefix:  api_matches_
+logo_api:
+  type: annotation
+  resource:     "@FootbalistoAPIBundle/Controller/LogoController.php"
+  name_prefix:  api_logo_

@@ -17,13 +17,13 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new AppBundle\AppBundle(),
-            new KevinVR\FootbelBackendBundle\FootbelBackendBundle(),
+            new KevinVR\FootbalistoBackendBundle\FootbalistoBackendBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new KevinVR\FootbelProcessorBundle\FootbelProcessorBundle(),
+            new KevinVR\FootbalistoProcessorBundle\FootbalistoProcessorBundle(),
             new OldSound\RabbitMqBundle\OldSoundRabbitMqBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
-            new KevinVR\FootbelAPIBundle\FootbelAPIBundle(),
+            new KevinVR\FootbalistoAPIBundle\FootbalistoAPIBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
