@@ -21,7 +21,7 @@ class ResourceType extends AbstractType
             'type',
             EntityType::class,
             array(
-              'class' => 'FootbalistoBackendBundle:ResourceType',
+              'class' => 'FootbelBackendBundle:ResourceType',
               'choice_label' => 'label',
               'placeholder' => 'Choose an option',
             )
@@ -30,7 +30,7 @@ class ResourceType extends AbstractType
             'season',
             EntityType::class,
             array(
-              'class' => 'FootbalistoBackendBundle:Season',
+              'class' => 'FootbelBackendBundle:Season',
               'choice_label' => 'label',
               'placeholder' => 'Choose an option',
             )
@@ -39,7 +39,7 @@ class ResourceType extends AbstractType
             'level',
             EntityType::class,
             array(
-              'class' => 'FootbalistoBackendBundle:Level',
+              'class' => 'FootbelBackendBundle:Level',
               'choice_label' => 'label',
               'placeholder' => 'Choose an option',
             )
@@ -48,7 +48,7 @@ class ResourceType extends AbstractType
             'province',
             EntityType::class,
             array(
-              'class' => 'FootbalistoBackendBundle:Province',
+              'class' => 'FootbelBackendBundle:Province',
               'choice_label' => 'label',
               'placeholder' => 'Choose an option',
             )

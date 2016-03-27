@@ -17,7 +17,7 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
     private $resource;
 
     /**
-     * @var \KevinVR\FootbalistoProcessorBundle\Processor\ResourceQueueWorkerInterface
+     * @var \KevinVR\FootbelProcessorBundle\Processor\ResourceQueueWorkerInterface
      */
     private $queueworker;
 
@@ -34,11 +34,7 @@ class ResourceFileProcessor implements ResourceFileProcessorInterface
     /**
      * ResourceFileProcessor constructor.
      * @param \KevinVR\FootbalistoBackendBundle\Entity\ResourceInterface $resource
-<<<<<<< Updated upstream:src/KevinVR/FootbalistoProcessorBundle/Processor/ResourceFileProcessor.php
      * @param \KevinVR\FootbelProcessorBundle\Processor\ResourceQueueWorkerInterface $queueworker
-=======
-     * @param \KevinVR\FootbalistoProcessorBundle\Processor\ResourceQueueWorkerInterface $queueworker
->>>>>>> Stashed changes:src/KevinVR/FootbalistoProcessorBundle/Processor/ResourceFileProcessor.php
      */
     public function __construct(
         ResourceInterface $resource,

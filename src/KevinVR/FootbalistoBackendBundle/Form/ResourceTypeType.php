@@ -23,8 +23,8 @@ class ResourceTypeType extends AbstractType
             ChoiceType::class,
             array(
               'choices' => array(
-                'MatchHandler' => 'KevinVR\FootbalistoProcessorBundle\Processor\ResourceProcessorMatch',
-                'RankHandler' => 'KevinVR\FootbalistoProcessorBundle\Processor\ResourceProcessorRank',
+                'MatchHandler' => 'KevinVR\FootbelProcessorBundle\Processor\ResourceProcessorMatch',
+                'RankHandler' => 'KevinVR\FootbelProcessorBundle\Processor\ResourceProcessorRank',
               ),
             )
           );
