@@ -33,7 +33,8 @@ class DefaultController extends Controller
                 'Unable to connect to message queue.'
             );
 
-            $this->container->get('google_analytics')->sendData($request, 'process_all_failed');
+            $user = $this->getUser();
+            $this->container->get('google_analytics')->sendData($request, 'process_all_failed', $user);
 
             return $this->redirectToRoute('resource_index');
         }
@@ -57,7 +58,8 @@ class DefaultController extends Controller
             'All resources queued for processing!'
         );
 
-        $this->container->get('google_analytics')->sendData($request, 'process_all');
+        $user = $this->getUser();
+        $this->container->get('google_analytics')->sendData($request, 'process_all', $user);
 
         return $this->redirectToRoute('resource_index');
     }
@@ -99,7 +101,8 @@ class DefaultController extends Controller
             'Resource queued for processing!'
         );
 
-        $this->container->get('google_analytics')->sendData($request, 'process_one');
+        $user = $this->getUser();
+        $this->container->get('google_analytics')->sendData($request, 'process_one', $user);
 
         return $this->redirectToRoute('resource_index');
 

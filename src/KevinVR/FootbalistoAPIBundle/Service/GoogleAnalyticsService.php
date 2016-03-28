@@ -35,16 +35,24 @@ class GoogleAnalyticsService
      * @param Request $request
      * @param $title
      */
-    public function sendData(Request $request, $title)
+    public function sendData(Request $request, $title, $user = null)
     {
+        $data =  array(
+            'tid' => $this->trackId,
+            'cid' => $request->getClientIp(),
+            'dh' => $_SERVER['SERVER_NAME'],
+            'dp' => $request->getRequestUri(),
+            'dt' => $title,
+        );
+
+        if ($user) {
+            $data['ea'] = 'Authenticated';
+            $data['el'] = 'Authenticated Call';
+            $data['ev'] = $user->getApiKey();
+        }
+
         $this->client->pageview(
-            array(
-                'tid' => $this->trackId,
-                'cid' => $request->getClientIp(),
-                'dh' => $_SERVER['SERVER_NAME'],
-                'dp' => $request->getRequestUri(),
-                'dt' => $title,
-            )
+            $data
         );
     }
 }
