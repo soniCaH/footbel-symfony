@@ -39,7 +39,8 @@ class MatchAPIController extends FOSRestController
 
         $output = $this->_getDetails($matches);
 
-        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_per_regnr_next');
+        $user = $this->getUser();
+        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_per_regnr_next', $user);
 
         return $output;
     }
@@ -63,7 +64,8 @@ class MatchAPIController extends FOSRestController
 
         $output = $this->_getDetails($matches);
 
-        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_per_regnr_prev');
+        $user = $this->getUser();
+        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_per_regnr_prev', $user);
 
         return $output;
     }
@@ -94,7 +96,8 @@ class MatchAPIController extends FOSRestController
 
         $output = $this->_getDetails($matches);
 
-        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_per_regnr_division_next');
+        $user = $this->getUser();
+        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_per_regnr_division_next', $user);
 
         return $output;
     }
@@ -125,7 +128,8 @@ class MatchAPIController extends FOSRestController
 
         $output = $this->_getDetails($matches);
 
-        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_per_regnr_division_prev');
+        $user = $this->getUser();
+        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_per_regnr_division_prev', $user);
 
         return $output;
     }
@@ -155,7 +159,8 @@ class MatchAPIController extends FOSRestController
 
         $output = $this->_getDetails($matches);
 
-        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_national_by_season_and_division');
+        $user = $this->getUser();
+        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_national_by_season_and_division', $user);
 
         return $output;
     }
@@ -192,7 +197,8 @@ class MatchAPIController extends FOSRestController
 
         $output = $this->_getDetails($matches);
 
-        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_per_province_by_season_and_division');
+        $user = $this->getUser();
+        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_per_province_by_season_and_division', $user);
 
         return $output;
     }
