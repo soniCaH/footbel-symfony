@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\KevinVR\FootbelBackendBundle\Entity;
+namespace Tests\KevinVR\FootbalistoBackendBundle\Entity;
 
-use KevinVR\FootbelBackendBundle\Entity\ResourceType;
+use KevinVR\FootbalistoBackendBundle\Entity\ResourceType;
 
 class ResourceTypeTest extends \PHPUnit_Framework_TestCase
 {

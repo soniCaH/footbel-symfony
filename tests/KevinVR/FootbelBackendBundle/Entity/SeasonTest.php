@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\KevinVR\FootbelBackendBundle\Entity;
+namespace Tests\KevinVR\FootbalistoBackendBundle\Entity;
 
-use KevinVR\FootbelBackendBundle\Entity\Season;
+use KevinVR\FootbalistoBackendBundle\Entity\Season;
 
 class SeasonTest extends \PHPUnit_Framework_TestCase
 {

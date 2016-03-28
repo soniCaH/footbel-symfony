@@ -2,12 +2,12 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Footbel Backend overview!{% endblock %}</title>
+        <title>{% block title %}Footbalisto Backend overview!{% endblock %}</title>
 
         {% block stylesheets %}
             {% stylesheets filter="sass"
-            '@FootbelBackendBundle/Resources/public/materialize-src/sass/materialize.scss'
-            '@FootbelBackendBundle/Resources/public/sass/footbel.scss'
+            '@FootbalistoBackendBundle/Resources/public/materialize-src/sass/materialize.scss'
+            '@FootbalistoBackendBundle/Resources/public/sass/footbel.scss'
             %}
             <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
@@ -36,8 +36,8 @@
         </div>
         {% block javascripts %}
             {% javascripts
-            '@FootbelBackendBundle/Resources/public/jquery-2.2.0.min.js'
-            '@FootbelBackendBundle/Resources/public/materialize-src/js/*'
+            '@FootbalistoBackendBundle/Resources/public/jquery-2.2.0.min.js'
+            '@FootbalistoBackendBundle/Resources/public/materialize-src/js/*'
             %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
 
