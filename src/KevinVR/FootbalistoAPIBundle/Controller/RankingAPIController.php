@@ -44,7 +44,8 @@ class RankingAPIController extends FOSRestController
 
         $output = $this->_getDetails($rankings);
 
-        $this->container->get('google_analytics')->sendData($request, 'api_rankings_get_ranking_national');
+        $user = $this->getUser();
+        $this->container->get('google_analytics')->sendData($request, 'api_rankings_get_ranking_national', $user);
 
         return $output;
     }
@@ -76,7 +77,8 @@ class RankingAPIController extends FOSRestController
 
         $rankings = $this->_getDetails($ranks);
 
-        $this->container->get('google_analytics')->sendData($request, 'api_rankings_get_ranking_per_province');
+        $user = $this->getUser();
+        $this->container->get('google_analytics')->sendData($request, 'api_rankings_get_ranking_per_province', $user);
 
         return $rankings;
     }
@@ -113,7 +115,8 @@ class RankingAPIController extends FOSRestController
 
         $rankings = $this->_getDetailsShort($ranks, $teamname, $number);
 
-        $this->container->get('google_analytics')->sendData($request, 'api_rankings_get_ranking_national_short');
+        $user = $this->getUser();
+        $this->container->get('google_analytics')->sendData($request, 'api_rankings_get_ranking_national_short', $user);
 
         return $rankings;
     }
@@ -153,7 +156,8 @@ class RankingAPIController extends FOSRestController
 
         $rankings = $this->_getDetailsShort($ranks, $teamname, $number);
 
-        $this->container->get('google_analytics')->sendData($request, 'api_rankings_get_ranking_per_province_short');
+        $user = $this->getUser();
+        $this->container->get('google_analytics')->sendData($request, 'api_rankings_get_ranking_per_province_short', $user);
 
         return $rankings;
     }

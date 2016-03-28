@@ -57,7 +57,8 @@ class LogoController extends Controller
             return $response;
         }
 
-        $this->container->get('google_analytics')->sendData($request, 'api_logo_logo');
+        $user = $this->getUser();
+        $this->container->get('google_analytics')->sendData($request, 'api_logo_logo', $user);
 
         $response = new BinaryFileResponse($newFilename);
         $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_INLINE);
