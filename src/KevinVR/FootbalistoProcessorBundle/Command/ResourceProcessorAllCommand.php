@@ -30,16 +30,22 @@ class ResourceProcessorAllCommand extends ContainerAwareCommand
         $resourceRepository = $em->getRepository("FootbalistoBackendBundle:Resource");
         $resources = $resourceRepository->findResourcesToProcess();
 
+        $dt = new \DateTime();
+        $processed = 0;
+
         foreach ($resources as $resource) {
-            $resourceFileProcessor = new ResourceFileProcessor(
-                $resource,
-                $queueworker,
-                $em
-            );
-            $resourceFileProcessor->process();
+            if ($resource->getSeason()->getStart() <= $dt && $resource->getSeason()->getEnd() >= $dt) {
+                $resourceFileProcessor = new ResourceFileProcessor(
+                    $resource,
+                    $queueworker,
+                    $em
+                );
+                $resourceFileProcessor->process();
+                $processed++;
+            }
         }
-        if (count($resources) > 0) {
-            $output->writeln(count($resources).' resources processed!');
+        if ($processed > 0) {
+            $output->writeln($processed.' resources processed!');
         } else {
             $output->writeln('No resource to process!');
         }

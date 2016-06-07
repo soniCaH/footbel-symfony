@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@FootbalistoAPIBundle/Resources/config/services.yml" }
+    - { resource: "@FootbalistoFrontendBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -75,7 +76,7 @@ swiftmailer:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ]
+    bundles:        [ 'FootbalistoFrontendBundle' ]
     #java: /usr/bin/java
     assets:
         roboto-bold-ttf:

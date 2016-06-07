@@ -44,13 +44,17 @@ class DefaultController extends Controller
 
         $resources = $repository->findResourcesToProcess();
 
+        $dt = new \DateTime();
+
         foreach ($resources as $resource) {
-            $resourceFileProcessor = new ResourceFileProcessor(
-                $resource,
-                $queueworker,
-                $em
-            );
-            $resourceFileProcessor->process();
+            if ($resource->getSeason()->getStart() <= $dt && $resource->getSeason()->getEnd() >= $dt) {
+                $resourceFileProcessor = new ResourceFileProcessor(
+                    $resource,
+                    $queueworker,
+                    $em
+                );
+                $resourceFileProcessor->process();
+            }
         }
 
         $this->addFlash(

@@ -1,3 +1,8 @@
+footbalisto_frontend:
+    resource: "@FootbalistoFrontendBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 footbalisto_api:
     resource: "@FootbalistoAPIBundle/Resources/config/routing.yml"
     type:     rest
@@ -13,9 +18,9 @@ footbalisto_backend:
     type:     annotation
     prefix:   /admin
 
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+#app:
+#    resource: "@AppBundle/Controller/"
+#    type:     annotation
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
