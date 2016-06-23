@@ -46,4 +46,4 @@ security:
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/process, role: ROLE_ADMIN }
         - { path: ^/process/, role: ROLE_ADMIN }
-        - { path: ^/api/, role: ROLE_USER }
+        - { path: ^/api/, role: IS_AUTHENTICATED_ANONYMOUSLY }
