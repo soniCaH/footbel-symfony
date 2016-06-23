@@ -24,7 +24,7 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new KevinVR\FootbalistoAPIBundle\FootbalistoAPIBundle(),
-            new KevinVR\FootbalistoFrontendBundle\FootbalistoFrontendBundle(),
+            new Nelmio\CorsBundle\NelmioCorsBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
