@@ -453,7 +453,7 @@ class Game
      */
     public function getScoreHome()
     {
-        return $this->scoreHome === 0 ? '0' : $this->scoreHome;
+        return $this->scoreHome;
     }
 
     /**
@@ -477,7 +477,7 @@ class Game
      */
     public function getScoreAway()
     {
-        return $this->scoreAway === 0 ? '0' : $this->scoreAway;
+        return $this->scoreAway;
     }
 
     /**
