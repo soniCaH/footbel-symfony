@@ -54,6 +54,8 @@ class LogoController extends Controller
         if (!file_exists($newFilename)) {
             $response = new Response('No club with this regnumber found.');
 
+            // Return default image??
+
             return $response;
         }
 
