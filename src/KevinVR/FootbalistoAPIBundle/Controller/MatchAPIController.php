@@ -221,8 +221,10 @@ class MatchAPIController extends FOSRestController
 
         $divisions = $this->_getDivisionsPerSeason($em, $season, $regnumber);
 
+        $matches = array();
+
         if (empty($divisions)) {
-            return array();
+            return $matches;
         }
 
         foreach ($divisions as $division) {
@@ -269,6 +271,10 @@ class MatchAPIController extends FOSRestController
     private function _getDetails($matches)
     {
         $matchOutput = array();
+
+        if (empty($matches)) {
+            return $matchOutput;
+        }
 
         foreach ($matches as $match) {
             $matchOutput[] = array(
