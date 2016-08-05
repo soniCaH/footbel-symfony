@@ -395,15 +395,4 @@ class Resource implements ResourceInterface
 
         return $this;
     }
-
-    public function save()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $em->persist($product);
-        $em->flush();
-
-    }
-
-
 }
