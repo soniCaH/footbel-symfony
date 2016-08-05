@@ -19,18 +19,18 @@ class DivisionsMapping {
      */
     public static function getMapping($division_code) {
         static $mapping = array(
-            'BCD' => "Beker van Brabant (A)",
-            'BPB' => "Beker van Brabant (B)",
-            'N3B' => "3e Prov B",
-            'N4D' => "4e Prov D",
-            '3E' => "3e Prov E",
-            '4G' => "4e Prov G",
-            'N10J' => "U10 J",
-            'N7AM' => "U7 AM",
-            'N9M' => "U9 M",
-            'N11I' => "U11 I",
-            'N8M' => "U8 M",
-            'N6H' => "U6 H",
+            'BCD' => "Beker van Brabant (A ploeg)",
+            'BPB' => "Beker van Brabant (B ploeg)",
+            'N3B' => "3e Provinciale B",
+            'N4D' => "4e Provinciale D",
+            '3E' => "3e Provinciale E",
+            '4G' => "4e Provinciale G",
+            'N10J' => "U10 - Reeks J",
+            'N7AM' => "U7 - Reeks AM",
+            'N9M' => "U9 - Reeks M",
+            'N11I' => "U11 - Reeks I",
+            'N8M' => "U8 - Reeks M",
+            'N6H' => "U6 - Reeks H",
         );
 
         if (array_key_exists($division_code, $mapping)) {
