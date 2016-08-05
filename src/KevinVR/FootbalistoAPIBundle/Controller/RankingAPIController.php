@@ -214,6 +214,7 @@ class RankingAPIController extends FOSRestController
                 'level' => $ranking->getLevel()->getShorthand(),
                 'province' => ($ranking->getProvince()) ? $ranking->getProvince()->getShorthand() : '',
                 'division' => $ranking->getDivision(),
+                'division_mapped' => DivisionsMapping::getMapping($ranking->getDivision()),
                 'team' => $ranking->getTeam(),
                 'matches' => $ranking->getMatches(),
                 'wins' => $ranking->getWins(),

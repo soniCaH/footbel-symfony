@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Controller\FOSRestController;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
+use KevinVR\FootbalistoBackendBundle\DivisionsMapping;
 use KevinVR\FootbalistoBackendBundle\Entity\Level;
 use KevinVR\FootbalistoBackendBundle\Entity\Province;
 use KevinVR\FootbalistoBackendBundle\Entity\Season;
@@ -282,6 +283,7 @@ class MatchAPIController extends FOSRestController
                 'level' => $match->getLevel()->getShorthand(),
                 'province' => ($match->getProvince()) ? $match->getProvince()->getShorthand() : '',
                 'division' => $match->getDivision(),
+                'division_mapped' => DivisionsMapping::getMapping($match->getDivision()),
                 'matchday' => $match->getMatchday(),
                 'datetime' => $match->getDatetime(),
                 'datetime_formatted' => $match->getDatetimeFormatted('D d/m/Y H:i'),
