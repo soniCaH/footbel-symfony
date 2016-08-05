@@ -5,6 +5,7 @@ namespace KevinVR\FootbalistoAPIBundle\Controller;
 use FOS\RestBundle\Controller\FOSRestController;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
+use KevinVR\FootbalistoBackendBundle\DivisionsMapping;
 use KevinVR\FootbalistoBackendBundle\Entity\Level;
 use KevinVR\FootbalistoBackendBundle\Entity\Province;
 use KevinVR\FootbalistoBackendBundle\Entity\Season;
