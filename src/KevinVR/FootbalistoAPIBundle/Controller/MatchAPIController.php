@@ -348,7 +348,6 @@ class MatchAPIController extends FOSRestController
           ->setParameter('season', $season)
           ->setParameter('home_regnr', $regnumber)
           ->setParameter('away_regnr', $regnumber)
-          ->orderBy('g.datetime')
           ->getQuery();
 
         $divisions = $division->getResult();
