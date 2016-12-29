@@ -284,7 +284,7 @@ class MatchAPIController extends FOSRestController
 
         switch ($direction) {
             case 'prev':
-                $time_where = 'g.datetime < :time';
+                $time_where = 'g.datetime < :time AND g.datetime > :timeprev';
                 $order = 'DESC';
                 break;
             case 'next':
@@ -313,7 +313,13 @@ class MatchAPIController extends FOSRestController
               ->setParameter('division', $division)
               ->setParameter('home_regnr', $regnumber)
               ->setParameter('away_regnr', $regnumber)
-              ->setParameter('time', new \DateTime())
+              ->setParameter('time', new \DateTime());
+
+            if ($direction == 'prev') {
+                $matches_query = $matches_query->setParameter('timeprev', new \DateTime('- 1 MONTH'));
+            }
+
+            $matches_query = $matches_query
               ->orderBy('g.datetime', $order)
               ->getQuery();
 
