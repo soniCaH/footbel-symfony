@@ -34,14 +34,18 @@ class MatchAPIController extends FOSRestController
      * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
      * @Rest\View
      */
-    public function getMatchesPerRegnrNextAction(Season $season, $regnumber, Request $request)
-    {
+    public function getMatchesPerRegnrNextAction(
+      Season $season,
+      $regnumber,
+      Request $request
+    ) {
         $matches = $this->_getMatchesBySeasonAndRegnr($season, $regnumber);
 
         $output = $this->_getDetails($matches);
 
         $user = $this->getUser();
-        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_per_regnr_next', $user);
+        $this->container->get('google_analytics')
+          ->sendData($request, 'api_matches_get_matches_per_regnr_next', $user);
 
         return $output;
     }
@@ -59,14 +63,22 @@ class MatchAPIController extends FOSRestController
      * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
      * @Rest\View
      */
-    public function getMatchesPerRegnrPrevAction(Season $season, $regnumber, Request $request)
-    {
-        $matches = $this->_getMatchesBySeasonAndRegnr($season, $regnumber, 'prev');
+    public function getMatchesPerRegnrPrevAction(
+      Season $season,
+      $regnumber,
+      Request $request
+    ) {
+        $matches = $this->_getMatchesBySeasonAndRegnr(
+          $season,
+          $regnumber,
+          'prev'
+        );
 
         $output = $this->_getDetails($matches);
 
         $user = $this->getUser();
-        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_per_regnr_prev', $user);
+        $this->container->get('google_analytics')
+          ->sendData($request, 'api_matches_get_matches_per_regnr_prev', $user);
 
         return $output;
     }
@@ -87,18 +99,29 @@ class MatchAPIController extends FOSRestController
      * @Rest\View
      */
     public function getMatchesPerRegnrDivisionNextAction(
-        Season $season,
-        $regnumber,
-        $division,
-        $number,
-        Request $request
+      Season $season,
+      $regnumber,
+      $division,
+      $number,
+      Request $request
     ) {
-        $matches = $this->_getMatchesByRegnrAndDivision($season, $regnumber, $division, 'next', $number);
+        $matches = $this->_getMatchesByRegnrAndDivision(
+          $season,
+          $regnumber,
+          $division,
+          'next',
+          $number
+        );
 
         $output = $this->_getDetails($matches);
 
         $user = $this->getUser();
-        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_per_regnr_division_next', $user);
+        $this->container->get('google_analytics')
+          ->sendData(
+            $request,
+            'api_matches_get_matches_per_regnr_division_next',
+            $user
+          );
 
         return $output;
     }
@@ -119,18 +142,29 @@ class MatchAPIController extends FOSRestController
      * @Rest\View
      */
     public function getMatchesPerRegnrDivisionPrevAction(
-        Season $season,
-        $regnumber,
-        $division,
-        $number,
-        Request $request
+      Season $season,
+      $regnumber,
+      $division,
+      $number,
+      Request $request
     ) {
-        $matches = $this->_getMatchesByRegnrAndDivision($season, $regnumber, $division, 'prev', $number);
+        $matches = $this->_getMatchesByRegnrAndDivision(
+          $season,
+          $regnumber,
+          $division,
+          'prev',
+          $number
+        );
 
         $output = $this->_getDetails($matches);
 
         $user = $this->getUser();
-        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_per_regnr_division_prev', $user);
+        $this->container->get('google_analytics')
+          ->sendData(
+            $request,
+            'api_matches_get_matches_per_regnr_division_prev',
+            $user
+          );
 
         return $output;
     }
@@ -149,19 +183,35 @@ class MatchAPIController extends FOSRestController
      * @ParamConverter("season", options={"mapping": {"shorthand_season": "shorthand"}})
      * @Rest\View
      */
-    public function getMatchesNationalBySeasonAndDivisionAction(Season $season, $division, $matchday, Request $request)
-    {
+    public function getMatchesNationalBySeasonAndDivisionAction(
+      Season $season,
+      $division,
+      $matchday,
+      Request $request
+    ) {
         $em = $this->getDoctrine()->getManager();
 
         // Retrieve the ranking based on shorthand.
-        $level = $em->getRepository('FootbalistoBackendBundle:Level')->findOneBy(array('shorthand' => 'nat'));
+        $level = $em->getRepository('FootbalistoBackendBundle:Level')
+          ->findOneBy(array('shorthand' => 'nat'));
 
-        $matches = $this->_getMatchesBySeasonAndDivisionPerLevel($level, $season, $division, null, $matchday);
+        $matches = $this->_getMatchesBySeasonAndDivisionPerLevel(
+          $level,
+          $season,
+          $division,
+          null,
+          $matchday
+        );
 
         $output = $this->_getDetails($matches);
 
         $user = $this->getUser();
-        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_national_by_season_and_division', $user);
+        $this->container->get('google_analytics')
+          ->sendData(
+            $request,
+            'api_matches_get_matches_national_by_season_and_division',
+            $user
+          );
 
         return $output;
     }
@@ -183,29 +233,53 @@ class MatchAPIController extends FOSRestController
      * @Rest\View
      */
     public function getMatchesPerProvinceBySeasonAndDivisionAction(
-        Province $province,
-        Season $season,
-        $division,
-        $matchday,
-        Request $request
+      Province $province,
+      Season $season,
+      $division,
+      $matchday,
+      Request $request
     ) {
         $em = $this->getDoctrine()->getManager();
 
         // Retrieve the ranking based on shorthand.
-        $level = $em->getRepository('FootbalistoBackendBundle:Level')->findOneBy(array('shorthand' => 'prov'));
+        $level = $em->getRepository('FootbalistoBackendBundle:Level')
+          ->findOneBy(array('shorthand' => 'prov'));
 
-        $matches = $this->_getMatchesBySeasonAndDivisionPerLevel($level, $season, $division, $province, $matchday);
+        $matches = $this->_getMatchesBySeasonAndDivisionPerLevel(
+          $level,
+          $season,
+          $division,
+          $province,
+          $matchday
+        );
 
         $output = $this->_getDetails($matches);
 
         $user = $this->getUser();
-        $this->container->get('google_analytics')->sendData($request, 'api_matches_get_matches_per_province_by_season_and_division', $user);
+        $this->container->get('google_analytics')
+          ->sendData(
+            $request,
+            'api_matches_get_matches_per_province_by_season_and_division',
+            $user
+          );
 
         return $output;
     }
 
-    private function _getMatchesBySeasonAndRegnr(Season $season, $regnumber, $direction = 'next')
-    {
+    /**
+     * Retrieve all upcoming or previous matches a club plays in a given season.
+     *
+     * @param \KevinVR\FootbalistoBackendBundle\Entity\Season $season
+     * @param $regnumber
+     * @param string $direction
+     *
+     * @return array
+     */
+    private function _getMatchesBySeasonAndRegnr(
+      Season $season,
+      $regnumber,
+      $direction = 'next'
+    ) {
         $em = $this->getDoctrine()->getManager();
 
         switch ($direction) {
@@ -230,16 +304,18 @@ class MatchAPIController extends FOSRestController
 
         foreach ($divisions as $division) {
             $matches_query = $em->getRepository('FootbalistoBackendBundle:Game')
-                ->createQueryBuilder('g')
-                ->where('g.division = :division')
-                ->andWhere('g.homeRegnr = :home_regnr OR g.awayRegnr = :away_regnr')
-                ->andWhere($time_where)
-                ->setParameter('division', $division)
-                ->setParameter('home_regnr', $regnumber)
-                ->setParameter('away_regnr', $regnumber)
-                ->setParameter('time', new \DateTime())
-                ->orderBy('g.datetime', $order)
-                ->getQuery();
+              ->createQueryBuilder('g')
+              ->where('g.division = :division')
+              ->andWhere(
+                'g.homeRegnr = :home_regnr OR g.awayRegnr = :away_regnr'
+              )
+              ->andWhere($time_where)
+              ->setParameter('division', $division)
+              ->setParameter('home_regnr', $regnumber)
+              ->setParameter('away_regnr', $regnumber)
+              ->setParameter('time', new \DateTime())
+              ->orderBy('g.datetime', $order)
+              ->getQuery();
 
             $result = $matches_query->setMaxResults(1)->getOneOrNullResult();
             if ($result) {
@@ -250,25 +326,42 @@ class MatchAPIController extends FOSRestController
         return $matches;
     }
 
-    private function _getDivisionsPerSeason(EntityManager $em, Season $season, $regnumber)
-    {
+    /**
+     * Retrieve all the divisions a club will play in, in a given season.
+     *
+     * @param \Doctrine\ORM\EntityManager $em
+     * @param \KevinVR\FootbalistoBackendBundle\Entity\Season $season
+     * @param $regnumber
+     * @return array
+     */
+    private function _getDivisionsPerSeason(
+      EntityManager $em,
+      Season $season,
+      $regnumber
+    ) {
         $division = $em->getRepository('FootbalistoBackendBundle:Game')
-            ->createQueryBuilder('g')
-            ->select('g.division', 'g.datetime')
-            ->distinct('g.division')
-            ->where('g.season = :season')
-            ->andWhere('g.homeRegnr = :home_regnr OR g.awayRegnr = :away_regnr')
-            ->setParameter('season', $season)
-            ->setParameter('home_regnr', $regnumber)
-            ->setParameter('away_regnr', $regnumber)
-            ->orderBy('g.datetime')
-            ->getQuery();
+          ->createQueryBuilder('g')
+          ->select('g.division', 'g.datetime')
+          ->distinct('g.division')
+          ->where('g.season = :season')
+          ->andWhere('g.homeRegnr = :home_regnr OR g.awayRegnr = :away_regnr')
+          ->setParameter('season', $season)
+          ->setParameter('home_regnr', $regnumber)
+          ->setParameter('away_regnr', $regnumber)
+          ->orderBy('g.datetime')
+          ->getQuery();
 
         $divisions = $division->getResult();
 
         return array_column($divisions, 'division');
     }
 
+    /**
+     * Get details of all matches in an array.
+     *
+     * @param array $matches
+     * @return array
+     */
     private function _getDetails($matches)
     {
         $matchOutput = array();
@@ -279,64 +372,97 @@ class MatchAPIController extends FOSRestController
 
         foreach ($matches as $match) {
             $matchOutput[] = array(
-                'season' => $match->getSeason()->getShorthand(),
-                'level' => $match->getLevel()->getShorthand(),
-                'province' => ($match->getProvince()) ? $match->getProvince()->getShorthand() : '',
-                'division' => $match->getDivision(),
-                'division_mapped' => DivisionsMapping::getMapping($match->getDivision()),
-                'matchday' => $match->getMatchday(),
-                'datetime' => $match->getDatetime(),
-                'datetime_formatted' => $match->getDatetimeFormatted('D d/m/Y H:i'),
-                'home_name' => $match->getHomeName(),
-                'home_regnr' => $match->getHomeRegnr(),
-                'away_name' => $match->getAwayName(),
-                'away_regnr' => $match->getAwayRegnr(),
-                'score_home' => ($match->getScoreHome() !== 0) ? $match->getScoreHome() : 0,
-                'score_away' => ($match->getScoreAway() !== 0) ? $match->getScoreAway() : 0,
-                'status' => $match->getStatus(),
-                'logo_home' => '/logo/'.$match->getHomeRegnr(),
-                'logo_away' => '/logo/'.$match->getAwayRegnr(),
+              'season' => $match->getSeason()->getShorthand(),
+              'level' => $match->getLevel()->getShorthand(),
+              'province' => ($match->getProvince()) ? $match->getProvince()
+                ->getShorthand() : '',
+              'division' => $match->getDivision(),
+              'division_mapped' => DivisionsMapping::getMapping(
+                $match->getDivision()
+              ),
+              'matchday' => $match->getMatchday(),
+              'datetime' => $match->getDatetime(),
+              'datetime_formatted' => $match->getDatetimeFormatted(
+                'D d/m/Y H:i'
+              ),
+              'home_name' => $match->getHomeName(),
+              'home_regnr' => $match->getHomeRegnr(),
+              'away_name' => $match->getAwayName(),
+              'away_regnr' => $match->getAwayRegnr(),
+              'score_home' => ($match->getScoreHome(
+                ) !== 0) ? $match->getScoreHome() : 0,
+              'score_away' => ($match->getScoreAway(
+                ) !== 0) ? $match->getScoreAway() : 0,
+              'status' => $match->getStatus(),
+              'logo_home' => '/logo/'.$match->getHomeRegnr(),
+              'logo_away' => '/logo/'.$match->getAwayRegnr(),
             );
         }
 
         return $matchOutput;
     }
 
+    /**
+     * Retrieve all matches being played in a given season and level/division.
+     *
+     * @param \KevinVR\FootbalistoBackendBundle\Entity\Level $level
+     * @param \KevinVR\FootbalistoBackendBundle\Entity\Season $season
+     * @param $division
+     * @param \KevinVR\FootbalistoBackendBundle\Entity\Province|NULL $province
+     * @param int $matchday
+     * @return array
+     */
     private function _getMatchesBySeasonAndDivisionPerLevel(
-        Level $level,
-        Season $season,
-        $division,
-        Province $province = null,
-        $matchday = 0
+      Level $level,
+      Season $season,
+      $division,
+      Province $province = null,
+      $matchday = 0
     ) {
         $em = $this->getDoctrine()->getManager();
 
         if ($matchday) {
             $criteria = array(
-                'season' => $season,
-                'level' => $level,
-                'province' => $province,
-                'division' => $division,
-                'matchday' => $matchday,
+              'season' => $season,
+              'level' => $level,
+              'province' => $province,
+              'division' => $division,
+              'matchday' => $matchday,
             );
         } else {
             $criteria = array(
-                'season' => $season,
-                'level' => $level,
-                'province' => $province,
-                'division' => $division,
+              'season' => $season,
+              'level' => $level,
+              'province' => $province,
+              'division' => $division,
             );
         }
 
 
-        $matches = $em->getRepository('FootbalistoBackendBundle:Game')->findBy($criteria);
+        $matches = $em->getRepository('FootbalistoBackendBundle:Game')
+          ->findBy($criteria);
 
         return $matches;
 
     }
 
-    private function _getMatchesByRegnrAndDivision(Season $season, $regnumber, $division, $direction = 'next', $number)
-    {
+    /**
+     * Retrieve all next/prev matches a club plays in a given division/season.
+     *
+     * @param \KevinVR\FootbalistoBackendBundle\Entity\Season $season
+     * @param $regnumber
+     * @param $division
+     * @param string $direction
+     * @param $number
+     * @return array
+     */
+    private function _getMatchesByRegnrAndDivision(
+      Season $season,
+      $regnumber,
+      $division,
+      $direction = 'next',
+      $number
+    ) {
         $em = $this->getDoctrine()->getManager();
 
         switch ($direction) {
@@ -354,18 +480,18 @@ class MatchAPIController extends FOSRestController
         $matches = array();
 
         $matches_query = $em->getRepository('FootbalistoBackendBundle:Game')
-            ->createQueryBuilder('g')
-            ->where('g.division = :division')
-            ->andWhere('g.season = :season')
-            ->andWhere('g.homeRegnr = :home_regnr OR g.awayRegnr = :away_regnr')
-            ->andWhere($time_where)
-            ->setParameter('season', $season)
-            ->setParameter('division', $division)
-            ->setParameter('home_regnr', $regnumber)
-            ->setParameter('away_regnr', $regnumber)
-            ->setParameter('time', new \DateTime())
-            ->orderBy('g.datetime', $order)
-            ->getQuery();
+          ->createQueryBuilder('g')
+          ->where('g.division = :division')
+          ->andWhere('g.season = :season')
+          ->andWhere('g.homeRegnr = :home_regnr OR g.awayRegnr = :away_regnr')
+          ->andWhere($time_where)
+          ->setParameter('season', $season)
+          ->setParameter('division', $division)
+          ->setParameter('home_regnr', $regnumber)
+          ->setParameter('away_regnr', $regnumber)
+          ->setParameter('time', new \DateTime())
+          ->orderBy('g.datetime', $order)
+          ->getQuery();
 
         $result = $matches_query->setMaxResults($number)->getResult();
         if ($result) {
