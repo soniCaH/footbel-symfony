@@ -31,6 +31,11 @@ class DivisionsMapping {
             'N11I' => "U11 - Reeks I",
             'N8M' => "U8 - Reeks M",
             'N6H' => "U6 - Reeks H",
+            'N10H2' => "U10 - Reeks J",
+            'N7AM2' => "U7 - Reeks AM",
+            'N9J2' => "U9 - Reeks J",
+            'N11F2' => "U11 - Reeks F",
+            'N8L2' => "U8 - Reeks L",
         );
 
         if (array_key_exists($division_code, $mapping)) {
