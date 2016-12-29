@@ -341,8 +341,8 @@ class MatchAPIController extends FOSRestController
     ) {
         $division = $em->getRepository('FootbalistoBackendBundle:Game')
           ->createQueryBuilder('g')
-          ->select('g.division', 'g.datetime')
-          ->distinct('g.division')
+          ->select('g.division')
+          ->distinct()
           ->where('g.season = :season')
           ->andWhere('g.homeRegnr = :home_regnr OR g.awayRegnr = :away_regnr')
           ->setParameter('season', $season)
