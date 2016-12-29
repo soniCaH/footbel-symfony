@@ -1,5 +1,5 @@
 set :application, "KevinVR Footbalisto App"
-set :domain,      "qandisa.be"
+set :domain,      "144.76.28.19"
 set :user,        "sonicah"
 set :deploy_to,   "/data/sites/sonicah/www/footbel"
 
