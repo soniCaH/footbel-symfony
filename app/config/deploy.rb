@@ -17,7 +17,7 @@ set :model_manager, "doctrine"
 role :web,        domain                         # Your HTTP server, Apache/etc
 role :app,        domain, :primary => true       # This may be the same as your `Web` server
 
-set  :use_sudo,      false
+set  :use_sudo,      true
 set  :keep_releases,  5
 
 set :shared_files,      ["app/config/parameters.yml"]
