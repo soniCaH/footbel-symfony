@@ -17,22 +17,16 @@ set :model_manager, "doctrine"
 role :web,        domain                         # Your HTTP server, Apache/etc
 role :app,        domain, :primary => true       # This may be the same as your `Web` server
 
-set  :use_sudo,      false
+set :use_sudo, true
+default_run_options[:pty] = true
 set  :keep_releases,  5
 
-default_run_options[:pty] = true
 
 set :shared_files,      ["app/config/parameters.yml"]
-set :shared_children,     [app_path + "/logs", web_path + "/uploads", "vendor"]
+set :shared_children,     [app_path + "/logs", web_path + "/uploads", "vendor", "var/cache", "var/logs"]
 
 set :use_composer, true
 set :update_vendors, true
-
-set :webserver_user, "sonicah"
-set :permission_method, :acl
-set :use_set_permissions, true
-set :file_permissions_users, ['sonicah']
-set :file_permissions_paths, [fetch(:log_path), fetch(:cache_path), "app/var", "app/cache", "web/uploads", "var/cache", "var/cache/prod", "var/cache/dev", "var/cache/test", "var/logs"]
 
 # Be more verbose by uncommenting the following line
 # logger.level = Logger::MAX_LEVEL
