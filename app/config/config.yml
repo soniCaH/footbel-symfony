@@ -164,6 +164,9 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: KevinVR\FootbalistoBackendBundle\Entity\User
+    from_email:
+        address: kevin.van.ransbeeck@gmail.com
+        sender_name: Kevin Van Ransbeeck
 
 old_sound_rabbit_mq:
     connections:

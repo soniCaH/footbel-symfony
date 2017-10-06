@@ -7,17 +7,17 @@ services:
     process_resource_service:
         class: KevinVR\FootbalistoProcessorBundle\Processor\ResourceProcessorConsumer
         arguments:
-            rabbitWorker: "@rabbit_worker"
-            entityManager: "@doctrine.orm.entity_manager"
+            $rabbitWorker: "@rabbit_worker"
+            $entityManager: "@doctrine.orm.entity_manager"
 
     rabbit_worker:
         class: KevinVR\FootbalistoProcessorBundle\Processor\ResourceQueueWorkerRabbitMQ
         arguments:
-            rabbitProducer: "@old_sound_rabbit_mq.process_resource_producer"
+            $rabbitProducer: "@old_sound_rabbit_mq.process_resource_producer"
 
     app.token_authenticator:
-            class: KevinVR\FootbalistoAPIBundle\Security\TokenAuthenticator
-            arguments: ['@doctrine.orm.entity_manager']
+        class: KevinVR\FootbalistoAPIBundle\Security\TokenAuthenticator
+        arguments: ['@doctrine.orm.entity_manager']
 
     google_analytics:
         class: KevinVR\FootbalistoAPIBundle\Service\GoogleAnalyticsService
