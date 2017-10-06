@@ -28,6 +28,12 @@ set :shared_children,     [app_path + "/logs", web_path + "/uploads", "vendor"]
 set :use_composer, true
 set :update_vendors, true
 
+set :webserver_user, "sonicah"
+set :permission_method, :acl
+set :use_set_permissions, true
+set :file_permissions_users, ['sonicah']
+set :file_permissions_paths, [fetch(:log_path), fetch(:cache_path), "app/var", "app/cache", "web/uploads"]
+
 # Be more verbose by uncommenting the following line
 # logger.level = Logger::MAX_LEVEL
 
